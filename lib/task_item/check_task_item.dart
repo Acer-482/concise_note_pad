@@ -1,0 +1,96 @@
+import 'package:concise_note_pad/importance_enumeration/important_level.dart';
+import 'package:concise_note_pad/importance_enumeration/important_type.dart';
+import 'package:concise_note_pad/task_item/check_task_item_form_data.dart';
+import 'package:concise_note_pad/task_item/task_item.dart';
+import 'package:concise_note_pad/task_item/task_item_form_data.dart';
+import 'package:concise_note_pad/task_manager.dart';
+import 'package:flutter/material.dart';
+
+// 可完成任务项 //
+class CompletableTaskItem extends TaskItem {
+  bool isChecked; // 选中
+  ImportanceLevel importanceLevel; // 重要程度
+  ImportanceType importanceType; // 重要性类型
+
+  CompletableTaskItem({
+    required super.title,
+    super.subTitle = '',
+    super.details = '',
+    super.isEnabled = true,
+    super.createDateTime,
+    super.updateDateTime,
+
+    this.isChecked = false,
+    ImportanceLevel? importanceLevel,
+    ImportanceType? importanceType,
+  }) : importanceLevel = importanceLevel ?? ImportanceLevel.defaultValue,
+       importanceType = importanceType ?? ImportanceType.defaultValue;
+
+  // 转为Json
+  @override
+  Map<String, dynamic> toJson() {
+    final superMap = super.toJson();
+    superMap.addAll({
+      'type': 'CompletableTaskItem',
+      'isChecked': isChecked,
+      'importanceLevel': importanceLevel.index,
+      'importanceType': importanceType.index,
+    });
+    return superMap;
+  }
+
+  @override
+  Map<String, Widget> buildInfoMap() {
+    final superMap = super.buildInfoMap();
+    superMap['可完成任务项'] = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('重要性权重：$weightValue'),
+        Text(
+          '重要程度：${importanceLevel.displayName}',
+          style: TextStyle(color: importanceLevel.color),
+        ),
+        Text(
+          '重要性类型：${importanceType.displayName}',
+          style: TextStyle(color: importanceType.color),
+        ),
+      ],
+    );
+    return superMap;
+  }
+
+  @override
+  TaskItemFormData toFormData() {
+    final formData = CompletableTaskItemFormData();
+    formData.initFromItem(this);
+    return formData;
+  }
+
+  @override
+  Widget? buildListTileLeading(BuildContext context) {
+    return importanceType == ImportanceType.notImportantNotUrgent
+        ? super.buildListTileLeading(context)
+        : Icon(importanceType.icon, color: importanceType.color);
+  }
+
+  @override
+  Widget? buildListTileTrailing(BuildContext context) {
+    return Checkbox(
+      value: isChecked,
+      onChanged: (value) {
+        isChecked = value!;
+        TaskManager.instance.update();
+      },
+    );
+  }
+
+  @override
+  Color? getLeftHighlightColor() {
+    return importanceLevel.color;
+  }
+
+  // 获取重要性权重
+  int get weightValue =>
+      importanceLevel.weightValue +
+      importanceType.weightValue;
+}

@@ -1,0 +1,30 @@
+name: concise_note_pad
+description: "A concise and easy-to-use notepad software."
+publish_to: "none"
+
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.0
+
+# 依赖
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8 # IOS风格图标
+  provider: ^6.1.5 # 状态管理器
+  intl: ^0.20.2 # 时间格式化包
+  flutter_slidable: ^4.0.3 # 滑动组件包
+  path_provider: ^2.1.5 # 路径获取包
+  lottie: ^3.3.2 # 高质量动画包
+  flutter_icons_animated: ^1.2.0 # 图标动画包
+  fluttertoast: ^9.0.0 # Toast通知库
+  # json_annotation: ^4.9.0 # Json注解包
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
