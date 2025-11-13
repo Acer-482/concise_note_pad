@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 
 /// 排序选项
 enum SortOption {
+  importance, // 重要程度
   name, // 名称
   updateDate, // 修改日期
   date, // 创建日期
-  importance, // 重要程度
 }
 
 /// 任务管理器
@@ -145,12 +145,12 @@ class TaskManager extends ChangeNotifier {
   void sort() {
     _taskList.sort((a, b) {
       return switch (sortOption) {
+            SortOption.importance => _compareByImportance(a, b),
             SortOption.name => a.title.compareTo(b.title),
             SortOption.updateDate => a.updateDateTime.compareTo(
               b.updateDateTime,
             ),
             SortOption.date => a.createDateTime.compareTo(b.createDateTime),
-            SortOption.importance => _compareByImportance(a, b),
           } *
           (isReverseSort ? -1 : 1);
     });

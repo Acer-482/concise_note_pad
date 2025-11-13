@@ -7,7 +7,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 /// 任务页面
-/// 
+///
 /// 显示、添加、删除、更改、管理任务项
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -48,29 +48,6 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
     ); // 显示模态底部表
   }
 
-  /// 构建单选框列表磁贴
-  ListTile buildRadioListTile(
-    IconData iconData,
-    String name,
-    SortOption option,
-    void Function(void Function()) setState,
-  ) => ListTile(
-    leading: Icon(iconData),
-    title: Text(name),
-    trailing: IgnorePointer(child: Radio<SortOption>.adaptive(value: option)),
-    onTap: () {
-      setState(() {
-        TaskManager.instance.sortOption = option; // 排序设置
-        debugPrint(TaskManager.instance.sortOption.toString());
-      });
-      TaskManager.instance.update(); // 更新任务管理器
-      // 延迟一段时间返回
-      Timer(Duration(milliseconds: 300), () {
-        if (mounted) Navigator.of(context).pop(); // 返回
-      });
-    },
-  );
-
   // 显示过滤器设置
   Future<Null> _showFilterOption() {
     // 弹出表单选择
@@ -83,14 +60,8 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
     // 弹出表单选择
     return _showCustomModalBottomSheet('排序方式', [
       StatefulBuilder(
-        builder: (context, setState) => RadioGroup<SortOption>(
-          groupValue: taskManager.sortOption,
-          onChanged: (value) {
-            setState(() {
-              taskManager.sortOption = value!;
-            });
-          },
-          child: Column(
+        builder: (context, setState) {
+          return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SegmentedButton<bool>(
@@ -115,33 +86,49 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
                 },
                 showSelectedIcon: false,
               ), // 升序降序选择
-              buildRadioListTile(
-                Icons.abc,
-                '按照名称排序',
-                SortOption.name,
-                setState,
-              ),
-              buildRadioListTile(
-                Icons.update,
-                '按照最后修改日期排序',
-                SortOption.updateDate,
-                setState,
-              ),
-              buildRadioListTile(
-                Icons.date_range_rounded,
-                '按照创建日期排序',
-                SortOption.date,
-                setState,
-              ),
-              buildRadioListTile(
-                Icons.warning,
-                '按照重要程度排序',
-                SortOption.importance,
-                setState,
+              RadioGroup<SortOption>(
+                groupValue: taskManager.sortOption,
+                onChanged: (SortOption? value) {
+                  if (value != null) {
+                    setState(() {
+                      taskManager.sortOption = value;
+                      taskManager.update();
+                    });
+                    // 延迟关闭
+                    Timer(Duration(milliseconds: 300), () {
+                      if (mounted) Navigator.of(context).pop();
+                    });
+                  }
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    RadioListTile<SortOption>(
+                      value: SortOption.importance,
+                      title: Text('按照重要程度排序'),
+                      secondary: Icon(Icons.warning),
+                    ),
+                    RadioListTile<SortOption>(
+                      value: SortOption.name,
+                      title: Text('按照名称排序'),
+                      secondary: Icon(Icons.abc),
+                    ),
+                    RadioListTile<SortOption>(
+                      value: SortOption.updateDate,
+                      title: Text('按照最后修改日期排序'),
+                      secondary: Icon(Icons.update),
+                    ),
+                    RadioListTile<SortOption>(
+                      value: SortOption.date,
+                      title: Text('按照创建日期排序'),
+                      secondary: Icon(Icons.date_range_rounded),
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     ]);
   }
@@ -214,8 +201,9 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
               _buildAllTaskSliverAppbar(),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (context, index) =>
-                      taskManager.taskAt(index).buildListTileCard(context, index),
+                  (context, index) => taskManager
+                      .taskAt(index)
+                      .buildListTileCard(context, index),
                   childCount: taskManager.taskList.length, // 数量
                 ),
               ),
