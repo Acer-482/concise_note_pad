@@ -7,6 +7,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 /// 任务页面
+/// 
+/// 显示、添加、删除、更改、管理任务项
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
 
@@ -213,7 +215,7 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) =>
-                      taskManager.taskAt(index).buildCard(context, index),
+                      taskManager.taskAt(index).buildListTileCard(context, index),
                   childCount: taskManager.taskList.length, // 数量
                 ),
               ),

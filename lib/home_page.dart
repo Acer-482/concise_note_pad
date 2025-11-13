@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_icons_animated/flutter_animated_icons.dart';
 // import 'package:lottie/lottie.dart';
 
-/// 页面类
-/// 用于构建导航和页面
-class _Page {
-  _Page({
+/// 导航页面
+class _NavigationPage {
+  _NavigationPage({
     required this.icon,
     this.activeIcon,
     required this.label,
@@ -21,6 +20,8 @@ class _Page {
 }
 
 /// 主页面
+///
+/// 用于构建导航和页面
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -29,8 +30,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<_Page> pageList = [
-    _Page(
+  final List<_NavigationPage> _pageList = [
+    _NavigationPage(
       icon: Icon(Icons.home_outlined),
       activeIcon: Icon(Icons.home),
       label: '主页面',
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         // child: Lottie.asset(Icons8.book)
       ),
     ),
-    _Page(
+    _NavigationPage(
       icon: Icon(Icons.format_list_bulleted),
       label: '任务',
       body: const TaskPage(),
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: PageView(
         controller: controller,
-        children: pageList.map((page) => page.body).toList(),
+        children: _pageList.map((page) => page.body).toList(),
         onPageChanged: (value) {
           setState(() {
             pageIndex = value;
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
-        items: pageList
+        items: _pageList
             .map(
               (page) => BottomNavigationBarItem(
                 icon: page.icon,

@@ -5,7 +5,7 @@ import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// 任务类型 //
+/// 任务类型
 class _TaskType {
   _TaskType({
     required this.name,
@@ -63,14 +63,14 @@ class _TaskSelectListState extends State<TaskSelectList> {
             subtitle: Text(currentTaskType.context), // 描述
             trailing: Icon(Icons.add), // 箭头
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // 关闭
               Navigator.of(context).push(
                 CupertinoPageRoute(
                   builder: (context) => TaskEditPage.newTask(
                     currentTaskType.formData,
                     currentTaskType.name,
-                  ), // 新建任务
-                ),
+                  ),
+                ), // 新建任务
               );
             }, // 进入编辑页面
           ),

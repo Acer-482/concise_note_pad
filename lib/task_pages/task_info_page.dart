@@ -5,6 +5,8 @@ import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:flutter/material.dart';
 
 /// 任务项信息页面
+/// 
+/// 用于显示任务项的详细信息
 class TaskItemInfoPage extends StatefulWidget {
   final TaskItem taskItem; // 任务项
   const TaskItemInfoPage({required this.taskItem, super.key});

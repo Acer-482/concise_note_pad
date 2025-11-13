@@ -5,7 +5,7 @@ import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:flutter/material.dart';
 
-// 可完成任务项 表单数据 //
+/// 可完成任务项表单数据
 class CompletableTaskItemFormData extends TaskItemFormData {
   bool isFinished = false; // 已完成
   ImportanceLevel importanceLevel = ImportanceLevel.defaultValue; // 重要程度

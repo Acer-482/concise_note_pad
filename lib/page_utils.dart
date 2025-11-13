@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// 页面实用方法类
+@immutable
 class PageUtils {
   /// 构建默认应用栏
   static AppBar buildDefaultAppbar(

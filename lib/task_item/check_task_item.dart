@@ -26,7 +26,6 @@ class CompletableTaskItem extends TaskItem {
   }) : importanceLevel = importanceLevel ?? ImportanceLevel.defaultValue,
        importanceType = importanceType ?? ImportanceType.defaultValue;
 
-  // 转为Json
   @override
   Map<String, dynamic> toJson() {
     final superMap = super.toJson();

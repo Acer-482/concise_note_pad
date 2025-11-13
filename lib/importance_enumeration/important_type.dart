@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// 重要性类型
+/// 
+/// 用于描述重要性区间的一部分
 enum ImportanceType {
   notImportantNotUrgent, // 不重要不紧急
   urgentNotImportant, // 紧急不重要
@@ -11,6 +13,8 @@ enum ImportanceType {
   static ImportanceType get defaultValue => notImportantNotUrgent;
 
   /// 显示名称
+  /// 
+  /// 将会显示译名
   String get displayName => switch (this) {
     notImportantNotUrgent => '不重要不紧急',
     urgentNotImportant => '紧急不重要',
@@ -27,6 +31,8 @@ enum ImportanceType {
   };
 
   /// 颜色
+  /// 
+  /// 推荐用于字体和图标
   Color get color => switch (this) {
     notImportantNotUrgent => Colors.grey,
     urgentNotImportant => Colors.green,
@@ -41,7 +47,10 @@ enum ImportanceType {
     importantNotUrgent => 20,
     importantAndUrgent => 30,
   };
-  // 比较
+  
+  /// 比较
+  /// 
+  /// 通过权值比较
   int compareTo(ImportanceType type) {
     if (weightValue < type.weightValue) {
       return -1;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// 重要性等级
+/// 重要重要程度等级
+/// 
+/// 用于描述一个任务的重要程度
 enum ImportanceLevel {
   minimum, // 最低
   low, // 低
@@ -12,6 +14,8 @@ enum ImportanceLevel {
   static ImportanceLevel get defaultValue => minimum;
 
   /// 显示名称
+  /// 
+  /// 将会显示译名
   String get displayName => switch (this) {
     minimum => '最低',
     low => '低',
@@ -48,6 +52,8 @@ enum ImportanceLevel {
   };
 
   /// 比较
+  /// 
+  /// 通过权值比较
   int compareTo(ImportanceLevel level) {
     if (weightValue < level.weightValue) {
       return -1;

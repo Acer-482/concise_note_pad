@@ -8,7 +8,7 @@ import 'package:concise_note_pad/task_item/check_task_item.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:flutter/material.dart';
 
-// 排序选项
+/// 排序选项
 enum SortOption {
   name, // 名称
   updateDate, // 修改日期
@@ -16,7 +16,9 @@ enum SortOption {
   importance, // 重要程度
 }
 
-// 任务管理器 //
+/// 任务管理器
+///
+/// 单例类，管理所有任务项
 class TaskManager extends ChangeNotifier {
   // 静态常量 //
   static const String taskDataJsonConfig = 'taskData.json'; // 任务项配置Json文件
@@ -255,7 +257,7 @@ class TaskManager extends ChangeNotifier {
 
   /// 检测任务是否存在
   bool contains(TaskItem taskItem) => _taskList.contains(taskItem);
-  
+
   // 检测任务是否存在 - 通过标题
   bool containTitle(String title) {
     for (final item in _taskList) {

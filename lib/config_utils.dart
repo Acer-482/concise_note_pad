@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
-// 配置工具类 //
+/// 配置工具类
+/// 
+/// 目前提供配置文件的实用方法
 class ConfigUtils {
   /// 获取默认文件存放目录
   static Future<Directory> getDefaultFileDirectory() {

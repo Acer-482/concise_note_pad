@@ -10,6 +10,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 /// 任务项
+///
+/// 当重写子类后：
+/// - 修改fromJson
+///
 /// 添加属性注意事项：
 /// 1.在表单的initFromItem和updateItem中添加属性
 /// 2.添加属性到任务项
@@ -17,12 +21,23 @@ import 'package:intl/intl.dart';
 /// 4.在表单的toItem中添加属性
 /// 5.序列化反序列化Json
 abstract class TaskItem {
-  String title; // 标题
-  String subTitle; // 小标题
-  String details; // 详情
-  bool isEnabled; // 启用
-  final DateTime createDateTime; // 创建时间
-  late DateTime updateDateTime; // 变更时间
+  /// 标题
+  String title;
+
+  /// 小标题
+  String subTitle;
+
+  /// 详情
+  String details;
+
+  /// 启用
+  bool isEnabled;
+
+  /// 创建时间
+  final DateTime createDateTime;
+
+  /// 变更时间
+  late DateTime updateDateTime;
 
   TaskItem({
     required this.title,
@@ -58,8 +73,10 @@ abstract class TaskItem {
   }
 
   /// 序列化为json
+  ///
   /// 建议子类重写
-  /// 注意必须添加type键 值为子类类名
+  ///
+  /// 必须添加键值对 - type：子类类名
   @mustCallSuper
   Map<String, dynamic> toJson() {
     return {
@@ -73,6 +90,8 @@ abstract class TaskItem {
   }
 
   /// 构建为详细信息字典
+  ///
+  /// 字典的键值将会以 标题：内容的形式呈现出来
   @mustCallSuper
   Map<String, Widget> buildInfoMap() {
     return {
@@ -94,9 +113,9 @@ abstract class TaskItem {
     };
   }
 
-  /// 构建为滑动页面字典
+  /// 构建为滑动列表
   @mustCallSuper
-  List<SlidableAction> _buildSlidableActions(BuildContext context) {
+  List<SlidableAction> buildSlidableActions(BuildContext context) {
     return [
       SlidableAction(
         onPressed: (context) => _showInfoPage(context), // 显示信息页面
@@ -162,16 +181,18 @@ abstract class TaskItem {
     );
   }
 
-  /// 构建为卡片
-  /// 参数：上下文，当前索引
-  Widget buildCard(BuildContext context, int index) {
+  /// 构建为列表项卡片
+  /// 
+  /// 参数：
+  /// - [index] 当前所在索引
+  Widget buildListTileCard(BuildContext context, int index) {
     Color? leftHighlightColor = getLeftHighlightColor(); // 获取左侧高亮色条
     return Card(
       child: Slidable(
         key: ValueKey(index), // 设置索引作为唯一的key
         endActionPane: ActionPane(
           motion: ScrollMotion(),
-          children: _buildSlidableActions(context),
+          children: buildSlidableActions(context),
         ),
         child: Padding(
           padding: EdgeInsetsGeometry.fromLTRB(6, 0, 0, 0),

@@ -5,6 +5,8 @@ import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
 
 /// 编辑/新建任务页面
+///
+/// 允许显示并编辑/新建任务项
 class TaskEditPage extends StatefulWidget {
   final String taskName; // 任务名称
   final TaskItem? taskItem; // 任务项
@@ -139,7 +141,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => submit(),
+        onPressed: () => _submit(),
         tooltip: isCreateMode ? '创建任务' : '保存更改',
         icon: Icon(
           isCreateMode
@@ -153,8 +155,8 @@ class _TaskEditPageState extends State<TaskEditPage> {
     );
   }
 
-  // 提交
-  void submit() {
+  /// 提交
+  void _submit() {
     if (!widget.formData.validate()) return; // 验证表单
     TaskItem taskItem;
     if (isCreateMode) {

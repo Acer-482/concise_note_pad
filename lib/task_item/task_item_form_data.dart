@@ -2,7 +2,7 @@ import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
 
-// 任务项表单数据 //
+/// 任务项表单数据
 abstract class TaskItemFormData {
   void Function()? update; // 更新回调 通过此成员调用外部更新方法
   final TextEditingController titleController =
