@@ -151,18 +151,14 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
           tooltip: '刷新',
           icon: const Icon(Icons.refresh),
         ),
+        IconButton(
+          onPressed: () => _showFilterOption(),
+          tooltip: '过滤器',
+          icon: const Icon(Icons.filter_list),
+        ),
         PopupMenuButton(
           tooltip: '更多设置',
           itemBuilder: (context) => [
-            PopupMenuItem(
-              child: ListTile(
-                leading: Icon(Icons.filter_list),
-                title: Text('过滤器'),
-              ),
-              onTap: () {
-                _showFilterOption();
-              },
-            ),
             PopupMenuItem(
               child: ListTile(leading: Icon(Icons.sort), title: Text('排序方式')),
               onTap: () {
