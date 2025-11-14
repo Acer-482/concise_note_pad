@@ -38,6 +38,7 @@ class TaskManager extends ChangeNotifier {
   final List<TaskItem> _taskList = []; // 任务列表
   late SortOption sortOption; // 排序设置
   late bool isReverseSort; // 降序
+  late bool isPlaceBottomCheckedItem; // 置底完成项目
 
   TaskItem taskAt(int index) => _taskList[index]; // 获取
   List<TaskItem> get taskList => _taskList; // 获取列表
@@ -95,6 +96,7 @@ class TaskManager extends ChangeNotifier {
         // 设置默认值 //
         sortOption = SortOption.importance; // 排序设置
         isReverseSort = true; // 降序
+        isPlaceBottomCheckedItem = true; // 默认置于底层
         // 重新保存 //
         saveSettings();
       } else {
@@ -221,6 +223,7 @@ class TaskManager extends ChangeNotifier {
       Map<String, dynamic> settingsMap = {
         'sortOption': sortOption.index,
         'isReverseSort': isReverseSort,
+        'isPlaceBottomCheckedItem': isPlaceBottomCheckedItem,
       };
       final taskJson = JsonEncoder.withIndent(
         '\t',
@@ -247,6 +250,7 @@ class TaskManager extends ChangeNotifier {
       // 保存 //
       sortOption = SortOption.values[dataMap['sortOption']];
       isReverseSort = dataMap['isReverseSort'];
+      isPlaceBottomCheckedItem = dataMap['isPlaceBottomCheckedItem'];
       MainApp.logInf('加载完成！');
       return true;
     } catch (e) {

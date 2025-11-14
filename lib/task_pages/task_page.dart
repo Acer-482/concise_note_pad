@@ -106,7 +106,12 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
                       Row(
                         children: [
                           Text('排序完成项置于底层：'),
-                          Checkbox(value: false, onChanged: (v) {}),
+                          Checkbox(
+                            value: taskManager.isPlaceBottomCheckedItem,
+                            onChanged: (v) => setState(
+                              () => taskManager.isPlaceBottomCheckedItem = v!,
+                            ),
+                          ),
                         ],
                       ), // 完成项目置底
                       Row(
