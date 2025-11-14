@@ -27,10 +27,10 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
   }
 
   /// 显示自定义模态底部表
-  Future<T?> _showCustomModalBottomSheet<T>(
-    String title,
-    List<Widget> children,
-  ) {
+  Future<T?> _showCustomModalBottomSheet<T>({
+    String? title,
+    required List<Widget> children,
+  }) {
     return showModalBottomSheet(
       showDragHandle: true,
       context: context,
@@ -40,13 +40,14 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
           child: ListView(
             children:
                 <Widget>[
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
+                  if (title != null)
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ), // 标题
                 ] +
-                children,
+                children, // 内容
           ),
         ),
       ),
@@ -56,123 +57,125 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
   // 显示过滤器设置
   Future<Null> _showFilterOption() {
     // 弹出表单选择
-    return _showCustomModalBottomSheet('过滤器设置 仍在开发中...', []);
+    return _showCustomModalBottomSheet(title: '过滤器设置 仍在开发中...', children: []);
   }
 
   // 显示排序设置
   Future<Null> _showSortOption() {
     final TaskManager taskManager = TaskManager.instance;
     // 弹出表单选择
-    return _showCustomModalBottomSheet('排序方式', [
-      StatefulBuilder(
-        builder: (context, setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsetsGeometry.fromLTRB(20, 4, 20, 4),
-                child: Column(
-                  spacing: 10, // 间距
-                  children: [
-                    Row(
-                      children: [
-                        Text('排序方式：'),
-                        SegmentedButton<bool>(
-                          segments: [
-                            ButtonSegment(
-                              value: false,
-                              icon: Icon(Icons.arrow_drop_up_rounded),
-                              label: Text('升序'),
-                            ),
-                            ButtonSegment(
-                              value: true,
-                              icon: Icon(Icons.arrow_drop_down_rounded),
-                              label: Text('降序'),
-                            ),
-                          ],
-                          selected: {taskManager.isReverseSort},
-                          onSelectionChanged: (Set<bool> newSelection) {
-                            setState(() {
-                              taskManager.isReverseSort = newSelection.first;
-                              taskManager.update(); // 更新任务管理器
-                            });
-                          },
-                          showSelectedIcon: false,
-                        ),
-                      ],
-                    ), // 排序方式选择
-                    Row(
-                      children: [
-                        Text('排序完成项置于底层：'),
-                        Checkbox(value: false, onChanged: (v) {}),
-                      ],
-                    ), // 完成项目置底
-                    Row(
-                      children: [
-                        Text('选择类型后自动关闭当前页'),
-                        Checkbox(
-                          value: isSortOptionAutoClose,
-                          onChanged: (v) =>
-                              setState(() => isSortOptionAutoClose = v!),
-                        ),
-                      ],
-                    ), // 自动关闭
-                  ],
+    return _showCustomModalBottomSheet(
+      children: [
+        StatefulBuilder(
+          builder: (context, setState) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsetsGeometry.fromLTRB(20, 4, 20, 4),
+                  child: Column(
+                    spacing: 4, // 间距
+                    children: [
+                      Row(
+                        children: [
+                          Text('排序方式：'),
+                          SegmentedButton<bool>(
+                            segments: [
+                              ButtonSegment(
+                                value: false,
+                                icon: Icon(Icons.arrow_drop_up_rounded),
+                                label: Text('升序'),
+                              ),
+                              ButtonSegment(
+                                value: true,
+                                icon: Icon(Icons.arrow_drop_down_rounded),
+                                label: Text('降序'),
+                              ),
+                            ],
+                            selected: {taskManager.isReverseSort},
+                            onSelectionChanged: (Set<bool> newSelection) {
+                              setState(() {
+                                taskManager.isReverseSort = newSelection.first;
+                                taskManager.update(); // 更新任务管理器
+                              });
+                            },
+                            showSelectedIcon: false,
+                          ),
+                        ],
+                      ), // 排序方式选择
+                      Row(
+                        children: [
+                          Text('排序完成项置于底层：'),
+                          Checkbox(value: false, onChanged: (v) {}),
+                        ],
+                      ), // 完成项目置底
+                      Row(
+                        children: [
+                          Text('选择类型后自动关闭当前页'),
+                          Checkbox(
+                            value: isSortOptionAutoClose,
+                            onChanged: (v) =>
+                                setState(() => isSortOptionAutoClose = v!),
+                          ),
+                        ],
+                      ), // 自动关闭
+                    ],
+                  ),
                 ),
-              ),
-              RadioGroup<SortOption>(
-                groupValue: taskManager.sortOption,
-                onChanged: (SortOption? value) {
-                  if (value != null) {
-                    // 更新状态 //
-                    setState(() {
-                      taskManager.sortOption = value; // 设置选项
-                      taskManager.update(); // 更新
-                    });
-                    // 自动延迟关闭 //
-                    if (isSortOptionAutoClose) {
-                      Timer(Duration(milliseconds: 300), () {
-                        if (mounted) Navigator.of(context).pop();
+                RadioGroup<SortOption>(
+                  groupValue: taskManager.sortOption,
+                  onChanged: (SortOption? value) {
+                    if (value != null) {
+                      // 更新状态 //
+                      setState(() {
+                        taskManager.sortOption = value; // 设置选项
+                        taskManager.update(); // 更新
                       });
+                      // 自动延迟关闭 //
+                      if (isSortOptionAutoClose) {
+                        Timer(Duration(milliseconds: 300), () {
+                          if (mounted) Navigator.of(context).pop();
+                        });
+                      }
                     }
-                  }
-                },
-                child: Column(
-                  children: [
-                    RadioListTile<SortOption>(
-                      value: SortOption.importance,
-                      title: Text('按照重要程度排序'),
-                      secondary: Icon(Icons.warning),
-                    ),
-                    RadioListTile<SortOption>(
-                      value: SortOption.name,
-                      title: Text('按照名称排序'),
-                      secondary: Icon(Icons.abc),
-                    ),
-                    RadioListTile<SortOption>(
-                      value: SortOption.updateDate,
-                      title: Text('按照最后修改日期排序'),
-                      secondary: Icon(Icons.update),
-                    ),
-                    RadioListTile<SortOption>(
-                      value: SortOption.date,
-                      title: Text('按照创建日期排序'),
-                      secondary: Icon(Icons.date_range_rounded),
-                    ),
-                  ],
+                  },
+                  child: Column(
+                    children: [
+                      RadioListTile<SortOption>(
+                        value: SortOption.importance,
+                        title: Text('按照重要程度排序'),
+                        secondary: Icon(Icons.warning),
+                      ),
+                      RadioListTile<SortOption>(
+                        value: SortOption.name,
+                        title: Text('按照名称排序'),
+                        secondary: Icon(Icons.abc),
+                      ),
+                      RadioListTile<SortOption>(
+                        value: SortOption.updateDate,
+                        title: Text('按照最后修改日期排序'),
+                        secondary: Icon(Icons.update),
+                      ),
+                      RadioListTile<SortOption>(
+                        value: SortOption.date,
+                        title: Text('按照创建日期排序'),
+                        secondary: Icon(Icons.date_range_rounded),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
-      ),
-    ]);
+              ],
+            );
+          },
+        ),
+      ],
+    );
   }
 
   // 显示视图设置
   Future<Null> _showViewOption() {
     // 弹出表单选择
-    return _showCustomModalBottomSheet('视图设置 仍在开发中...', []);
+    return _showCustomModalBottomSheet(title: '视图设置 仍在开发中...', children: []);
   }
 
   // 构建 应用栏 - 所有任务
@@ -211,9 +214,10 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
 
   // 显示选择任务类型页面
   Future<T?> _showSelectTaskType<T>() {
-    return _showCustomModalBottomSheet('选择任务类型', [
-      Expanded(child: TaskSelectList()),
-    ]);
+    return _showCustomModalBottomSheet(
+      title: '选择任务类型',
+      children: [Expanded(child: TaskSelectList())],
+    );
   }
 
   @override
