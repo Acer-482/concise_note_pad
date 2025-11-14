@@ -46,4 +46,33 @@ class PageUtils {
       ),
     );
   }
+
+  /// 显示默认模态底部表
+  static Future<T?> showDefaultModalBottomSheet<T>(
+    BuildContext context, {
+    String? title,
+    required List<Widget> children,
+  }) {
+    return showModalBottomSheet(
+      showDragHandle: true,
+      context: context,
+      builder: (context) => Card(
+        child: Padding(
+          padding: EdgeInsets.all(0),
+          child: ListView(
+            children:
+                <Widget>[
+                  if (title != null)
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ), // 标题
+                ] +
+                children, // 内容
+          ),
+        ),
+      ),
+    ); // 显示模态底部表
+  }
 }
