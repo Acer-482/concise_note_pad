@@ -124,7 +124,7 @@ class TaskManager extends ChangeNotifier {
   /// 保存
   Future<bool> save() async {
     try {
-      final file = await ConfigUtils.getConfig(taskDataJsonConfig); // 获取文件
+      final file = await ConfigHelper.getConfig(taskDataJsonConfig); // 获取文件
       MainApp.logInf('保存任务数据${taskList.toString()}到"${file.path}"中...');
       // 序列化 //
       List<Map<String, dynamic>> taskJsonList = _taskList
@@ -146,7 +146,7 @@ class TaskManager extends ChangeNotifier {
   /// 加载
   Future<bool> load() async {
     try {
-      final file = await ConfigUtils.getConfig(taskDataJsonConfig); // 获取文件
+      final file = await ConfigHelper.getConfig(taskDataJsonConfig); // 获取文件
       MainApp.logInf('从"${file.path}"加载任务数据中...');
       // 读取 //
       String jsonData = file.readAsStringSync(); // 读取

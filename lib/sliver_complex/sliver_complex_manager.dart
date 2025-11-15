@@ -36,7 +36,7 @@ class SliverComplexManager {
   /// 保存
   Future<bool> save() async {
     try {
-      final file = await ConfigUtils.getConfig('sliverComplexs.json');
+      final file = await ConfigHelper.getConfig('sliverComplexs.json');
       MainApp.logInf('保存薄片复合列表中...');
       // 序列化 //
       List<Map<String, dynamic>> data = sliverComplexList
@@ -56,7 +56,7 @@ class SliverComplexManager {
   /// 加载
   Future<bool> load() async {
     try {
-      final file = await ConfigUtils.getConfig('sliverComplexs.json');
+      final file = await ConfigHelper.getConfig('sliverComplexs.json');
       MainApp.logInf('加载薄片复合列表中...');
       // 加载数据 //
       String jsonData = await file.readAsString();
