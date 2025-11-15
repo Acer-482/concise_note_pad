@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 /// 薄片复合应用栏
 class SliverComplexAppbar extends StatelessWidget {
-  final Icon? icon; // 图标
+  final IconData? iconData; // 图标
   final String title; // 标题
   final bool pinned; // 固定在顶部
   final SliverComplexState state; // 状态
 
   SliverComplexAppbar({
     super.key,
-    this.icon,
+    this.iconData,
     this.title = '',
     this.pinned = false,
     SliverComplexState? state,
@@ -88,7 +88,7 @@ class SliverComplexAppbar extends StatelessWidget {
   /// 构建列表项
   @override
   Widget build(BuildContext context) => SliverAppBar(
-    leading: icon, // 图标
+    leading: Icon(iconData), // 图标
     title: Text(title),
     pinned: pinned, // 固定在顶部
     actions: _buildActions(context), // 显示选项

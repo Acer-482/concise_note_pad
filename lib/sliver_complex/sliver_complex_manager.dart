@@ -20,9 +20,9 @@ class SliverComplexManager {
     final loadSuccessful = await load();
     if (!loadSuccessful) {
       sliverComplexList.addAll([
-        SliverComplex(icon: const Icon(Icons.list_alt_rounded), title: '未完成项'),
+        SliverComplex(iconData: Icons.list_alt_rounded, title: '未完成项'),
         SliverComplex(
-          icon: const Icon(Icons.list_alt_rounded),
+          iconData: Icons.list_alt_rounded,
           title: '所有项',
           pinned: true,
         ),
@@ -39,7 +39,7 @@ class SliverComplexManager {
   /// 保存
   Future<bool> save() async => await config.save(() {
     List<Map<String, dynamic>> data = sliverComplexList
-        .map((complex) => complex.toMap())
+        .map((complex) => complex.toJson())
         .toList(); // 序列化
     return JsonEncoder.withIndent('\t').convert(data);
   });
@@ -51,7 +51,7 @@ class SliverComplexManager {
         (JsonDecoder().convert(jsonData) as List<dynamic>)
             .cast<Map<String, dynamic>>();
     List<SliverComplex> complexList = data
-        .map((map) => SliverComplex.fromMap(map))
+        .map((map) => SliverComplex.fromJson(map))
         .toList();
     // 保存数据 //
     sliverComplexList.clear();

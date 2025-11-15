@@ -2,6 +2,9 @@ import 'package:concise_note_pad/task_item/check_task_item.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'sliver_complex_state.g.dart';
 
 /// 排序选项
 enum SortOption {
@@ -12,6 +15,7 @@ enum SortOption {
 }
 
 /// 复合薄片 状态
+@JsonSerializable()
 class SliverComplexState extends ChangeNotifier {
   bool isReverseSort; // 反转排序
   SortOption sortOption; // 排序设置
@@ -26,23 +30,9 @@ class SliverComplexState extends ChangeNotifier {
     TaskManager.instance.addListener(update); // 添加监听
   }
 
-  /// 从字典构建
-  factory SliverComplexState.fromMap(Map<String, dynamic> map) {
-    return SliverComplexState(
-      isReverseSort: map['isReverseSort'],
-      sortOption: SortOption.values[map['sortOption']],
-      isSortOptionAutoClose: map['isSortOptionAutoClose'],
-    );
-  }
-
-  /// 转为字典
-  Map<String, dynamic> toMap() {
-    return {
-      'isReverseSort': isReverseSort,
-      'sortOption': sortOption.index,
-      'isSortOptionAutoClose': isSortOptionAutoClose,
-    };
-  }
+  factory SliverComplexState.fromJson(Map<String, dynamic> map) =>
+      _$SliverComplexStateFromJson(map);
+  Map<String, dynamic> toJson() => _$SliverComplexStateToJson(this);
 
   // 比较重要性
   int _compareByImportance(TaskItem a, TaskItem b) {
