@@ -50,8 +50,8 @@ abstract class TaskItem {
     this.updateDateTime = updateDateTime ?? this.createDateTime.copyWith();
   }
 
-  /// 从Json构造
-  factory TaskItem.fromJson(Map<String, dynamic> json) {
+  /// 从字典构造
+  factory TaskItem.fromMap(Map<String, dynamic> json) {
     final type = json['type'];
     // 根据类型构造子类
     switch (type) {
@@ -72,13 +72,13 @@ abstract class TaskItem {
     }
   }
 
-  /// 序列化为json
+  /// 序列化为字典
   ///
-  /// 建议子类重写
+  /// 建议子类有新属性时重写
   ///
   /// 必须添加键值对 - type：子类类名
   @mustCallSuper
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'title': title,
       'subTitle': subTitle,

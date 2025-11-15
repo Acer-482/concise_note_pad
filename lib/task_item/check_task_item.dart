@@ -27,8 +27,8 @@ class CompletableTaskItem extends TaskItem {
        importanceType = importanceType ?? ImportanceType.defaultValue;
 
   @override
-  Map<String, dynamic> toJson() {
-    final superMap = super.toJson();
+  Map<String, dynamic> toMap() {
+    final superMap = super.toMap();
     superMap.addAll({
       'type': 'CompletableTaskItem',
       'isChecked': isChecked,

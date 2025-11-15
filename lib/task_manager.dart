@@ -128,7 +128,7 @@ class TaskManager extends ChangeNotifier {
       MainApp.logInf('保存任务数据${taskList.toString()}到"${file.path}"中...');
       // 序列化 //
       List<Map<String, dynamic>> taskJsonList = _taskList
-          .map((taskItem) => taskItem.toJson())
+          .map((taskItem) => taskItem.toMap())
           .toList();
       final taskJson = JsonEncoder.withIndent(
         '\t',
@@ -155,7 +155,7 @@ class TaskManager extends ChangeNotifier {
           (jsonDecode(jsonData) as List<dynamic>)
               .cast<Map<String, dynamic>>(); // jsonDecode返回List<dynamic> 需要转换
       List<TaskItem> data = dataMap
-          .map((map) => TaskItem.fromJson(map))
+          .map((map) => TaskItem.fromMap(map))
           .toList(); // 反序列化数据内容
       // 保存 //
       _taskList.clear();
