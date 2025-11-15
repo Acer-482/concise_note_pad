@@ -16,7 +16,11 @@ class _SliverComplexListState extends State<SliverComplexList> {
   @override
   void initState() {
     super.initState();
-    widget.state.addListener(() => setState(() {})); // 添加监听器更新
+    widget.state.addListener(_update); // 添加监听器更新
+  }
+
+  void _update() {
+    setState(() {});
   }
 
   @override
@@ -26,4 +30,11 @@ class _SliverComplexListState extends State<SliverComplexList> {
       childCount: widget.state.listSize,
     ),
   );
+
+  @override
+  void dispose() {
+    widget.state.removeListener(_update); // 删除监听器
+    widget.state.dispose(); // 释放
+    super.dispose();
+  }
 }

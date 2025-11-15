@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:concise_note_pad/sliver_complex/sliver_complex.dart';
+import 'package:concise_note_pad/page_utils.dart';
+import 'package:concise_note_pad/sliver_complex/sliver_complex_manager.dart';
 import 'package:concise_note_pad/task_pages/task_select_list.dart';
 import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
@@ -18,53 +19,22 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
-  late final SlidableController slidableController; // 滑动控制器
-  final List<SliverComplex> sliverComplexList = [
-    SliverComplex(icon: const Icon(Icons.list_alt_rounded), title: '未完成项'),
-    SliverComplex(
-      icon: const Icon(Icons.list_alt_rounded),
-      title: '所有项',
-      pinned: true,
-    ),
-  ];
+  late final SlidableController slidableController = SlidableController(
+    this,
+  ); // 滑动控制器
+  final SliverComplexManager sliverComplexManager =
+      SliverComplexManager(); // 控制器
 
   @override
   void initState() {
     super.initState();
-    slidableController = SlidableController(this);
-  }
-
-  /// 显示自定义模态底部表
-  Future<T?> _showCustomModalBottomSheet<T>({
-    String? title,
-    required List<Widget> children,
-  }) {
-    return showModalBottomSheet(
-      showDragHandle: true,
-      context: context,
-      builder: (context) => Card(
-        child: Padding(
-          padding: EdgeInsets.all(0),
-          child: ListView(
-            children:
-                <Widget>[
-                  if (title != null)
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      textAlign: TextAlign.center,
-                    ), // 标题
-                ] +
-                children, // 内容
-          ),
-        ),
-      ),
-    ); // 显示模态底部表
+    sliverComplexManager.init().then((_) => setState(() {})); // 初始化控制器
   }
 
   // 显示选择任务类型页面
   Future<T?> _showSelectTaskType<T>() {
-    return _showCustomModalBottomSheet(
+    return PageUtils.showDefaultModalBottomSheet(
+      context,
       title: '选择任务类型',
       children: [Expanded(child: TaskSelectList())],
     );
@@ -72,15 +42,10 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> slivers = [];
-    for (SliverComplex complex in sliverComplexList) {
-      slivers.add(complex.appbar);
-      slivers.add(complex.list);
-    }
     return Consumer<TaskManager>(
       builder: (context, taskManager, child) {
         return Scaffold(
-          body: CustomScrollView(slivers: slivers), // 滚动浏览器
+          body: sliverComplexManager.buildScrollView(),
           floatingActionButton: FloatingActionButton(
             tooltip: '新建任务',
             onPressed: () async {
@@ -92,5 +57,11 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    sliverComplexManager.dispose();
+    super.dispose();
   }
 }

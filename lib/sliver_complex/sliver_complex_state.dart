@@ -11,12 +11,12 @@ enum SortOption {
   date, // 创建日期
 }
 
-/// 复合薄片列表 状态
+/// 复合薄片 状态
 class SliverComplexState extends ChangeNotifier {
   bool isReverseSort; // 反转排序
   SortOption sortOption; // 排序设置
   bool isSortOptionAutoClose; // 自动关闭排序设置页面
-  final List<TaskItem> _taskList = []; // 内部维护的列表
+  final List<TaskItem> _taskList = []; // 列表 为TaskManager列表的副本 用于排序
 
   SliverComplexState({
     this.isReverseSort = true,
@@ -24,6 +24,24 @@ class SliverComplexState extends ChangeNotifier {
     this.isSortOptionAutoClose = true,
   }) {
     TaskManager.instance.addListener(update); // 添加监听
+  }
+
+  /// 从字典构建
+  factory SliverComplexState.fromMap(Map<String, dynamic> map) {
+    return SliverComplexState(
+      isReverseSort: map['isReverseSort'],
+      sortOption: SortOption.values[map['sortOption']],
+      isSortOptionAutoClose: map['isSortOptionAutoClose'],
+    );
+  }
+
+  /// 转为字典
+  Map<String, dynamic> toMap() {
+    return {
+      'isReverseSort': isReverseSort,
+      'sortOption': sortOption.index,
+      'isSortOptionAutoClose': isSortOptionAutoClose,
+    };
   }
 
   // 比较重要性
