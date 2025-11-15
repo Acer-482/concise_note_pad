@@ -29,7 +29,6 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     sliverComplexManager.init().then((_) {
-      TaskManager.instance.update();
       setState(() {});
     }); // 初始化控制器
   }

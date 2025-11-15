@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:concise_note_pad/config_utils.dart';
+import 'package:concise_note_pad/config_helper.dart';
 import 'package:concise_note_pad/importance_enumeration/important_level.dart';
 import 'package:concise_note_pad/importance_enumeration/important_type.dart';
 import 'package:concise_note_pad/main.dart';
@@ -14,8 +14,6 @@ import 'package:flutter/material.dart';
 class TaskManager extends ChangeNotifier {
   // 静态常量 //
   static const String taskDataJsonConfig = 'taskData.json'; // 任务项配置Json文件
-  static const String taskSettingsJsonConfig =
-      'taskSettings.json'; // 任务项设置Json配置文件
 
   // 单例 //
   static final TaskManager _instance = TaskManager._internal();
@@ -27,16 +25,20 @@ class TaskManager extends ChangeNotifier {
   }
 
   // 实例 //
+  final ConfigHelper config = ConfigHelper(); // 配置文件
   final List<TaskItem> _taskList = []; // 任务列表
-  late bool isReverseSort; // 降序
 
-  TaskItem taskAt(int index) => _taskList[index]; // 获取
+  /// 获取任务（通过索引）
+  TaskItem taskAt(int index) => _taskList[index];
+  // 获取任务列表
   List<TaskItem> get taskList => _taskList;
 
+  // 初始化
   void _init() async {
+    await config.init('taskData.json');
     bool loadSuccessful = await load(); // 尝试加载数据
     // 根据情况设置属性 //
-    if (loadSuccessful != true) {
+    if (loadSuccessful != true || taskList.isEmpty) {
       MainApp.logInf('设置任务数据为默认值...');
       // 添加默认值
       addTaskItemAll([
@@ -116,57 +118,31 @@ class TaskManager extends ChangeNotifier {
 
   /// 更新 - 更新列表/保存数据/通知监听者更新
   void update() {
-    notifyListeners(); // 通知监听者更新
-    // 保存 //
+    MainApp.logInf('TaskManager 更新');
     save(); // 保存任务数据
+    notifyListeners(); // 通知监听者更新
   }
 
   /// 保存
-  Future<bool> save() async {
-    try {
-      final file = await ConfigHelper.getConfig(taskDataJsonConfig); // 获取文件
-      MainApp.logInf('保存任务数据${taskList.toString()}到"${file.path}"中...');
-      // 序列化 //
-      List<Map<String, dynamic>> taskJsonList = _taskList
-          .map((taskItem) => taskItem.toMap())
-          .toList();
-      final taskJson = JsonEncoder.withIndent(
-        '\t',
-      ).convert(taskJsonList); // 序列化为json（带有优雅的换行和缩进）
-      // 写入 //
-      file.writeAsStringSync(taskJson);
-      MainApp.logInf('保存成功！');
-      return true;
-    } catch (e) {
-      MainApp.logWar('保存失败：$e');
-      return false;
-    }
-  }
+  Future<bool> save() async => await config.save(() {
+    List<Map<String, dynamic>> data = _taskList
+        .map((taskItem) => taskItem.toMap())
+        .toList(); // 序列化
+    return JsonEncoder.withIndent('\t').convert(data);
+  });
 
   /// 加载
-  Future<bool> load() async {
-    try {
-      final file = await ConfigHelper.getConfig(taskDataJsonConfig); // 获取文件
-      MainApp.logInf('从"${file.path}"加载任务数据中...');
-      // 读取 //
-      String jsonData = file.readAsStringSync(); // 读取
-      // 反序列化 //
-      List<Map<String, dynamic>> dataMap =
-          (jsonDecode(jsonData) as List<dynamic>)
-              .cast<Map<String, dynamic>>(); // jsonDecode返回List<dynamic> 需要转换
-      List<TaskItem> data = dataMap
-          .map((map) => TaskItem.fromMap(map))
-          .toList(); // 反序列化数据内容
-      // 保存 //
-      _taskList.clear();
-      _taskList.addAll(data);
-      MainApp.logInf('加载完成！');
-      return true;
-    } catch (e) {
-      MainApp.logWar('加载失败：$e');
-      return false;
-    }
-  }
+  Future<bool> load() async => await config.load((jsonData) {
+    // 反序列化 //
+    List<Map<String, dynamic>> dataMap = (jsonDecode(jsonData) as List<dynamic>)
+        .cast<Map<String, dynamic>>(); // jsonDecode返回List<dynamic> 需要转换
+    List<TaskItem> data = dataMap
+        .map((map) => TaskItem.fromMap(map))
+        .toList(); // 反序列化数据内容
+    // 保存 //
+    _taskList.clear();
+    _taskList.addAll(data);
+  });
 
   /// 检测任务是否存在
   bool contains(TaskItem taskItem) => _taskList.contains(taskItem);
