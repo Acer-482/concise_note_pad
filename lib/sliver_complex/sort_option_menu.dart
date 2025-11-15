@@ -56,8 +56,10 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
                   Text('选择类型后自动关闭当前页'),
                   Checkbox(
                     value: widget.state.isSortOptionAutoClose,
-                    onChanged: (v) =>
-                        setState(() => widget.state.isSortOptionAutoClose = v!),
+                    onChanged: (v) {
+                      setState(() => widget.state.isSortOptionAutoClose = v!);
+                      widget.state.update(); // 更新状态
+                    },
                   ),
                 ],
               ), // 自动关闭
