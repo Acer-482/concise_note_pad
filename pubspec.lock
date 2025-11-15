@@ -408,14 +408,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
-  osum_serializable:
-    dependency: "direct main"
-    description:
-      name: osum_serializable
-      sha256: "703922d16c86c69840db3449f97956b7a73313bcda67ea93524719598c2cf757"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.5"
   package_config:
     dependency: transitive
     description:
@@ -637,14 +629,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.4.0"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:

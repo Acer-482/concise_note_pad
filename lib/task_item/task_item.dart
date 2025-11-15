@@ -1,5 +1,3 @@
-import 'package:concise_note_pad/importance_enumeration/important_level.dart';
-import 'package:concise_note_pad/importance_enumeration/important_type.dart';
 import 'package:concise_note_pad/task_item/check_task_item.dart';
 import 'package:concise_note_pad/task_pages/task_edit_page.dart';
 import 'package:concise_note_pad/task_pages/task_info_page.dart';
@@ -50,44 +48,27 @@ abstract class TaskItem {
     this.updateDateTime = updateDateTime ?? this.createDateTime.copyWith();
   }
 
-  /// 从字典构造
-  factory TaskItem.fromMap(Map<String, dynamic> json) {
-    final type = json['type'];
+  /// 从Json构造
+  factory TaskItem.fromJson(Map<String, dynamic> json) {
+    if (json['type'] == null) throw Exception('反序列化失败：type值为null');
+    final type = json['type'] as String; // 获取类型
     // 根据类型构造子类
     switch (type) {
       case 'CompletableTaskItem':
-        return CompletableTaskItem(
-          title: json['title'],
-          subTitle: json['subTitle'],
-          details: json['details'],
-          isEnabled: json['isEnabled'],
-          createDateTime: DateTime.parse(json['createDateTime'] as String),
-          updateDateTime: DateTime.parse(json['updateDateTime'] as String),
-          isChecked: json['isChecked'],
-          importanceLevel: ImportanceLevel.values[json['importanceLevel']],
-          importanceType: ImportanceType.values[json['importanceType']],
-        );
+        return CompletableTaskItem.fromJson(json);
       default:
         throw ArgumentError('反序列化失败：未知的类型$type');
     }
   }
 
-  /// 序列化为字典
-  ///
-  /// 建议子类有新属性时重写
-  ///
-  /// 必须添加键值对 - type：子类类名
+  /// 序列化为Json
   @mustCallSuper
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'subTitle': subTitle,
-      'details': details,
-      'isEnabled': isEnabled,
-      'createDateTime': createDateTime.toIso8601String(),
-      'updateDateTime': updateDateTime.toIso8601String(),
-    };
+  Map<String, dynamic> toJson() {
+    return {'type': type};
   }
+
+  /// 类型标识符
+  String get type;
 
   /// 构建为详细信息字典
   ///
@@ -182,7 +163,7 @@ abstract class TaskItem {
   }
 
   /// 构建为列表项卡片
-  /// 
+  ///
   /// 参数：
   /// - [index] 当前所在索引
   Widget buildListTileCard(BuildContext context, int index) {

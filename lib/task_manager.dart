@@ -126,7 +126,7 @@ class TaskManager extends ChangeNotifier {
   /// 保存
   Future<bool> save() async => await config.save(() {
     List<Map<String, dynamic>> data = _taskList
-        .map((taskItem) => taskItem.toMap())
+        .map((taskItem) => taskItem.toJson())
         .toList(); // 序列化
     return JsonEncoder.withIndent('\t').convert(data);
   });
@@ -137,7 +137,7 @@ class TaskManager extends ChangeNotifier {
     List<Map<String, dynamic>> dataMap = (jsonDecode(jsonData) as List<dynamic>)
         .cast<Map<String, dynamic>>(); // jsonDecode返回List<dynamic> 需要转换
     List<TaskItem> data = dataMap
-        .map((map) => TaskItem.fromMap(map))
+        .map((map) => TaskItem.fromJson(map))
         .toList(); // 反序列化数据内容
     // 保存 //
     _taskList.clear();

@@ -5,12 +5,20 @@ import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// 可完成任务项 //
+part 'check_task_item.g.dart';
+
+/// 可完成任务项
+@JsonSerializable()
 class CompletableTaskItem extends TaskItem {
   bool isChecked; // 选中
   ImportanceLevel importanceLevel; // 重要程度
   ImportanceType importanceType; // 重要性类型
+
+  @JsonKey(includeFromJson: true)
+  @override
+  String get type => 'CompletableTaskItem';
 
   CompletableTaskItem({
     required super.title,
@@ -26,16 +34,13 @@ class CompletableTaskItem extends TaskItem {
   }) : importanceLevel = importanceLevel ?? ImportanceLevel.defaultValue,
        importanceType = importanceType ?? ImportanceType.defaultValue;
 
+  factory CompletableTaskItem.fromJson(Map<String, dynamic> json) =>
+      _$CompletableTaskItemFromJson(json);
   @override
-  Map<String, dynamic> toMap() {
-    final superMap = super.toMap();
-    superMap.addAll({
-      'type': 'CompletableTaskItem',
-      'isChecked': isChecked,
-      'importanceLevel': importanceLevel.index,
-      'importanceType': importanceType.index,
-    });
-    return superMap;
+  Map<String, dynamic> toJson() {
+    final jsonMap = super.toJson();
+    jsonMap.addAll(_$CompletableTaskItemToJson(this));
+    return jsonMap;
   }
 
   @override
@@ -90,6 +95,5 @@ class CompletableTaskItem extends TaskItem {
 
   // 获取重要性权重
   int get weightValue =>
-      importanceLevel.weightValue +
-      importanceType.weightValue;
+      importanceLevel.weightValue + importanceType.weightValue;
 }
