@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:concise_note_pad/config_utils.dart';
 import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex.dart';
-import 'package:concise_note_pad/task_manager.dart';
 import 'package:flutter/material.dart';
 
 /// 薄片复合管理器
@@ -15,6 +14,7 @@ class SliverComplexManager {
 
   /// 初始化
   Future<Null> init() async {
+    // 加载薄片复合项列表 //
     final loadSuccessful = await load();
     if (!loadSuccessful) {
       sliverComplexList.addAll([
@@ -27,7 +27,10 @@ class SliverComplexManager {
       ]); // 设置默认值
       save(); // 保存
     }
-    TaskManager.instance.update(); // 更新
+    // 添加监听器 //
+    for (var complex in sliverComplexList) {
+      complex.state.addListener(save);
+    }
   }
 
   /// 保存
@@ -75,6 +78,11 @@ class SliverComplexManager {
     }
   }
 
+  /// 更新
+  void update() {
+    save(); // 保存
+  }
+
   /// 构建滚动浏览器
   CustomScrollView buildScrollView() {
     // 构建复合薄片列表 //
@@ -89,6 +97,9 @@ class SliverComplexManager {
 
   /// 销毁释放
   void dispose() {
+    for (var complex in sliverComplexList) {
+      complex.state.removeListener(save);
+    } // 删除监听器
     sliverComplexList.map((complex) => complex.dispose()); // 销毁释放
   }
 }
