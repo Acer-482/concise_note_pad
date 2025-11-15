@@ -34,7 +34,7 @@ class TaskManager extends ChangeNotifier {
   List<TaskItem> get taskList => _taskList;
 
   void _init() async {
-    bool loadSuccessful = await loadTaskJson(); // 尝试加载数据
+    bool loadSuccessful = await load(); // 尝试加载数据
     // 根据情况设置属性 //
     if (loadSuccessful != true) {
       MainApp.logInf('设置任务数据为默认值...');
@@ -71,7 +71,7 @@ class TaskManager extends ChangeNotifier {
         ),
       ]);
       // 重新保存 //
-      saveTaskJson();
+      save();
     } else {
       // 加载成功 //
       notifyListeners(); // 通知监听者更新
@@ -118,11 +118,11 @@ class TaskManager extends ChangeNotifier {
   void update() {
     notifyListeners(); // 通知监听者更新
     // 保存 //
-    saveTaskJson(); // 保存任务数据
+    save(); // 保存任务数据
   }
 
-  /// 保存任务项json
-  Future<bool> saveTaskJson() async {
+  /// 保存
+  Future<bool> save() async {
     try {
       final file = await ConfigUtils.getConfig(taskDataJsonConfig); // 获取文件
       MainApp.logInf('保存任务数据${taskList.toString()}到"${file.path}"中...');
@@ -143,8 +143,8 @@ class TaskManager extends ChangeNotifier {
     }
   }
 
-  /// 加载任务项json
-  Future<bool> loadTaskJson() async {
+  /// 加载
+  Future<bool> load() async {
     try {
       final file = await ConfigUtils.getConfig(taskDataJsonConfig); // 获取文件
       MainApp.logInf('从"${file.path}"加载任务数据中...');
