@@ -2,7 +2,7 @@ import 'package:concise_note_pad/task_item/check_task_item.dart';
 import 'package:concise_note_pad/task_pages/task_edit_page.dart';
 import 'package:concise_note_pad/task_pages/task_info_page.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
-import 'package:concise_note_pad/task_manager.dart';
+import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';

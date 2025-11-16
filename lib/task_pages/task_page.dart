@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:concise_note_pad/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_manager.dart';
 import 'package:concise_note_pad/task_pages/task_select_list.dart';
-import 'package:concise_note_pad/task_manager.dart';
+import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 /// 任务页面
 ///
-/// 显示、添加、删除、更改、管理任务项
+/// 显示、添加、删除、更改...等等。用于管理任务项
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
 

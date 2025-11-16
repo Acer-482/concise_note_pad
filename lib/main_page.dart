@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/main_menu_page.dart';
 import 'package:concise_note_pad/page_utils.dart';
 import 'package:concise_note_pad/task_pages/task_page.dart';
 import 'package:flutter/material.dart';
@@ -21,24 +22,23 @@ class _NavigationPage {
 
 /// 主页面
 ///
-/// 用于构建导航和页面
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+/// 用于构建页面和导航
+/// 
+/// 适配多端
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   final List<_NavigationPage> _pageList = [
     _NavigationPage(
       icon: Icon(Icons.home_outlined),
       activeIcon: Icon(Icons.home),
       label: '主页面',
-      body: Container(
-        color: Colors.white,
-        // child: Lottie.asset(Icons8.book)
-      ),
+      body: const HomePage(),
     ),
     _NavigationPage(
       icon: Icon(Icons.format_list_bulleted),
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     ),
   ]; // 页面列表
   int pageIndex = 0; // 页面索引
-  PageController controller = PageController();
+  PageController controller = PageController(); // 页面控制器
 
   @override
   Widget build(BuildContext context) {
