@@ -53,6 +53,7 @@ class _TaskSelectListState extends State<TaskSelectList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: _taskItemTypeList.length,
       itemBuilder: (context, index) {
         _TaskType currentTaskType = _taskItemTypeList[index];
