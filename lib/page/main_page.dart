@@ -125,11 +125,9 @@ class _MainPageState extends State<MainPage> {
 
   // 构建抽屉
   Widget? _buildDrawer(int mode) {
-    return mode == 0
-        ? Drawer(
-            //
-          ) // 抽屉
-        : null; // 仅移动模式
+    return Drawer(
+      //
+    ); // 抽屉
   }
 
   // 构建底部导航栏
@@ -176,7 +174,9 @@ class _MainPageState extends State<MainPage> {
         context,
         const Text('简记', textAlign: TextAlign.center),
       ), // 应用栏
-      drawer: _buildDrawer(mode),
+      drawer: mode == 0 ? _buildDrawer(mode) : null, // 左侧抽屉（移动模式）
+      endDrawer: mode != 0 ? _buildDrawer(mode) : null, // 右侧抽屉（非移动模式）
+      // drawerBarrierDismissible: mode == 0, // 移动模式为模态；否则为非模态
       body: _buildBody(mode),
       bottomNavigationBar: _buildBottomNavigationBar(mode),
     );
