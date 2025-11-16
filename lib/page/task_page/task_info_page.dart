@@ -5,7 +5,7 @@ import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:flutter/material.dart';
 
 /// 任务项信息页面
-/// 
+///
 /// 用于显示任务项的详细信息
 class TaskItemInfoPage extends StatefulWidget {
   final TaskItem taskItem; // 任务项
@@ -40,7 +40,7 @@ class _TaskItemInfoPage extends State<TaskItemInfoPage> {
           }).toList(),
         ), // 构建信息列表
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
@@ -51,8 +51,9 @@ class _TaskItemInfoPage extends State<TaskItemInfoPage> {
           TaskManager.instance.update();
           setState(() {});
         },
-        tooltip: '编辑该任务',
-        child: const Icon(Icons.edit),
+        tooltip: '编辑任务',
+        icon: const Icon(Icons.edit),
+        label: const Text('编辑任务'),
       ),
     );
   }

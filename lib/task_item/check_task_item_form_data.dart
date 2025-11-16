@@ -41,59 +41,55 @@ class CompletableTaskItemFormData extends TaskItemFormData {
   List<Widget> buildForms(BuildContext context) {
     final superForms = super.buildForms(context);
     superForms.addAll([
-      Row(
-        children: [
-          Text('重要程度：', style: TextStyle(fontSize: 18)),
-          DropdownButton(
-            items: ImportanceLevel.values
-                .map(
-                  (importance) => DropdownMenuItem(
-                    value: importance,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(importance.icon, color: importance.color),
-                        Text(importance.displayName),
-                      ],
-                    ),
+      ListTile(
+        title: Text('重要程度'),
+        trailing: DropdownButton(
+          items: ImportanceLevel.values
+              .map(
+                (importance) => DropdownMenuItem(
+                  value: importance,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(importance.icon, color: importance.color),
+                      Text(importance.displayName),
+                    ],
                   ),
-                )
-                .toList(),
-            value: importanceLevel, // 当前选项
-            onChanged: (ImportanceLevel? type) {
-              importanceLevel = type ?? ImportanceLevel.defaultValue;
-              update?.call(); // 更新
-            },
-          ),
-        ],
+                ),
+              )
+              .toList(),
+          value: importanceLevel, // 当前选项
+          onChanged: (ImportanceLevel? type) {
+            importanceLevel = type ?? ImportanceLevel.defaultValue;
+            update?.call(); // 更新
+          },
+        ),
       ), // 重要程度
-      Row(
-        children: [
-          Text('重要性类型：', style: TextStyle(fontSize: 18)),
-          DropdownButton(
-            items: ImportanceType.values
-                .map(
-                  (importance) => DropdownMenuItem(
-                    value: importance,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(importance.icon, color: importance.color),
-                        Text(importance.displayName),
-                      ],
-                    ),
+      ListTile(
+        title: Text('重要性类型'),
+        trailing: DropdownButton(
+          items: ImportanceType.values
+              .map(
+                (importance) => DropdownMenuItem(
+                  value: importance,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(importance.icon, color: importance.color),
+                      Text(importance.displayName),
+                    ],
                   ),
-                )
-                .toList(),
-            value: importanceType, // 当前选项
-            onChanged: (ImportanceType? type) {
-              importanceType = type ?? ImportanceType.defaultValue;
-              update?.call(); // 更新
-            },
-          ),
-        ],
+                ),
+              )
+              .toList(),
+          value: importanceType, // 当前选项
+          onChanged: (ImportanceType? type) {
+            importanceType = type ?? ImportanceType.defaultValue;
+            update?.call(); // 更新
+          },
+        ),
       ), // 重要性类型
     ]);
     return superForms;

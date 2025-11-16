@@ -64,6 +64,8 @@ abstract class TaskItem {
   }
 
   /// 序列化为Json
+  ///
+  /// 子类允许序列化Json则必须重写
   @mustCallSuper
   Map<String, dynamic> toJson() {
     return {'type': type};
@@ -71,6 +73,36 @@ abstract class TaskItem {
 
   /// 类型标识符
   String get type;
+
+  // 操作 //
+
+  /// 显示详细信息
+  Future<Null> showInfo(BuildContext context) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => TaskItemInfoPage(taskItem: this)),
+    );
+  }
+
+  /// 编辑任务
+  void edit(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => TaskEditPage.editTask(this)),
+    );
+    TaskManager.instance.update();
+  }
+
+  /// 删除任务
+  void remove(BuildContext context) {
+    TaskManager.instance.removeTaskItem(this); // 删除
+    ToastUtils.showStandardToast(
+      context,
+      title: '删除成功',
+      msg: '成功删除了"$title"任务项',
+      type: ToastificationType.success,
+    );
+  }
+
+  // UI //
 
   /// 构建为详细信息字典
   ///
@@ -101,34 +133,19 @@ abstract class TaskItem {
   List<SlidableAction> buildSlidableActions(BuildContext context) {
     return [
       SlidableAction(
-        onPressed: (context) => _showInfoPage(context), // 显示信息页面
+        onPressed: showInfo, // 显示信息页面
         label: '详细信息',
         icon: Icons.info,
         backgroundColor: Colors.cyan,
       ),
       SlidableAction(
-        onPressed: (context) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => TaskEditPage.editTask(this),
-            ),
-          );
-          TaskManager.instance.update();
-        }, // 弹出编辑对话框
+        onPressed: edit, // 弹出编辑对话框
         label: '编辑',
         icon: Icons.edit,
         backgroundColor: Colors.yellowAccent,
       ),
       SlidableAction(
-        onPressed: (context) {
-          TaskManager.instance.removeTaskItem(this); // 删除
-          ToastUtils.showStandardToast(
-            context,
-            title: '删除成功',
-            msg: '成功删除了"$title"任务项',
-            type: ToastificationType.success,
-          );
-        }, // 删除
+        onPressed: remove, // 删除
         label: '删除',
         icon: Icons.delete,
         backgroundColor: Colors.red,
@@ -160,13 +177,6 @@ abstract class TaskItem {
           ),
         ),
       ],
-    );
-  }
-
-  /// 显示详细信息页面
-  Future<T?> _showInfoPage<T>(BuildContext context) {
-    return Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => TaskItemInfoPage(taskItem: this)),
     );
   }
 
@@ -202,7 +212,7 @@ abstract class TaskItem {
                 title: Text(title), // 标题
                 subtitle: subTitle.isEmpty ? null : Text(subTitle), // 副标题
                 enabled: isEnabled, // 启用
-                onTap: () => _showInfoPage(context), // 按下进入详细信息菜单
+                onTap: () => showInfo(context), // 按下进入详细信息菜单
               ), // 内容项
             ), // 手势检测器
           ), // 容器 用于显示左侧高亮色条
