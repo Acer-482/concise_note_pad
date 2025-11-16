@@ -162,6 +162,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
     if (isCreateMode) {
       // 创建模式
       taskItem = widget.formData.toItem(); // 创建任务项
+      TaskManager.instance.addTaskItem(taskItem); // 添加到任务管理器
     } else {
       // 更新模式
       widget.formData.editingTaskItem = null; // 重置覆写
@@ -169,7 +170,6 @@ class _TaskEditPageState extends State<TaskEditPage> {
       taskItem.updateDateTime = DateTime.now(); // 更新更改时间
       widget.formData.updateItem(taskItem); // 更新任务项
     }
-    TaskManager.instance.addTaskItem(taskItem); // 添加到任务管理器
     if (!isBatchCreationMode) Navigator.of(context).pop(); // 返回
   }
 
