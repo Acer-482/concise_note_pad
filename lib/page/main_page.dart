@@ -1,6 +1,6 @@
-import 'package:concise_note_pad/home_page.dart';
-import 'package:concise_note_pad/page_utils.dart';
-import 'package:concise_note_pad/task_pages/task_page.dart';
+import 'package:concise_note_pad/page/home_page.dart';
+import 'package:concise_note_pad/util/page_utils.dart';
+import 'package:concise_note_pad/page/task_page/task_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_icons_animated/flutter_animated_icons.dart';
 // import 'package:lottie/lottie.dart';

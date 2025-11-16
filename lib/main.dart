@@ -1,4 +1,4 @@
-import 'package:concise_note_pad/main_page.dart';
+import 'package:concise_note_pad/page/main_page.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

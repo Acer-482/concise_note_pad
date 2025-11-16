@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:concise_note_pad/page_utils.dart';
+import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_manager.dart';
-import 'package:concise_note_pad/task_pages/task_select_list.dart';
+import 'package:concise_note_pad/page/task_page/task_select_list.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

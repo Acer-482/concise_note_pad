@@ -2,7 +2,7 @@ name: concise_note_pad
 description: "A concise and easy-to-use notepad software."
 publish_to: "none"
 
-version: 0.2.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ^3.9.0
