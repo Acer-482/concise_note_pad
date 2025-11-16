@@ -33,8 +33,20 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: '简记',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.cyan,
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true, // 启用 Material 3
       ), // 主题数据
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.cyan,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true, // 启用 Material 3
+      ), // 深色主题
+      themeMode: ThemeMode.system, // 跟随系统主题
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => TaskManager.instance),

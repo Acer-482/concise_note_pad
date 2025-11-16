@@ -34,7 +34,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   static const double mobileMaxWidth = 600; // 手机模式最大宽度
-  static const double tabletMaxWidth = 1200; // 平板模式最大宽度
+  static const double tabletMaxWidth = 800; // 平板模式最大宽度
   final List<_NavigationPage> _pageList = [
     _NavigationPage(
       icon: const Icon(Icons.home_outlined),

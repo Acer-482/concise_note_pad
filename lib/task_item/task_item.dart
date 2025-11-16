@@ -3,9 +3,11 @@ import 'package:concise_note_pad/page/task_page/task_edit_page.dart';
 import 'package:concise_note_pad/page/task_page/task_info_page.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
+import 'package:concise_note_pad/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:toastification/toastification.dart';
 
 /// 任务项
 ///
@@ -120,6 +122,12 @@ abstract class TaskItem {
       SlidableAction(
         onPressed: (context) {
           TaskManager.instance.removeTaskItem(this); // 删除
+          ToastUtils.showStandardToast(
+            context,
+            title: '删除成功',
+            msg: '成功删除了"$title"任务项',
+            type: ToastificationType.success,
+          );
         }, // 删除
         label: '删除',
         icon: Icons.delete,

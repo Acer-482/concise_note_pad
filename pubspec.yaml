@@ -18,7 +18,8 @@ dependencies:
   path_provider: ^2.1.5 # 路径获取包
   lottie: ^3.3.2 # 高质量动画包
   flutter_icons_animated: ^1.2.0 # 图标动画包
-  fluttertoast: ^9.0.0 # Toast通知库
+  toastification: ^3.0.3 # Toast通知库
+  
 
   json_annotation: ^4.9.0 # Json注解包
   # osum_serializable: ^0.0.5 # 图标序列包

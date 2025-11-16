@@ -2,7 +2,9 @@ import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
+import 'package:concise_note_pad/util/toast_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:toastification/toastification.dart';
 
 /// 编辑/新建任务页面
 ///
@@ -163,12 +165,25 @@ class _TaskEditPageState extends State<TaskEditPage> {
       // 创建模式
       taskItem = widget.formData.toItem(); // 创建任务项
       TaskManager.instance.addTaskItem(taskItem); // 添加到任务管理器
+      // 输出
+      ToastUtils.showStandardToast(
+        context,
+        title: '创建完成',
+        msg: '成功创建了"${taskItem.title}"任务项',
+        type: ToastificationType.success,
+      );
     } else {
       // 更新模式
       widget.formData.editingTaskItem = null; // 重置覆写
       taskItem = widget.taskItem!; // 设置任务项
       taskItem.updateDateTime = DateTime.now(); // 更新更改时间
       widget.formData.updateItem(taskItem); // 更新任务项
+      ToastUtils.showStandardToast(
+        context,
+        title: '修改完成',
+        msg: '成功修改了"${taskItem.title}"任务项',
+        type: ToastificationType.success,
+      );
     }
     if (!isBatchCreationMode) Navigator.of(context).pop(); // 返回
   }
