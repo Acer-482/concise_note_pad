@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 ///
 /// @Acer-482
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // 初始化绑定
   await MainApp.initSettings(); // 初始化设置
   runApp(
     MultiProvider(
