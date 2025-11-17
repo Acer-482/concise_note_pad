@@ -1,4 +1,5 @@
 import 'package:concise_note_pad/page/home_page.dart';
+import 'package:concise_note_pad/page/settings_page.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/page/task_page/task_page.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +127,19 @@ class _MainPageState extends State<MainPage> {
   // 构建抽屉
   Widget? _buildDrawer(int mode) {
     return Drawer(
-      //
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // DrawerHeader(child: Text('侧边栏')),
+          ListTile(
+            leading: const Icon(Icons.settings_rounded),
+            title: Text('设置'),
+            onTap: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => SettingsPage())),
+          ),
+        ],
+      ),
     ); // 抽屉
   }
 

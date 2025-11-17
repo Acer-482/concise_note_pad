@@ -49,24 +49,30 @@ class SliverComplexAppbar extends StatelessWidget {
       tooltip: '刷新',
       icon: const Icon(Icons.refresh),
     ),
-    IconButton(
-      onPressed: () => _showFilterOption(context),
-      tooltip: '过滤器',
-      icon: const Icon(Icons.filter_list),
-    ),
-    IconButton(
-      onPressed: () => _showSortOption(context),
-      tooltip: '排序方式',
-      icon: const Icon(Icons.sort_rounded),
-    ),
-    IconButton(
-      onPressed: () => _showViewOption(context),
-      tooltip: '切换视图',
-      icon: Icon(Icons.view_list),
-    ),
     PopupMenuButton(
       tooltip: '更多设置',
       itemBuilder: (context) => [
+        PopupMenuItem(
+          child: Row(
+            spacing: 10,
+            children: const [Icon(Icons.filter_list), Text('过滤器')],
+          ),
+          onTap: () => _showFilterOption(context),
+        ),
+        PopupMenuItem(
+          child: Row(
+            spacing: 10,
+            children: const [Icon(Icons.sort_rounded), Text('排序方式')],
+          ),
+          onTap: () => _showSortOption(context),
+        ),
+        PopupMenuItem(
+          child: Row(
+            spacing: 10,
+            children: const [Icon(Icons.view_list), Text('切换视图')],
+          ),
+          onTap: () => _showViewOption(context),
+        ),
         PopupMenuItem(
           child: Row(
             spacing: 10,
