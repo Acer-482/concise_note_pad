@@ -127,22 +127,30 @@ class _MainPageState extends State<MainPage> {
   // 构建抽屉
   Widget? _buildDrawer(int mode) {
     return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // DrawerHeader(child: Text('侧边栏')),
-          ListTile(
-            leading: const Icon(Icons.settings_rounded),
-            title: Text('设置'),
-            onTap: () => Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => SettingsPage())),
-          ),
-        ],
+      child: Padding(
+        padding: EdgeInsetsGeometry.all(20), // 内边距
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          spacing: 10, // 组件距离
+          children: [
+            // DrawerHeader(
+            //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            //   child: Text('侧边栏', style: Theme.of(context).textTheme.titleLarge),
+            // ),
+            Text('侧边栏', style: Theme.of(context).textTheme.titleLarge),
+            ListTile(
+              leading: const Icon(Icons.settings_rounded),
+              title: Text('设置'),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => SettingsPage())),
+            ),
+          ],
+        ),
       ),
     ); // 抽屉
   }
-
+ 
   // 构建底部导航栏
   Widget? _buildBottomNavigationBar(int mode) {
     return mode == 0

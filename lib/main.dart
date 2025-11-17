@@ -41,6 +41,7 @@ class MainApp extends StatelessWidget {
     if (!await loadSettings()) {
       await saveSettings(); // 保存默认设置
     }
+    settings.addListener(() => saveSettings()); // 更改后保存
   }
 
   /// 加载设置
