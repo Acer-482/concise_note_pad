@@ -11,19 +11,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8 # IOS风格图标
-  provider: ^6.1.5 # 状态管理器
   intl: ^0.20.2 # 时间格式化包
-  flutter_slidable: ^4.0.3 # 滑动组件包
+  provider: ^6.1.5 # 状态管理器
   path_provider: ^2.1.5 # 路径获取包
-  lottie: ^3.3.2 # 高质量动画包
-  flutter_icons_animated: ^1.2.0 # 图标动画包
-  toastification: ^3.0.3 # Toast通知库
-  flutter_colorpicker: ^1.1.0 # 颜色获取库
 
   json_annotation: ^4.9.0 # Json注解包
-  # osum_serializable: ^0.0.5 # 图标序列包
-  # freezed_annotation: ^3.1.0 # 多态注解包
+
+  flutter_slidable: ^4.0.3 # 滑动组件包
+  animated_list_plus: ^0.5.2 # 动画列表包
+  toastification: ^3.0.3 # Toast通知库
+
+  cupertino_icons: ^1.0.8 # IOS风格图标
+  lottie: ^3.3.2 # 高质量动画包
+  flutter_icons_animated: ^1.2.0 # 图标动画包
+
+  flutter_colorpicker: ^1.1.0 # 颜色选择器
 
 dev_dependencies:
   flutter_test:
@@ -32,7 +34,6 @@ dev_dependencies:
   build_runner: ^2.10.3 # 代码生成工具包
 
   json_serializable: ^6.11.1 # json序列包
-  # freezed: ^3.2.3 # 多态序列包
 
 flutter:
   uses-material-design: true

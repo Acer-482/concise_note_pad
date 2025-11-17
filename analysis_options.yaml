@@ -1,12 +1,10 @@
 # Dart 静态代码分析器配置
 # 在 IDE 中实时显示代码问题，也可通过 `flutter analyze` 命令运行
 
-# 引入 Flutter 官方推荐的代码规范
-include: package:flutter_lints/flutter.yaml
+include: package:flutter_lints/flutter.yaml # 引入 Flutter 官方推荐的代码规范
 
 linter:
   # 自定义代码检查规则
   rules:
     prefer_single_quotes: true  # 启用偏好单引号规则
-    # 取消注释以下行来启用/禁用特定规则：
     # avoid_print: false    # 禁用避免使用 print 的规则

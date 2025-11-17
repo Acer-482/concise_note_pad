@@ -66,12 +66,11 @@ class SliverComplexState extends ChangeNotifier {
     });
   }
 
-  /// 构建索引的列表项
-  Widget listAt(BuildContext context, int index) =>
-      _taskList[index].buildListTileCard(context, index);
+  /// 获取列表
+  List<TaskItem> get taskList => _taskList;
 
   /// 获取列表项数量
-  int get listSize => TaskManager.instance.taskList.length;
+  int get listSize => _taskList.length;
 
   /// 更新
   void update() {

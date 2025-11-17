@@ -117,9 +117,9 @@ class TaskManager extends ChangeNotifier {
   }
 
   /// 更新 - 更新列表/保存数据/通知监听者更新
-  void update() {
+  void update() async {
     MainApp.logInf('TaskManager 更新');
-    save(); // 保存任务数据
+    await save(); // 保存任务数据
     notifyListeners(); // 通知监听者更新
   }
 
