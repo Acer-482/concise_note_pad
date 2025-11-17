@@ -1,13 +1,13 @@
 import 'package:concise_note_pad/importance_enumeration/important_level.dart';
 import 'package:concise_note_pad/importance_enumeration/important_type.dart';
-import 'package:concise_note_pad/task_item/check_task_item_form_data.dart';
+import 'package:concise_note_pad/task_item/completable_task_item_form_data.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/task_item_form_data.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'check_task_item.g.dart';
+part 'completable_task_item.g.dart';
 
 /// 可完成任务项
 @JsonSerializable()

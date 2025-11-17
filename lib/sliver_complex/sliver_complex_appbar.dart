@@ -1,6 +1,7 @@
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_state.dart';
-import 'package:concise_note_pad/sliver_complex/sort_option_menu.dart';
+import 'package:concise_note_pad/sliver_complex/menu/filter_option_menu.dart';
+import 'package:concise_note_pad/sliver_complex/menu/sort_option_menu.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class SliverComplexAppbar extends StatelessWidget {
       PageUtils.showDefaultModalBottomSheet(
         context,
         title: '过滤器设置',
-        children: [Text('仍在开发中...')],
+        children: [FilterOptionMenu(state: state)],
       );
 
   // 显示排序设置

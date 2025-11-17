@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'check_task_item.dart';
+part of 'completable_task_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
