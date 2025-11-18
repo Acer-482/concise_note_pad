@@ -83,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final settings = MainApp.settings;
     return Scaffold(
-      appBar: PageUtils.buildDefaultAppbar(context, Text('设置')),
+      appBar: AppBar(title: Text('设置')),
       body: Column(
         children: [
           PageUtils.buildDefaultTitleFrame(

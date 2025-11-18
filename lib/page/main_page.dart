@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/page/about_page.dart';
 import 'package:concise_note_pad/page/home_page.dart';
 import 'package:concise_note_pad/page/settings_page.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
@@ -141,16 +142,24 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               leading: const Icon(Icons.settings_rounded),
               title: Text('设置'),
-              onTap: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => SettingsPage())),
-            ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              ),
+            ), // 设置
+            Divider(),
+            ListTile(
+              leading: const Icon(Icons.info_outline_rounded),
+              title: Text('关于'),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AboutPage()),
+              ),
+            ), // 设置
           ],
         ),
       ),
     ); // 抽屉
   }
- 
+
   // 构建底部导航栏
   Widget? _buildBottomNavigationBar(int mode) {
     return mode == 0
