@@ -48,7 +48,6 @@ class _SliverComplexListState extends State<SliverComplexList> {
   @override
   void dispose() {
     widget.state.removeListener(_update); // 删除监听器
-    widget.state.dispose(); // 释放
     super.dispose();
   }
 }

@@ -16,52 +16,52 @@ class SliverComplexAppbar extends StatelessWidget {
   final bool pinned; // 固定在顶部
   final SliverComplexState state; // 状态
 
-  SliverComplexAppbar({
+  const SliverComplexAppbar({
     super.key,
     this.iconData,
     this.title = '',
     this.pinned = false,
-    SliverComplexState? state,
-  }) : state = state ?? SliverComplexState();
+    required this.state,
+  });
+
+  // 显示弹出菜单 //
+  Future<Null> _showPopMenu(
+    BuildContext context, {
+    String? title,
+    EdgeInsetsGeometry? padding,
+    required Widget child,
+  }) => PageUtils.showDefaultModalBottomSheet(
+    context,
+    title: title,
+    padding: padding,
+    child: ChangeNotifierProvider.value(
+      value: state,
+      child: child,
+    ), // 提供ChangeNotifierProvider 此处调用value是为了防止自动调用dispose提前释放state
+  );
 
   // 显示过滤器设置
   Future<Null> _showFilterOption(BuildContext context) =>
-      PageUtils.showDefaultModalBottomSheet(
-        context,
-        title: '过滤器设置',
-        child: const FilterOptionMenu(),
-      );
+      _showPopMenu(context, title: '过滤器设置', child: const FilterOptionMenu());
 
   // 显示排序设置
-  Future<Null> _showSortOption(BuildContext context) =>
-      PageUtils.showDefaultModalBottomSheet(
-        context,
-        child: const SortOptionMenu(),
-      );
+  Future<Null> _showSortOption(BuildContext context) => _showPopMenu(
+    context,
+    padding: EdgeInsets.all(18),
+    child: const SortOptionMenu(),
+  );
 
   // 显示视图设置
   Future<Null> _showViewOption(BuildContext context) =>
-      PageUtils.showDefaultModalBottomSheet(
-        context,
-        title: '视图设置',
-        child: const ViewOptionMenu(),
-      );
+      _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
 
   // 显示导出设置
   Future<Null> _showExportOption(BuildContext context) =>
-      PageUtils.showDefaultModalBottomSheet(
-        context,
-        title: '导出设置',
-        child: const ExportFileOptionMenu(),
-      );
+      _showPopMenu(context, title: '导出设置', child: const ExportFileOptionMenu());
 
   // 显示导入设置
   Future<Null> _showImportOption(BuildContext context) =>
-      PageUtils.showDefaultModalBottomSheet(
-        context,
-        title: '导入设置',
-        child: const ImportFileOptionMenu(),
-      );
+      _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
 
   // 构建 选项按钮
   List<Widget> _buildActions(BuildContext context) => [
@@ -114,13 +114,10 @@ class SliverComplexAppbar extends StatelessWidget {
 
   /// 构建列表项
   @override
-  Widget build(BuildContext context) => Provider<SliverComplexState>(
-    create: (context) => state,
-    child: SliverAppBar(
-      leading: Icon(iconData), // 图标
-      title: Text(title),
-      pinned: pinned, // 固定在顶部
-      actions: _buildActions(context), // 显示选项
-    ),
+  Widget build(BuildContext context) => SliverAppBar(
+    leading: Icon(iconData), // 图标
+    title: Text(title),
+    pinned: pinned, // 固定在顶部
+    actions: _buildActions(context), // 显示选项
   );
 }
