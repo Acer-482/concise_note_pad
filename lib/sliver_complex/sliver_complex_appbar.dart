@@ -1,9 +1,13 @@
+import 'package:concise_note_pad/sliver_complex/menu/export_file_option_menu.dart';
+import 'package:concise_note_pad/sliver_complex/menu/import_file_option_menu.dart';
+import 'package:concise_note_pad/sliver_complex/menu/view_option_menu.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_state.dart';
 import 'package:concise_note_pad/sliver_complex/menu/filter_option_menu.dart';
 import 'package:concise_note_pad/sliver_complex/menu/sort_option_menu.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// 薄片复合应用栏
 class SliverComplexAppbar extends StatelessWidget {
@@ -25,14 +29,14 @@ class SliverComplexAppbar extends StatelessWidget {
       PageUtils.showDefaultModalBottomSheet(
         context,
         title: '过滤器设置',
-        children: [FilterOptionMenu(state: state)],
+        child: const FilterOptionMenu(),
       );
 
   // 显示排序设置
   Future<Null> _showSortOption(BuildContext context) =>
       PageUtils.showDefaultModalBottomSheet(
         context,
-        children: [SortOptionMenu(state: state)],
+        child: const SortOptionMenu(),
       );
 
   // 显示视图设置
@@ -40,7 +44,23 @@ class SliverComplexAppbar extends StatelessWidget {
       PageUtils.showDefaultModalBottomSheet(
         context,
         title: '视图设置',
-        children: [Text('仍在开发中...')],
+        child: const ViewOptionMenu(),
+      );
+
+  // 显示导出设置
+  Future<Null> _showExportOption(BuildContext context) =>
+      PageUtils.showDefaultModalBottomSheet(
+        context,
+        title: '导出设置',
+        child: const ExportFileOptionMenu(),
+      );
+
+  // 显示导入设置
+  Future<Null> _showImportOption(BuildContext context) =>
+      PageUtils.showDefaultModalBottomSheet(
+        context,
+        title: '导入设置',
+        child: const ImportFileOptionMenu(),
       );
 
   // 构建 选项按钮
@@ -79,14 +99,14 @@ class SliverComplexAppbar extends StatelessWidget {
             spacing: 10,
             children: const [Icon(Icons.file_download), Text('导出')],
           ),
-          onTap: () {},
+          onTap: () => _showExportOption(context),
         ), // 导出
         PopupMenuItem(
           child: Row(
             spacing: 10,
             children: const [Icon(Icons.file_open_rounded), Text('导入')],
           ),
-          onTap: () {},
+          onTap: () => _showImportOption(context),
         ), // 导出
       ],
     ),
@@ -94,10 +114,13 @@ class SliverComplexAppbar extends StatelessWidget {
 
   /// 构建列表项
   @override
-  Widget build(BuildContext context) => SliverAppBar(
-    leading: Icon(iconData), // 图标
-    title: Text(title),
-    pinned: pinned, // 固定在顶部
-    actions: _buildActions(context), // 显示选项
+  Widget build(BuildContext context) => Provider<SliverComplexState>(
+    create: (context) => state,
+    child: SliverAppBar(
+      leading: Icon(iconData), // 图标
+      title: Text(title),
+      pinned: pinned, // 固定在顶部
+      actions: _buildActions(context), // 显示选项
+    ),
   );
 }

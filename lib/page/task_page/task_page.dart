@@ -38,7 +38,7 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
     return PageUtils.showDefaultModalBottomSheet(
       context,
       title: '选择任务类型',
-      children: [TaskSelectList()],
+      child: const TaskSelectList(),
     );
   }
 

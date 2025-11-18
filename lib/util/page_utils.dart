@@ -51,7 +51,8 @@ class PageUtils {
   static Future<T?> showDefaultModalBottomSheet<T>(
     BuildContext context, {
     String? title,
-    required List<Widget> children,
+    required Widget child,
+    EdgeInsetsGeometry? padding,
   }) {
     return showModalBottomSheet(
       showDragHandle: true,
@@ -60,16 +61,15 @@ class PageUtils {
         child: Padding(
           padding: EdgeInsets.all(0),
           child: ListView(
-            children:
-                <Widget>[
-                  if (title != null)
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      textAlign: TextAlign.center,
-                    ), // 标题
-                ] +
-                children, // 内容
+            children: <Widget>[
+              if (title != null)
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ), // 标题
+              Container(padding: padding, child: child),
+            ], // 内容
           ),
         ),
       ),
