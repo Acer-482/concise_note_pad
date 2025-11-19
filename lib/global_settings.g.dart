@@ -9,13 +9,13 @@ part of 'global_settings.dart';
 GlobalSettings _$GlobalSettingsFromJson(Map<String, dynamic> json) =>
     GlobalSettings(
       themeColor: json['themeColor'] == null
-          ? Colors.cyan
+          ? GlobalSettings.themeColorDefault
           : const ColorDataConverter().fromJson(
               json['themeColor'] as Map<String, dynamic>,
             ),
       themeMode:
           $enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']) ??
-          ThemeMode.system,
+          GlobalSettings.themeModeDefault,
     );
 
 Map<String, dynamic> _$GlobalSettingsToJson(GlobalSettings instance) =>

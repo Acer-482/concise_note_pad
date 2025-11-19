@@ -1,11 +1,15 @@
 import 'package:concise_note_pad/filter/task_filter.dart';
-import 'package:concise_note_pad/filter/filter_field/text_match_mode.dart';
+import 'package:concise_note_pad/filter/match_mode/text_match_mode.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/field_enum/task_item_text_field.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'text_task_filter.g.dart';
 
 /// 文本字段匹配器
 ///
 /// 允许匹配TaskItem的文本字段
+@JsonSerializable()
 class TextTaskFilter extends TaskFilter {
   /// 字段 - [TaskItemBooleanField] 枚举值
   ///
@@ -28,6 +32,15 @@ class TextTaskFilter extends TaskFilter {
     this.pattern = '',
   });
 
+  factory TextTaskFilter.fromJson(Map<String, dynamic> json) =>
+      _$TextTaskFilterFromJson(json);
+  @override
+  Map<String, dynamic> toJson() {
+    final superMap = super.toJson();
+    superMap.addAll(_$TextTaskFilterToJson(this));
+    return superMap;
+  }
+
   @override
   bool matches(TaskItem taskItem) {
     switch (field) {
@@ -39,6 +52,11 @@ class TextTaskFilter extends TaskFilter {
         return _matchesPattern(taskItem.details);
     }
   }
+
+  @override
+  String get displayName => '文本字段匹配器';
+  @override
+  String get type => 'TextTaskFilter';
 
   /// 根据样板匹配
   bool _matchesPattern(String fieldText) {

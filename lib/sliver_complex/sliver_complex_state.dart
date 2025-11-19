@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/filter/composite_filter.dart';
 import 'package:concise_note_pad/task_item/completable_task_item.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
@@ -17,10 +18,17 @@ enum SortOption {
 /// 复合薄片 状态
 @JsonSerializable()
 class SliverComplexState extends ChangeNotifier {
+  CompositeFilter? compositeFilter; // 复合过滤器
+
   bool isReverseSort; // 反转排序
   SortOption sortOption; // 排序设置
   bool isSortOptionAutoClose; // 自动关闭排序设置页面
-  final List<TaskItem> _taskList = []; // 列表 为TaskManager列表的副本 用于排序
+  /// 任务项列表
+  ///
+  /// 为TaskManager列表的副本
+  ///
+  /// 作用于排序缓冲和UI动画显示
+  final List<TaskItem> _taskList = [];
 
   SliverComplexState({
     this.isReverseSort = true,

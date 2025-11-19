@@ -41,8 +41,12 @@ class SliverComplexAppbar extends StatelessWidget {
   );
 
   // 显示过滤器设置
-  Future<Null> _showFilterOption(BuildContext context) =>
-      _showPopMenu(context, title: '过滤器设置', child: const FilterOptionMenu());
+  Future<Null> _showFilterOption(BuildContext context) => _showPopMenu(
+    context,
+    padding: EdgeInsets.all(18),
+    title: '过滤器设置',
+    child: const FilterOptionMenu(),
+  );
 
   // 显示排序设置
   Future<Null> _showSortOption(BuildContext context) => _showPopMenu(

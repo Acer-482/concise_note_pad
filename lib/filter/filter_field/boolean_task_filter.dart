@@ -1,11 +1,15 @@
-import 'package:concise_note_pad/filter/filter_field/boolean_match_mode.dart';
+import 'package:concise_note_pad/filter/match_mode/boolean_match_mode.dart';
 import 'package:concise_note_pad/filter/task_filter.dart';
 import 'package:concise_note_pad/task_item/field_enum/task_item_boolean_field.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'boolean_task_filter.g.dart';
 
 /// 布尔字段过滤器
 ///
 /// 允许匹配TaskItem的布尔字段
+@JsonSerializable()
 class BooleanTaskFilter extends TaskFilter {
   /// 字段 - [TaskItemBooleanField] 枚举值
   ///
@@ -28,6 +32,15 @@ class BooleanTaskFilter extends TaskFilter {
     this.pattern = false,
   });
 
+  factory BooleanTaskFilter.fromJson(Map<String, dynamic> json) =>
+      _$BooleanTaskFilterFromJson(json);
+  @override
+  Map<String, dynamic> toJson() {
+    final superMap = super.toJson();
+    superMap.addAll(_$BooleanTaskFilterToJson(this));
+    return superMap;
+  }
+
   @override
   bool matches(TaskItem taskItem) {
     switch (field) {
@@ -35,6 +48,11 @@ class BooleanTaskFilter extends TaskFilter {
         return _matchesPattern(taskItem.isEnabled);
     }
   }
+
+  @override
+  String get displayName => '布尔字段过滤器';
+  @override
+  String get type => 'BooleanTaskFilter';
 
   /// 根据样板匹配
   bool _matchesPattern(bool fieldValue) {
