@@ -1,0 +1,1 @@
+enum TaskItemBooleanField { isEnabled }
