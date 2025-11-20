@@ -31,19 +31,19 @@ class _SliverComplexListState extends State<SliverComplexList> {
   @override
   Widget build(BuildContext context) => SlidableAutoCloseBehavior(
     child: SliverImplicitlyAnimatedList<TaskItem>(
-      items: widget.state.taskList, // 您的数据列表
-      areItemsTheSame: (oldItem, newItem) =>
-          oldItem.title == newItem.title, // 比较是否相等
+      items: widget.state.taskList, // 数据列表
       itemBuilder: (context, animation, item, index) {
         return SizeFadeTransition(
           sizeFraction: 0.7,
           curve: Curves.easeInOut,
           animation: animation,
           child: item.buildListTileCard(context),
-        );
-      },
-    ), // Sliver动画列表
-  ); // 自动关闭滑动组件
+        ); // 尺寸渐变组件
+      }, // 列表项构建器
+      areItemsTheSame: (oldItem, newItem) =>
+          oldItem.title == newItem.title, // 比较是否相等
+    ), // Sliver动画列表组件
+  ); // 自动关闭滑动组件 - 防止同时拉开多个Slidable侧边栏
 
   @override
   void dispose() {

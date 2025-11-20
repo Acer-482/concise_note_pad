@@ -1,4 +1,4 @@
-import 'package:concise_note_pad/page/filter_edit_page.dart';
+import 'package:concise_note_pad/page/filter_edit_page/filter_edit_page.dart';
 import 'package:concise_note_pad/page/menu/export_file_option_menu.dart';
 import 'package:concise_note_pad/page/menu/import_file_option_menu.dart';
 import 'package:concise_note_pad/page/menu/view_option_menu.dart';
@@ -6,6 +6,7 @@ import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_state.dart';
 import 'package:concise_note_pad/page/menu/sort_option_menu.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,15 +38,15 @@ class SliverComplexAppbar extends StatelessWidget {
     child: ChangeNotifierProvider.value(
       value: state,
       child: child,
-    ), // 提供ChangeNotifierProvider 此处调用value是为了防止自动调用dispose提前释放state
+    ), // 提供ChangeNotifierProvider - 此处调用value构造是为了防止自动调用dispose提前释放state
   );
 
   // 显示过滤器设置
-  Future<Null> _showFilterOption(BuildContext context) => _showPopMenu(
+  Future<Null> _showFilterOption(BuildContext context) => Navigator.push(
     context,
-    padding: EdgeInsets.all(18),
-    title: '过滤器设置',
-    child: const FilterEditPage(),
+    CupertinoPageRoute(
+      builder: (context) => FilterEditPage(filter: state.compositeFilter),
+    ),
   );
 
   // 显示排序设置

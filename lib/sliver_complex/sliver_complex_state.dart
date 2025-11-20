@@ -18,7 +18,7 @@ enum SortOption {
 /// 复合薄片 状态
 @JsonSerializable()
 class SliverComplexState extends ChangeNotifier {
-  CompositeFilter? compositeFilter; // 复合过滤器
+  CompositeFilter compositeFilter; // 复合过滤器
 
   bool isReverseSort; // 反转排序
   SortOption sortOption; // 排序设置
@@ -31,10 +31,11 @@ class SliverComplexState extends ChangeNotifier {
   final List<TaskItem> _taskList = [];
 
   SliverComplexState({
+    CompositeFilter? compositeFilter,
     this.isReverseSort = true,
     this.sortOption = SortOption.importance,
     this.isSortOptionAutoClose = true,
-  }) {
+  }) : compositeFilter = compositeFilter ?? CompositeFilter() {
     TaskManager.instance.addListener(update); // 添加监听
   }
 

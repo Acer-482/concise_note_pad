@@ -8,17 +8,17 @@ part of 'sliver_complex_state.dart';
 
 SliverComplexState _$SliverComplexStateFromJson(Map<String, dynamic> json) =>
     SliverComplexState(
-        isReverseSort: json['isReverseSort'] as bool? ?? true,
-        sortOption:
-            $enumDecodeNullable(_$SortOptionEnumMap, json['sortOption']) ??
-            SortOption.importance,
-        isSortOptionAutoClose: json['isSortOptionAutoClose'] as bool? ?? true,
-      )
-      ..compositeFilter = json['compositeFilter'] == null
+      compositeFilter: json['compositeFilter'] == null
           ? null
           : CompositeFilter.fromJson(
               json['compositeFilter'] as Map<String, dynamic>,
-            );
+            ),
+      isReverseSort: json['isReverseSort'] as bool? ?? true,
+      sortOption:
+          $enumDecodeNullable(_$SortOptionEnumMap, json['sortOption']) ??
+          SortOption.importance,
+      isSortOptionAutoClose: json['isSortOptionAutoClose'] as bool? ?? true,
+    );
 
 Map<String, dynamic> _$SliverComplexStateToJson(SliverComplexState instance) =>
     <String, dynamic>{
