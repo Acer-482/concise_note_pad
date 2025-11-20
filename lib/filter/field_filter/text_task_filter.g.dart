@@ -8,25 +8,17 @@ part of 'text_task_filter.dart';
 
 TextTaskFilter _$TextTaskFilterFromJson(Map<String, dynamic> json) =>
     TextTaskFilter(
-      field: $enumDecode(_$TaskItemTextFieldEnumMap, json['field']),
-      mode:
-          $enumDecodeNullable(_$TextMatchModeEnumMap, json['mode']) ??
-          TextMatchMode.exact,
+      field: json['field'] as String,
+      mode: $enumDecode(_$TextMatchModeEnumMap, json['mode']),
       pattern: json['pattern'] as String? ?? '',
     );
 
 Map<String, dynamic> _$TextTaskFilterToJson(TextTaskFilter instance) =>
     <String, dynamic>{
-      'field': _$TaskItemTextFieldEnumMap[instance.field]!,
+      'field': instance.field,
       'mode': _$TextMatchModeEnumMap[instance.mode]!,
       'pattern': instance.pattern,
     };
-
-const _$TaskItemTextFieldEnumMap = {
-  TaskItemTextField.title: 'title',
-  TaskItemTextField.subTitle: 'subTitle',
-  TaskItemTextField.details: 'details',
-};
 
 const _$TextMatchModeEnumMap = {
   TextMatchMode.contains: 'contains',

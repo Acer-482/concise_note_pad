@@ -1,5 +1,5 @@
-import 'package:concise_note_pad/filter/filter_field/boolean_task_filter.dart';
-import 'package:concise_note_pad/filter/filter_field/text_task_filter.dart';
+import 'package:concise_note_pad/filter/field_filter/boolean_task_filter.dart';
+import 'package:concise_note_pad/filter/field_filter/text_task_filter.dart';
 import 'package:concise_note_pad/filter/task_filter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
