@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
-/// 过滤器设置菜单
-class FilterOptionMenu extends StatefulWidget {
-  const FilterOptionMenu({super.key});
+/// 过滤器编辑菜单
+class FilterEditMenu extends StatefulWidget {
+  const FilterEditMenu({super.key});
 
   @override
-  State<StatefulWidget> createState() => _FilterOptionMenuState();
+  State<StatefulWidget> createState() => _FilterEditMenuState();
 }
 
-class _FilterOptionMenuState extends State<FilterOptionMenu> {
+class _FilterEditMenuState extends State<FilterEditMenu> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SliverComplexState>(

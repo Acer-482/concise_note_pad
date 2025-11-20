@@ -3,7 +3,7 @@ import 'package:concise_note_pad/sliver_complex/menu/import_file_option_menu.dar
 import 'package:concise_note_pad/sliver_complex/menu/view_option_menu.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_state.dart';
-import 'package:concise_note_pad/sliver_complex/menu/filter_option_menu.dart';
+import 'package:concise_note_pad/sliver_complex/menu/filter_edit_menu.dart';
 import 'package:concise_note_pad/sliver_complex/menu/sort_option_menu.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class SliverComplexAppbar extends StatelessWidget {
     context,
     padding: EdgeInsets.all(18),
     title: '过滤器设置',
-    child: const FilterOptionMenu(),
+    child: const FilterEditMenu(),
   );
 
   // 显示排序设置
