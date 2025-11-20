@@ -59,16 +59,19 @@ class PageUtils {
     return showModalBottomSheet(
       showDragHandle: true, // 显示拖动句柄
       context: context,
-      builder: (context) => ListView(
-        children: <Widget>[
-          if (title != null)
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            ), // 标题
-          Container(padding: padding, child: child),
-        ], // 内容,
+      builder: (context) => Container(
+        padding: padding,
+        child: Column(
+          children: <Widget>[
+            if (title != null)
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ), // 标题
+            child,
+          ], // 内容,
+        ),
       ),
     ); // 显示模态底部表
   }

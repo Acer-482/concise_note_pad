@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:concise_note_pad/config_helper.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/global_settings.dart';
 import 'package:concise_note_pad/log_level.dart';
 import 'package:concise_note_pad/page/main_page.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 /// @Acer-482
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // 初始化绑定
+  TaskFilterRegistry.instance.initAllRegister(); // 初始化过滤器的注册器
   await MainApp.initSettings(); // 初始化设置
   runApp(
     MultiProvider(

@@ -1,5 +1,5 @@
-import 'package:concise_note_pad/filter/field_filter/boolean_task_filter.dart';
-import 'package:concise_note_pad/filter/field_filter/text_task_filter.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/filter/task_filter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -14,13 +14,11 @@ class TaskFilterConverter
   @override
   TaskFilter fromJson(Map<String, dynamic> json) {
     final type = json['type'] as String;
-    switch (type) {
-      case 'TextFilter':
-        return TextTaskFilter.fromJson(json);
-      case 'BooleanFilter':
-        return BooleanTaskFilter.fromJson(json);
-      default:
-        throw ArgumentError('Unknown filter type: $type');
+    final TaskFilterRegistration? registration = TaskFilterRegistry.instance.getRegistration(json[type]);
+    if (registration == null) {
+      throw ArgumentError('Unknown filter type: $type');
+    } else {
+      return registration.fromJson(json);
     }
   }
 

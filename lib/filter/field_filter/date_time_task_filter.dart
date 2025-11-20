@@ -1,12 +1,15 @@
 import 'package:concise_note_pad/filter/match_mode/date_time_match_mode.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/filter/task_field_filtter.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'date_time_task_filter.g.dart';
 
 /// 时间字段过滤器
 ///
-/// 允许匹配TaskItem的布尔字段
+/// 支持匹配任意时间字段
 @JsonSerializable()
 class DateTimeTaskFilter
     extends TaskFieldFiltter<DateTime, Duration, DateTimeMatchMode> {
@@ -15,6 +18,20 @@ class DateTimeTaskFilter
     required super.mode,
     super.pattern = const Duration(seconds: 1),
   });
+
+  /// 注册
+  static void initRegistry() {
+    TaskFilterRegistry.instance.register(
+      TaskFilterRegistration(
+        type: 'DateTimeTaskFilter',
+        displayName: '时间字段过滤器',
+        description: '支持匹配任意时间字段',
+        iconData: Icons.access_time_filled,
+        toJson: (item) => item.toJson(),
+        fromJson: (json) => DateTimeTaskFilter.fromJson(json),
+      ),
+    );
+  }
 
   factory DateTimeTaskFilter.fromJson(Map<String, dynamic> json) =>
       _$DateTimeTaskFilterFromJson(json);
@@ -25,8 +42,6 @@ class DateTimeTaskFilter
     return superMap;
   }
 
-  @override
-  String get displayName => '时间字段过滤器';
   @override
   String get type => 'DateTimeTaskFilter';
 }

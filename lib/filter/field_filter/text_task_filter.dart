@@ -1,12 +1,15 @@
+import 'package:concise_note_pad/filter/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/filter/task_field_filtter.dart';
 import 'package:concise_note_pad/filter/match_mode/text_match_mode.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'text_task_filter.g.dart';
 
 /// 文本字段匹配器
 ///
-/// 允许匹配TaskItem的文本字段
+/// 支持匹配任意文本字段，支持正则表达式
 @JsonSerializable()
 class TextTaskFilter extends TaskFieldFiltter<String, String, TextMatchMode> {
   TextTaskFilter({
@@ -14,6 +17,20 @@ class TextTaskFilter extends TaskFieldFiltter<String, String, TextMatchMode> {
     required super.mode,
     super.pattern = '',
   });
+
+  /// 注册
+  static void initRegistry() {
+    TaskFilterRegistry.instance.register(
+      TaskFilterRegistration(
+        type: 'TextTaskFilter',
+        displayName: '文本字段匹配器',
+        description: '支持匹配任意文本字段，支持正则表达式',
+        iconData: Icons.abc,
+        toJson: (item) => item.toJson(),
+        fromJson: (json) => TextTaskFilter.fromJson(json),
+      ),
+    );
+  }
 
   factory TextTaskFilter.fromJson(Map<String, dynamic> json) =>
       _$TextTaskFilterFromJson(json);
@@ -24,8 +41,6 @@ class TextTaskFilter extends TaskFieldFiltter<String, String, TextMatchMode> {
     return superMap;
   }
 
-  @override
-  String get displayName => '文本字段匹配器';
   @override
   String get type => 'TextTaskFilter';
 }

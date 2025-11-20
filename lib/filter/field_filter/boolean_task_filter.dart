@@ -1,12 +1,15 @@
 import 'package:concise_note_pad/filter/match_mode/boolean_match_mode.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/filter/task_field_filtter.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'boolean_task_filter.g.dart';
 
 /// 布尔字段过滤器
 ///
-/// 允许匹配TaskItem的布尔字段
+/// 支持匹配任意布尔字段
 @JsonSerializable()
 class BooleanTaskFilter extends TaskFieldFiltter<bool, bool, BooleanMatchMode> {
   BooleanTaskFilter({
@@ -14,6 +17,20 @@ class BooleanTaskFilter extends TaskFieldFiltter<bool, bool, BooleanMatchMode> {
     required super.mode,
     super.pattern = false,
   });
+
+  /// 注册
+  static void initRegistry() {
+    TaskFilterRegistry.instance.register(
+      TaskFilterRegistration(
+        type: 'BooleanTaskFilter',
+        displayName: '布尔字段过滤器',
+        description: '支持匹配任意布尔字段',
+        iconData: Icons.check_box,
+        toJson: (item) => item.toJson(),
+        fromJson: (json) => BooleanTaskFilter.fromJson(json),
+      ),
+    );
+  }
 
   factory BooleanTaskFilter.fromJson(Map<String, dynamic> json) =>
       _$BooleanTaskFilterFromJson(json);
@@ -24,8 +41,6 @@ class BooleanTaskFilter extends TaskFieldFiltter<bool, bool, BooleanMatchMode> {
     return superMap;
   }
 
-  @override
-  String get displayName => '布尔字段过滤器';
   @override
   String get type => 'BooleanTaskFilter';
 }

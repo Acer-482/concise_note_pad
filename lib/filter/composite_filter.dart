@@ -1,6 +1,9 @@
 import 'package:concise_note_pad/converter/task_filter_converter.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/filter/task_filter.dart';
 import 'package:concise_note_pad/task_item/task_item.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'composite_filter.g.dart';
@@ -20,6 +23,20 @@ class CompositeFilter extends TaskFilter {
   ///
   /// 当值为false时，所有过滤器都不满足则返回[false]
   bool isAndLogic;
+
+  /// 注册
+  static void initRegistry() {
+    TaskFilterRegistry.instance.register(
+      TaskFilterRegistration(
+        type: 'CompositeFilter',
+        displayName: '复合过滤器',
+        description: '允许添加多个过滤器 按照逻辑选择过滤',
+        iconData: Icons.multitrack_audio,
+        toJson: (item) => item.toJson(),
+        fromJson: (json) => CompositeFilter.fromJson(json),
+      ),
+    );
+  }
 
   CompositeFilter({this.filterList = const [], this.isAndLogic = false});
 
@@ -47,8 +64,6 @@ class CompositeFilter extends TaskFilter {
     return superMap;
   }
 
-  @override
-  String get displayName => '复合过滤器';
   @override
   String get type => 'CompositeFilter';
 }

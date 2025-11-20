@@ -13,6 +13,22 @@ class SortOptionMenu extends StatefulWidget {
 }
 
 class _SortOptionMenuState extends State<SortOptionMenu> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SliverComplexState>(
+      builder: (context, state, child) => Expanded(
+        child: ListView(
+          children: [
+            _buildSortReverseButton(state),
+            _buildAutoCloseCheckBox(state),
+            Divider(),
+            _buildSortOptionRadioGroup(state),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// 构建排序方式按钮
   Widget _buildSortReverseButton(SliverComplexState state) => ListTile(
     title: const Text('排序方式：'),
@@ -96,19 +112,4 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
           ],
         ),
       );
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<SliverComplexState>(
-      builder: (context, state, child) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildSortReverseButton(state),
-          _buildAutoCloseCheckBox(state),
-          Divider(),
-          _buildSortOptionRadioGroup(state),
-        ],
-      ),
-    );
-  }
 }

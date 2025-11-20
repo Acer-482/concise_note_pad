@@ -1,6 +1,7 @@
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:concise_note_pad/filter/composite_filter.dart';
 import 'package:concise_note_pad/filter/task_filter.dart';
+import 'package:concise_note_pad/page/menu/filter_type_menu.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +99,11 @@ class _FilterEditPageState extends State<FilterEditPage> {
     CompositeFilter compositeFilter,
   ) {
     return [
-      IconButton(onPressed: () {}, tooltip: '添加', icon: const Icon(Icons.add)),
+      IconButton(
+        onPressed: _showFilterTypeMenu,
+        tooltip: '添加',
+        icon: const Icon(Icons.add),
+      ),
     ];
   }
 
@@ -129,6 +134,14 @@ class _FilterEditPageState extends State<FilterEditPage> {
         ),
       ),
       areItemsTheSame: (oldItem, newItem) => oldItem == newItem,
+    );
+  }
+
+  /// 选择过滤器类型页面
+  void _showFilterTypeMenu() {
+    PageUtils.showDefaultModalBottomSheet(
+      context,
+      child: const FilterTypeMenu(),
     );
   }
 }

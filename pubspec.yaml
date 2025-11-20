@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   package_info_plus: ^9.0.0 # 包信息
+  # reflectable: ^5.0.1 # 反射包
+  # source_gen: ^4.1.1 # 源码生成包
   intl: ^0.20.2 # 时间格式化包
   provider: ^6.1.5 # 状态管理器
   path_provider: ^2.1.5 # 路径获取包
