@@ -55,23 +55,18 @@ class PageUtils {
     EdgeInsetsGeometry? padding,
   }) {
     return showModalBottomSheet(
-      showDragHandle: true,
+      showDragHandle: true, // 显示拖动句柄
       context: context,
-      builder: (context) => Card(
-        child: Padding(
-          padding: EdgeInsets.all(0),
-          child: ListView(
-            children: <Widget>[
-              if (title != null)
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
-                ), // 标题
-              Container(padding: padding, child: child),
-            ], // 内容
-          ),
-        ),
+      builder: (context) => ListView(
+        children: <Widget>[
+          if (title != null)
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ), // 标题
+          Container(padding: padding, child: child),
+        ], // 内容,
       ),
     ); // 显示模态底部表
   }
