@@ -1,10 +1,10 @@
-import 'package:concise_note_pad/sliver_complex/menu/export_file_option_menu.dart';
-import 'package:concise_note_pad/sliver_complex/menu/import_file_option_menu.dart';
-import 'package:concise_note_pad/sliver_complex/menu/view_option_menu.dart';
+import 'package:concise_note_pad/page/filter_edit_page.dart';
+import 'package:concise_note_pad/page/menu/export_file_option_menu.dart';
+import 'package:concise_note_pad/page/menu/import_file_option_menu.dart';
+import 'package:concise_note_pad/page/menu/view_option_menu.dart';
 import 'package:concise_note_pad/util/page_utils.dart';
 import 'package:concise_note_pad/sliver_complex/sliver_complex_state.dart';
-import 'package:concise_note_pad/sliver_complex/menu/filter_edit_menu.dart';
-import 'package:concise_note_pad/sliver_complex/menu/sort_option_menu.dart';
+import 'package:concise_note_pad/page/menu/sort_option_menu.dart';
 import 'package:concise_note_pad/task_item/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class SliverComplexAppbar extends StatelessWidget {
     required this.state,
   });
 
-  // 显示弹出菜单 //
+  // 显示弹出菜单
   Future<Null> _showPopMenu(
     BuildContext context, {
     String? title,
@@ -45,7 +45,7 @@ class SliverComplexAppbar extends StatelessWidget {
     context,
     padding: EdgeInsets.all(18),
     title: '过滤器设置',
-    child: const FilterEditMenu(),
+    child: const FilterEditPage(),
   );
 
   // 显示排序设置
@@ -67,7 +67,7 @@ class SliverComplexAppbar extends StatelessWidget {
   Future<Null> _showImportOption(BuildContext context) =>
       _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
 
-  // 构建 选项按钮
+  // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
     IconButton(
       onPressed: () => TaskManager.instance.update(),
