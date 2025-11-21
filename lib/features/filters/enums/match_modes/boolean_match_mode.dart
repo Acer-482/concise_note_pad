@@ -10,7 +10,7 @@ enum BooleanMatchMode with MatchModeMixin<bool, bool> {
 
   @override
   String get displayName => switch (this) {
-    exact => '精确',
+    exact => '相同',
     and => '与逻辑',
     or => '或逻辑',
     not => '非逻辑',
@@ -26,6 +26,6 @@ enum BooleanMatchMode with MatchModeMixin<bool, bool> {
     BooleanMatchMode.and => fieldValue && pattern,
     BooleanMatchMode.or => fieldValue || pattern,
     BooleanMatchMode.not => !fieldValue,
-    BooleanMatchMode.xor => fieldValue ^ pattern,
+    BooleanMatchMode.xor => fieldValue != pattern,
   };
 }
