@@ -2,7 +2,7 @@ import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/date_time_match_mode.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
-import 'package:concise_note_pad/features/filters/models/task_field_filtter.dart';
+import 'package:concise_note_pad/features/filters/models/task_field_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,7 +13,7 @@ part 'date_time_task_filter.g.dart';
 /// 支持匹配任意时间字段
 @JsonSerializable()
 class DateTimeTaskFilter
-    extends TaskFieldFiltter<DateTime, Duration, DateTimeMatchMode> {
+    extends TaskFieldFilter<DateTime, Duration, DateTimeMatchMode> {
   DateTimeTaskFilter({
     required super.field,
     required super.mode,

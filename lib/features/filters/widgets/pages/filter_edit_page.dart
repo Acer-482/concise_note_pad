@@ -1,21 +1,25 @@
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:concise_note_pad/features/filters/models/composite_filter.dart';
+import 'package:concise_note_pad/features/filters/models/task_field_filter.dart';
 import 'package:concise_note_pad/features/filters/models/task_filter.dart';
+import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/features/filters/widgets/menus/filter_type_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
+import 'package:concise_note_pad/features/filters/widgets/menus/task_field_filter_form_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FilterEditPage extends StatefulWidget {
-  final TaskFilter filter; // 编辑的过滤器
+/// 字段过滤器编辑页面
+class FilterFieldEditPage extends StatefulWidget {
+  final CompositeFilter filter; // 编辑的过滤器
 
-  const FilterEditPage({super.key, required this.filter});
+  const FilterFieldEditPage({super.key, required this.filter});
 
   @override
-  State<StatefulWidget> createState() => _FilterEditPageState();
+  State<StatefulWidget> createState() => _FilterFieldEditPageState();
 }
 
-class _FilterEditPageState extends State<FilterEditPage> {
+class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,38 +36,23 @@ class _FilterEditPageState extends State<FilterEditPage> {
 
   // 构架主题
   Widget _buildBody() {
-    final List<Widget> children;
-    // 检测是否为复合过滤器 //
-    if (widget.filter is CompositeFilter) {
-      CompositeFilter compositeFilter = widget.filter as CompositeFilter;
-      children = [
-        _buildCompositeListTile(compositeFilter),
+    return Column(
+      children: [
+        _buildCompositeListTile(widget.filter),
         Divider(),
-        Expanded(child: _buildCompositeFilterView(compositeFilter)),
-      ];
-    } else {
-      children = [];
-    }
-    // 构建 //
-    return Column(children: children);
+        Expanded(child: _buildCompositeFilterView(widget.filter)),
+      ],
+    );
   }
 
-  // 构建复合过滤器列表项
+  // 构建复合过滤器基本列表项
   Widget _buildCompositeListTile(CompositeFilter compositeFilter) {
     return ListTile(
       title: Text('过滤器模式'),
       trailing: SegmentedButton<bool>(
         segments: [
-          ButtonSegment(
-            value: false,
-            icon: Icon(Icons.arrow_drop_up_rounded),
-            label: Text('逻辑或'),
-          ),
-          ButtonSegment(
-            value: true,
-            icon: Icon(Icons.arrow_drop_down_rounded),
-            label: Text('逻辑与'),
-          ),
+          ButtonSegment(value: false, label: Text('逻辑或')),
+          ButtonSegment(value: true, label: Text('逻辑与')),
         ],
         selected: {compositeFilter.isAndLogic},
         onSelectionChanged: (Set<bool> newSelection) {
@@ -71,7 +60,6 @@ class _FilterEditPageState extends State<FilterEditPage> {
             () => compositeFilter.isAndLogic = newSelection.first,
           ); // 更新状态
         },
-        showSelectedIcon: false, // 显示选中图标
       ),
     );
   }
@@ -112,34 +100,29 @@ class _FilterEditPageState extends State<FilterEditPage> {
   Widget _buildCompositeFilterList(CompositeFilter compositeFilter) {
     return SliverImplicitlyAnimatedList<TaskFilter>(
       items: compositeFilter.filterList,
-      itemBuilder: (context, animation, item, i) => ListTile(
-        title: Text(item.displayName),
+      itemBuilder: (context, animation, filter, i) => ListTile(
+        leading: Icon(
+          TaskFilterRegistry.instance.getRegistration(filter.type)!.iconData,
+        ),
+        title: Text(filter.displayName), // 标题
+        subtitle: Text(filter.stateusInfo), // 状态信息
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           spacing: 8,
           children: [
             IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => FilterEditPage(filter: item),
-                ),
-              ),
+              onPressed: () => _editFilter(filter),
               tooltip: '编辑',
               icon: const Icon(Icons.edit),
             ),
             IconButton(
-              onPressed: () => PageUtils.showDeleteConfirmDialog(
-                context,
-                completedMessage: '删除"${item.displayName}"过滤器成功',
-                confirmFunc: () =>
-                    setState(() => compositeFilter.filterList.remove(item)),
-              ),
+              onPressed: () => _removeFilter(compositeFilter, filter),
               tooltip: '删除',
               icon: const Icon(Icons.delete, color: Colors.red),
             ),
           ],
-        ),
+        ), // 选项组
+        onTap: () => _editFilter(filter),
       ),
       areItemsTheSame: (oldItem, newItem) => oldItem == newItem,
     );
@@ -151,9 +134,43 @@ class _FilterEditPageState extends State<FilterEditPage> {
       context,
       child: const FilterTypeMenu(),
     );
+    // 判断返回的过滤器是否为空
     if (filter != null) {
-      (widget.filter as CompositeFilter).filterList.add(filter);
+      widget.filter.filterList.add(filter); // 添加
       setState(() {}); // 更新
     }
+  }
+
+  /// 编辑过滤器
+  void _editFilter<T>(TaskFilter filter) async {
+    if (filter is CompositeFilter) {
+      await Navigator.push<T>(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => FilterFieldEditPage(filter: filter),
+        ),
+      );
+    } else if (filter is TaskFieldFilter) {
+      await PageUtils.showDefaultModalBottomSheet(
+        context,
+        child: TaskFieldFilterFormMenu.edit(filter: filter),
+      );
+      setState(() {}); // 更新状态
+    } else {
+      throw Exception('未知过滤器类型');
+    }
+  }
+
+  // 删除过滤器
+  Future<bool> _removeFilter<T>(
+    CompositeFilter compositeFilter,
+    TaskFilter filter,
+  ) {
+    return PageUtils.showDeleteConfirmDialog(
+      context,
+      completedMessage: '删除"${filter.displayName}"过滤器成功',
+      confirmFunc: () =>
+          setState(() => compositeFilter.filterList.remove(filter)),
+    );
   }
 }

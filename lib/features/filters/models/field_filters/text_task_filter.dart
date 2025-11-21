@@ -1,7 +1,7 @@
 import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
-import 'package:concise_note_pad/features/filters/models/task_field_filtter.dart';
+import 'package:concise_note_pad/features/filters/models/task_field_filter.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/text_match_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -12,7 +12,7 @@ part 'text_task_filter.g.dart';
 ///
 /// 支持匹配任意文本字段，支持正则表达式
 @JsonSerializable()
-class TextTaskFilter extends TaskFieldFiltter<String, String, TextMatchMode> {
+class TextTaskFilter extends TaskFieldFilter<String, String, TextMatchMode> {
   TextTaskFilter({
     required super.field,
     required super.mode,

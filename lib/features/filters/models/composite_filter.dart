@@ -68,4 +68,8 @@ class CompositeFilter extends TaskFilter {
 
   @override
   String get type => 'CompositeFilter';
+
+  @override
+  String get stateusInfo =>
+      '逻辑模式：${isAndLogic ? '与' : '或'}，成员数量:"${filterList.length}"';
 }

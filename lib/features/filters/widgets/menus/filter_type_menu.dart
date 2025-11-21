@@ -42,7 +42,7 @@ class _FilterTypeMenuState extends State<FilterTypeMenu> {
                       context,
                       CupertinoPageRoute(
                         builder: (context) =>
-                            FilterEditPage(filter: taskFilter),
+                            FilterFieldEditPage(filter: taskFilter),
                       ),
                     );
                     _popResult(taskFilter);
@@ -50,7 +50,7 @@ class _FilterTypeMenuState extends State<FilterTypeMenu> {
                     final taskFilter =
                         await PageUtils.showDefaultModalBottomSheet(
                           context,
-                          child: TaskFieldFilterFormMenu(
+                          child: TaskFieldFilterFormMenu.add(
                             registration: registration,
                           ),
                         );

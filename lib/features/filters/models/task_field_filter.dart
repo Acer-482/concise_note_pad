@@ -8,7 +8,7 @@ import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 /// [T] - 字段类型
 /// [S] - 样板类型
 /// [M] - 字段匹配模式混合的实现枚举/类
-abstract class TaskFieldFiltter<T, S, M extends MatchModeMixin>
+abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
     extends TaskFilter {
   /// 字段名称
   ///
@@ -25,11 +25,14 @@ abstract class TaskFieldFiltter<T, S, M extends MatchModeMixin>
   /// 将会在匹配时作为样板/条件来过滤内容
   S pattern;
 
-  TaskFieldFiltter({
+  TaskFieldFilter({
     required this.field,
     required this.mode,
     required this.pattern,
   });
+
+  @override
+  String get stateusInfo => '字段: "$field", 样板: $pattern, 模式: ${mode.displayName}';
 
   @override
   bool matches(TaskItem taskItem) {

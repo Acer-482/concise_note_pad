@@ -1,19 +1,21 @@
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
 import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
-import 'package:concise_note_pad/features/filters/models/task_field_filtter.dart';
+import 'package:concise_note_pad/features/filters/models/task_field_filter.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
 /// 任务字段过滤器表单菜单
 class TaskFieldFilterFormMenu extends StatefulWidget {
+  final TaskFieldFilter? taskFieldFilter; // 任务字段过滤器 为空时为创建模式
   final TaskFilterRegistration registration;
   final MatchModeMixin? matchModeMixin; // 模式
   final String field; // 字段
   final String pattern; // 样板
 
   // 创建字段过滤器
-  TaskFieldFiltter createFieldFilter(
+  TaskFieldFilter createFieldFilter(
     String field,
     MatchModeMixin mode,
     String pattern,
@@ -24,13 +26,19 @@ class TaskFieldFilterFormMenu extends StatefulWidget {
     return registration.buildField!(field, mode, pattern);
   }
 
-  const TaskFieldFilterFormMenu({
+  const TaskFieldFilterFormMenu.add({
     super.key,
     required this.registration,
     this.matchModeMixin,
     this.field = '',
     this.pattern = '',
-  });
+  }) : taskFieldFilter = null;
+  TaskFieldFilterFormMenu.edit({super.key, required TaskFieldFilter filter})
+    : taskFieldFilter = filter,
+      registration = TaskFilterRegistry.instance.getRegistration(filter.type)!,
+      matchModeMixin = filter.mode,
+      field = filter.field,
+      pattern = filter.pattern.toString();
 
   @override
   State<StatefulWidget> createState() => _TaskFieldFilterFormMenuState();
@@ -45,7 +53,9 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
   @override
   void initState() {
     super.initState();
+    _fieldController.text = widget.field;
     matchModeMixin = widget.matchModeMixin;
+    _patternController.text = widget.pattern;
   }
 
   @override
@@ -105,31 +115,48 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
                 label: const Text('取消'),
               ), // 创建按钮
               ElevatedButton.icon(
-                onPressed: () {
-                  if (matchModeMixin == null) {
-                    ToastUtils.showStandardToast(
-                      context,
-                      title: '表单验证错误',
-                      msg: '必须选择样板模式',
-                      type: ToastificationType.error,
-                    );
-                    return;
-                  }
-                  final fieldFilter = widget.createFieldFilter(
-                    _fieldController.text,
-                    matchModeMixin!,
-                    _patternController.text,
-                  );
-                  return Navigator.pop(context, fieldFilter);
-                },
-                icon: const Icon(Icons.add),
-                label: const Text('创建'),
+                onPressed: _submit,
+                icon: Icon(
+                  widget.taskFieldFilter == null ? Icons.add : Icons.save,
+                ),
+                label: Text(widget.taskFieldFilter == null ? '创建' : '保存'),
               ), // 创建按钮
             ],
           ),
         ],
       ),
     );
+  }
+
+  /// 提交
+  void _submit() {
+    // 样板模式不能为空
+    if (matchModeMixin == null) {
+      ToastUtils.showStandardToast(
+        context,
+        title: '表单验证错误',
+        msg: '必须选择样板模式',
+        type: ToastificationType.error,
+      );
+      return;
+    }
+    // 判断模式
+    if (widget.taskFieldFilter == null) {
+      // 创建
+      final fieldFilter = widget.createFieldFilter(
+        _fieldController.text,
+        matchModeMixin!,
+        _patternController.text,
+      );
+      Navigator.pop(context, fieldFilter); // 返回上一页，附带新的任务字段过滤器
+    } else {
+      // 保存
+      widget.taskFieldFilter!
+        ..field = _fieldController.text
+        ..mode = matchModeMixin!
+        ..pattern = _patternController.text;
+      Navigator.pop(context); // 返回上一页
+    }
   }
 
   @override

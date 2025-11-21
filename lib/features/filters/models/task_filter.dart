@@ -15,7 +15,11 @@ abstract class TaskFilter {
     return TaskFilterRegistry.instance.getRegistration(type)!.displayName;
   }
 
+  /// 获取类型 用于辅助Json
   String get type;
+
+  /// 获取状态 用于显示当前过滤器的状态
+  String get stateusInfo;
 
   @mustCallSuper
   Map<String, dynamic> toJson() {

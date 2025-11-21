@@ -1,5 +1,5 @@
 import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
-import 'package:concise_note_pad/features/filters/models/task_field_filtter.dart';
+import 'package:concise_note_pad/features/filters/models/task_field_filter.dart';
 import 'package:concise_note_pad/features/filters/models/task_filter.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class TaskFilterRegistration {
   final List<MatchModeMixin> Function()? modeValues;
 
   /// 构造
-  final TaskFieldFiltter Function(
+  final TaskFieldFilter Function(
     String field,
     MatchModeMixin mode,
     dynamic pattern,
