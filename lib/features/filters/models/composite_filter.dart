@@ -48,12 +48,12 @@ class CompositeFilter extends TaskFilter {
       for (var filter in filterList) {
         if (!filter.matches(taskItem)) return false;
       }
-      return true;
+      return true != isReverse;
     } else {
       for (var filter in filterList) {
         if (filter.matches(taskItem)) return true;
       }
-      return false;
+      return false != isReverse;
     }
   }
 
@@ -71,5 +71,5 @@ class CompositeFilter extends TaskFilter {
 
   @override
   String get stateusInfo =>
-      '逻辑模式：${isAndLogic ? '与' : '或'}，成员数量:"${filterList.length}"';
+      '逻辑模式：${isAndLogic ? '与' : '或'}，成员数量:"${filterList.length}"${isReverse ? '，已反转' : ''}';
 }

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 ///
 /// 提供过滤方法 实现此方法可过滤taskItem
 abstract class TaskFilter {
+  bool isReverse = false; // 反转条件
+  
   /// 匹配任务
   ///
   /// 当匹配项满足条件时，返回true

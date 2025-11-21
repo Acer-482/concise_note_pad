@@ -9,9 +9,10 @@ import 'package:toastification/toastification.dart';
 /// 任务字段过滤器表单菜单
 class TaskFieldFilterFormMenu extends StatefulWidget {
   final TaskFieldFilter? taskFieldFilter; // 任务字段过滤器 为空时为创建模式
-  final TaskFilterRegistration registration;
-  final MatchModeMixin? matchModeMixin; // 模式
+  final TaskFilterRegistration registration; // 任务过滤器注册项
+  final bool isReverse; // 反转
   final String field; // 字段
+  final MatchModeMixin? matchModeMixin; // 模式
   final String pattern; // 样板
 
   // 创建字段过滤器
@@ -32,12 +33,14 @@ class TaskFieldFilterFormMenu extends StatefulWidget {
     this.matchModeMixin,
     this.field = '',
     this.pattern = '',
-  }) : taskFieldFilter = null;
+  }) : taskFieldFilter = null,
+       isReverse = false;
   TaskFieldFilterFormMenu.edit({super.key, required TaskFieldFilter filter})
     : taskFieldFilter = filter,
+      isReverse = filter.isReverse,
       registration = TaskFilterRegistry.instance.getRegistration(filter.type)!,
-      matchModeMixin = filter.mode,
       field = filter.field,
+      matchModeMixin = filter.mode,
       pattern = filter.pattern.toString();
 
   @override
@@ -46,6 +49,7 @@ class TaskFieldFilterFormMenu extends StatefulWidget {
 
 class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
     extends State<TaskFieldFilterFormMenu> {
+  late bool isReverse; // 反转
   final TextEditingController _fieldController = TextEditingController();
   late MatchModeMixin? matchModeMixin; // 模式
   final TextEditingController _patternController = TextEditingController();
@@ -53,6 +57,8 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
   @override
   void initState() {
     super.initState();
+    // 同步复制到表单 //
+    isReverse = widget.isReverse;
     _fieldController.text = widget.field;
     matchModeMixin = widget.matchModeMixin;
     _patternController.text = widget.pattern;
@@ -79,6 +85,11 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
               labelText: '样板',
             ),
           ),
+          CheckboxListTile(
+            value: isReverse,
+            title: Text('反转过滤器'),
+            onChanged: (value) => setState(() => isReverse = value!),
+          ), // 反转过滤器
           ListTile(
             title: Text('样板模式'),
             trailing: DropdownButton(
@@ -142,16 +153,19 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
     }
     // 判断模式
     if (widget.taskFieldFilter == null) {
-      // 创建
+      // 创建 - 基本属性 //
       final fieldFilter = widget.createFieldFilter(
         _fieldController.text,
         matchModeMixin!,
         _patternController.text,
       );
+      // 设置其他属性 //
+      fieldFilter.isReverse = isReverse;
       Navigator.pop(context, fieldFilter); // 返回上一页，附带新的任务字段过滤器
     } else {
       // 保存
       widget.taskFieldFilter!
+        ..isReverse = isReverse
         ..field = _fieldController.text
         ..mode = matchModeMixin!
         ..pattern = _patternController.text;

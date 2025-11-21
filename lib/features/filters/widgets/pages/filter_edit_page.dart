@@ -37,31 +37,40 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
   // 构架主题
   Widget _buildBody() {
     return Column(
-      children: [
-        _buildCompositeListTile(widget.filter),
-        Divider(),
-        Expanded(child: _buildCompositeFilterView(widget.filter)),
-      ],
+      children:
+          _buildCompositeListTile(widget.filter) +
+          <Widget>[
+            Divider(),
+            Expanded(child: _buildCompositeFilterView(widget.filter)),
+          ],
     );
   }
 
   // 构建复合过滤器基本列表项
-  Widget _buildCompositeListTile(CompositeFilter compositeFilter) {
-    return ListTile(
-      title: Text('过滤器模式'),
-      trailing: SegmentedButton<bool>(
-        segments: [
-          ButtonSegment(value: false, label: Text('逻辑或')),
-          ButtonSegment(value: true, label: Text('逻辑与')),
-        ],
-        selected: {compositeFilter.isAndLogic},
-        onSelectionChanged: (Set<bool> newSelection) {
-          setState(
-            () => compositeFilter.isAndLogic = newSelection.first,
-          ); // 更新状态
-        },
+  List<Widget> _buildCompositeListTile(CompositeFilter compositeFilter) {
+    return [
+      CheckboxListTile(
+        value: compositeFilter.isReverse,
+        title: Text('反转过滤器'),
+        onChanged: (value) =>
+            setState(() => compositeFilter.isReverse = value!),
+      ), // 反转过滤器
+      ListTile(
+        title: Text('过滤器模式'),
+        trailing: SegmentedButton<bool>(
+          segments: [
+            ButtonSegment(value: false, label: Text('逻辑或')),
+            ButtonSegment(value: true, label: Text('逻辑与')),
+          ],
+          selected: {compositeFilter.isAndLogic},
+          onSelectionChanged: (Set<bool> newSelection) {
+            setState(
+              () => compositeFilter.isAndLogic = newSelection.first,
+            ); // 更新状态
+          },
+        ),
       ),
-    );
+    ];
   }
 
   // 构建复合过滤器浏览器

@@ -32,10 +32,12 @@ abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
   });
 
   @override
-  String get stateusInfo => '字段: "$field", 样板: $pattern, 模式: ${mode.displayName}';
+  String get stateusInfo =>
+      '字段: "$field", 样板: "$pattern", 模式: ${mode.displayName}${isReverse ? '，已反转' : ''}';
 
   @override
   bool matches(TaskItem taskItem) {
-    return mode.matchesPattern(taskItem.toJson()[field] as T, pattern);
+    return mode.matchesPattern(taskItem.toJson()[field] as T, pattern) !=
+        isReverse;
   }
 }
