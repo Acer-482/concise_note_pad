@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/features/filters/models/task_field_filtter.dart';
@@ -28,6 +29,13 @@ class TextTaskFilter extends TaskFieldFiltter<String, String, TextMatchMode> {
         iconData: Icons.abc,
         toJson: (item) => item.toJson(),
         fromJson: (json) => TextTaskFilter.fromJson(json),
+        modeValues: () => TextMatchMode.values,
+        buildField: (String field, MatchModeMixin mode, dynamic pattern) =>
+            TextTaskFilter(
+              field: field,
+              mode: mode as TextMatchMode,
+              pattern: pattern,
+            ),
       ),
     );
   }

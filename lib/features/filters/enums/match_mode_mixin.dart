@@ -1,6 +1,10 @@
 /// 字段匹配模式混合
 mixin MatchModeMixin<T, S> {
-  String get displayName; // 显示名称
+  /// 显示名称
+  String get displayName;
+
+  /// 获取所有枚举值
+  List<MatchModeMixin> get mixinValues;
 
   /// 匹配模板
   ///

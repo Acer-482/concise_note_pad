@@ -8,7 +8,7 @@ part of 'boolean_task_filter.dart';
 
 BooleanTaskFilter _$BooleanTaskFilterFromJson(Map<String, dynamic> json) =>
     BooleanTaskFilter(
-      field: json['field'] as bool,
+      field: json['field'] as String,
       mode: $enumDecode(_$BooleanMatchModeEnumMap, json['mode']),
       pattern: json['pattern'] as bool? ?? false,
     );

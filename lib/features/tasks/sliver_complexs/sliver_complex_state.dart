@@ -61,6 +61,8 @@ class SliverComplexState extends ChangeNotifier {
     // 浅拷贝 //
     _taskList.clear();
     _taskList.addAll(List.from(TaskManager.instance.taskList));
+    // 过滤 //
+    _taskList.retainWhere(compositeFilter.matches);
     // 排序 //
     _taskList.sort((a, b) {
       return switch (sortOption) {

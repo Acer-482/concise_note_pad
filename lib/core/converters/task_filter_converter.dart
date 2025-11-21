@@ -14,7 +14,8 @@ class TaskFilterConverter
   @override
   TaskFilter fromJson(Map<String, dynamic> json) {
     final type = json['type'] as String;
-    final TaskFilterRegistration? registration = TaskFilterRegistry.instance.getRegistration(json[type]);
+    final TaskFilterRegistration? registration = TaskFilterRegistry.instance
+        .getRegistration(type);
     if (registration == null) {
       throw ArgumentError('Unknown filter type: $type');
     } else {

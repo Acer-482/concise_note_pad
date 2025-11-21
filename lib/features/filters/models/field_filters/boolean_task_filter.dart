@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/boolean_match_mode.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
@@ -28,6 +29,13 @@ class BooleanTaskFilter extends TaskFieldFiltter<bool, bool, BooleanMatchMode> {
         iconData: Icons.check_box,
         toJson: (item) => item.toJson(),
         fromJson: (json) => BooleanTaskFilter.fromJson(json),
+        modeValues: () => BooleanMatchMode.values,
+        buildField: (String field, MatchModeMixin mode, dynamic pattern) =>
+            BooleanTaskFilter(
+              field: field,
+              mode: mode as BooleanMatchMode,
+              pattern: (pattern as String).toLowerCase() == 'true',
+            ),
       ),
     );
   }

@@ -10,6 +10,9 @@ enum DateTimeMatchMode with MatchModeMixin<DateTime, Duration> {
   };
 
   @override
+  List<MatchModeMixin> get mixinValues => values;
+  
+  @override
   bool matchesPattern(fieldValue, pattern) => switch (this) {
     DateTimeMatchMode.exact => fieldValue == pattern,
   };

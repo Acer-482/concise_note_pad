@@ -18,6 +18,9 @@ enum BooleanMatchMode with MatchModeMixin<bool, bool> {
   };
 
   @override
+  List<MatchModeMixin> get mixinValues => values;
+
+  @override
   bool matchesPattern(fieldValue, pattern) => switch (this) {
     BooleanMatchMode.exact => fieldValue == pattern,
     BooleanMatchMode.and => fieldValue && pattern,

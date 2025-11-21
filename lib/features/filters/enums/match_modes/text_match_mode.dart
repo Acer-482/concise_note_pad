@@ -22,6 +22,9 @@ enum TextMatchMode with MatchModeMixin<String, String> {
   };
 
   @override
+  List<MatchModeMixin> get mixinValues => values;
+  
+  @override
   bool matchesPattern(fieldText, pattern) => switch (this) {
     TextMatchMode.contains => fieldText.contains(pattern),
     TextMatchMode.exact => fieldText == pattern,
@@ -29,6 +32,6 @@ enum TextMatchMode with MatchModeMixin<String, String> {
     TextMatchMode.endsWith => fieldText.endsWith(pattern),
     TextMatchMode.isEmpty => fieldText.isEmpty,
     TextMatchMode.isNotEmpty => fieldText.isNotEmpty,
-    TextMatchMode.regex => RegExp(pattern).hasMatch(pattern),
+    TextMatchMode.regex => RegExp(pattern).hasMatch(fieldText),
   };
 }

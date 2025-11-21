@@ -79,37 +79,39 @@ class PageUtils {
   /// 显示删除确认对话框
   static Future<bool> showDeleteConfirmDialog(
     BuildContext context, {
+    String? contentMessage,
     String? completedMessage,
     bool showToast = true,
     void Function()? confirmFunc,
   }) async {
     return await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('确认删除？'),
-        content: Text('这将会删除整个复合过滤器以及其存储的所有过滤器！'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false), // 返回上一页
-            child: const Text('取消'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('确认删除？'),
+            content: Text(contentMessage ?? '这将会删除该项，且无法恢复！'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false), // 返回上一页
+                child: const Text('取消'),
+              ),
+              TextButton(
+                onPressed: () {
+                  confirmFunc?.call(); // 执行
+                  if (showToast) {
+                    ToastUtils.showStandardToast(
+                      context,
+                      title: completedMessage == null ? null : '删除成功', // 有完成消息
+                      msg: completedMessage ?? '删除成功',
+                      type: ToastificationType.success,
+                    );
+                  }
+                  Navigator.pop(context, true); // 返回上一页
+                },
+                child: const Text('确定', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              confirmFunc?.call(); // 执行
-              if (showToast) {
-                ToastUtils.showStandardToast(
-                  context,
-                  title: completedMessage == null ? null : '删除成功', // 有完成消息
-                  msg: completedMessage ?? '删除成功',
-                  type: ToastificationType.success,
-                );
-              }
-              Navigator.pop(context, true); // 返回上一页
-            },
-            child: const Text('确定', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
+        ) ??
+        false;
   }
 }

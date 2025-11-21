@@ -1,4 +1,4 @@
-import 'package:concise_note_pad/features/tasks/pages/task_edit_page.dart';
+import 'package:concise_note_pad/features/tasks/widgets/pages/task_edit_page.dart';
 import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
 import 'package:concise_note_pad/features/tasks/forms/completable_task_item_form_data.dart';
 import 'package:concise_note_pad/features/tasks/forms/task_item_form_data.dart';

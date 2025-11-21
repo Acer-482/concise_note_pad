@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/date_time_match_mode.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
@@ -29,6 +30,13 @@ class DateTimeTaskFilter
         iconData: Icons.access_time_filled,
         toJson: (item) => item.toJson(),
         fromJson: (json) => DateTimeTaskFilter.fromJson(json),
+        modeValues: () => DateTimeMatchMode.values,
+        buildField: (String field, MatchModeMixin mode, dynamic pattern) =>
+            DateTimeTaskFilter(
+              field: field,
+              mode: mode as DateTimeMatchMode,
+              pattern: pattern,
+            ),
       ),
     );
   }

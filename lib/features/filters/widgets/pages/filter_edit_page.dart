@@ -1,8 +1,9 @@
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:concise_note_pad/features/filters/models/composite_filter.dart';
 import 'package:concise_note_pad/features/filters/models/task_filter.dart';
-import 'package:concise_note_pad/features/filters/menus/filter_type_menu.dart';
+import 'package:concise_note_pad/features/filters/widgets/menus/filter_type_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterEditPage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _FilterEditPageState extends State<FilterEditPage> {
 
   // 构建复合过滤器列表
   Widget _buildCompositeFilterList(CompositeFilter compositeFilter) {
-    return SliverImplicitlyAnimatedList(
+    return SliverImplicitlyAnimatedList<TaskFilter>(
       items: compositeFilter.filterList,
       itemBuilder: (context, animation, item, i) => ListTile(
         title: Text(item.displayName),
@@ -118,7 +119,12 @@ class _FilterEditPageState extends State<FilterEditPage> {
           spacing: 8,
           children: [
             IconButton(
-              onPressed: () => {},
+              onPressed: () => Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => FilterEditPage(filter: item),
+                ),
+              ),
               tooltip: '编辑',
               icon: const Icon(Icons.edit),
             ),
@@ -126,6 +132,8 @@ class _FilterEditPageState extends State<FilterEditPage> {
               onPressed: () => PageUtils.showDeleteConfirmDialog(
                 context,
                 completedMessage: '删除"${item.displayName}"过滤器成功',
+                confirmFunc: () =>
+                    setState(() => compositeFilter.filterList.remove(item)),
               ),
               tooltip: '删除',
               icon: const Icon(Icons.delete, color: Colors.red),
@@ -138,10 +146,14 @@ class _FilterEditPageState extends State<FilterEditPage> {
   }
 
   /// 选择过滤器类型页面
-  void _showFilterTypeMenu() {
-    PageUtils.showDefaultModalBottomSheet(
+  void _showFilterTypeMenu() async {
+    TaskFilter? filter = await PageUtils.showDefaultModalBottomSheet(
       context,
       child: const FilterTypeMenu(),
     );
+    if (filter != null) {
+      (widget.filter as CompositeFilter).filterList.add(filter);
+      setState(() {}); // 更新
+    }
   }
 }

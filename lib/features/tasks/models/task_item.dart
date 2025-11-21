@@ -2,8 +2,8 @@ import 'package:concise_note_pad/features/tasks/models/completable_task_item.dar
 import 'package:concise_note_pad/features/tasks/forms/task_item_form_data.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
-import 'package:concise_note_pad/features/tasks/pages/task_edit_page.dart';
-import 'package:concise_note_pad/features/tasks/pages/task_info_page.dart';
+import 'package:concise_note_pad/features/tasks/widgets/pages/task_edit_page.dart';
+import 'package:concise_note_pad/features/tasks/widgets/pages/task_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -51,7 +51,7 @@ abstract class TaskItem {
 
   /// 从Json构造
   factory TaskItem.fromJson(Map<String, dynamic> json) {
-    if (json['type'] == null) throw Exception('反序列化失败：type值为null');
+    if (json['type'] == null) throw ArgumentError('反序列化失败：type值为null');
     final type = json['type'] as String; // 获取类型
     // 根据类型构造子类
     switch (type) {

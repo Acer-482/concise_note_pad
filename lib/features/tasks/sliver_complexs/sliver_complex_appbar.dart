@@ -1,11 +1,10 @@
-import 'package:concise_note_pad/features/filters/pages/filter_edit_page.dart';
-import 'package:concise_note_pad/features/tasks/menus/export_file_option_menu.dart';
-import 'package:concise_note_pad/features/tasks/menus/import_file_option_menu.dart';
-import 'package:concise_note_pad/features/tasks/menus/view_option_menu.dart';
+import 'package:concise_note_pad/features/filters/widgets/pages/filter_edit_page.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/export_file_option_menu.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_state.dart';
-import 'package:concise_note_pad/features/tasks/menus/sort_option_menu.dart';
-import 'package:concise_note_pad/features/tasks/task_manager.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,12 +41,15 @@ class SliverComplexAppbar extends StatelessWidget {
   );
 
   // 显示过滤器设置
-  Future<Null> _showFilterOption(BuildContext context) => Navigator.push(
-    context,
-    CupertinoPageRoute(
-      builder: (context) => FilterEditPage(filter: state.compositeFilter),
-    ),
-  );
+  void _showFilterOption(BuildContext context) async {
+    await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => FilterEditPage(filter: state.compositeFilter),
+      ),
+    );
+    state.update(); // 更新以保存应用过滤器
+  }
 
   // 显示排序设置
   Future<Null> _showSortOption(BuildContext context) => _showPopMenu(
@@ -71,7 +73,7 @@ class SliverComplexAppbar extends StatelessWidget {
   // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
     IconButton(
-      onPressed: () => TaskManager.instance.update(),
+      onPressed: () => state.update(), // 更新状态
       tooltip: '刷新',
       icon: const Icon(Icons.refresh),
     ),

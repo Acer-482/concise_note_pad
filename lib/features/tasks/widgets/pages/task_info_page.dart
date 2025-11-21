@@ -1,5 +1,5 @@
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
-import 'package:concise_note_pad/features/tasks/pages/task_edit_page.dart';
+import 'package:concise_note_pad/features/tasks/widgets/pages/task_edit_page.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:flutter/material.dart';

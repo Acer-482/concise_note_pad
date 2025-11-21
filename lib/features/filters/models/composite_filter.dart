@@ -38,10 +38,12 @@ class CompositeFilter extends TaskFilter {
     );
   }
 
-  CompositeFilter({this.filterList = const [], this.isAndLogic = false});
+  CompositeFilter({List<TaskFilter>? filterList, this.isAndLogic = false})
+    : filterList = filterList ?? [];
 
   @override
   bool matches(TaskItem taskItem) {
+    if (filterList.isEmpty) return true; // 为空则直接满足条件
     if (isAndLogic) {
       for (var filter in filterList) {
         if (!filter.matches(taskItem)) return false;

@@ -8,7 +8,7 @@ part of 'date_time_task_filter.dart';
 
 DateTimeTaskFilter _$DateTimeTaskFilterFromJson(Map<String, dynamic> json) =>
     DateTimeTaskFilter(
-      field: DateTime.parse(json['field'] as String),
+      field: json['field'] as String,
       mode: $enumDecode(_$DateTimeMatchModeEnumMap, json['mode']),
       pattern: json['pattern'] == null
           ? const Duration(seconds: 1)
@@ -17,7 +17,7 @@ DateTimeTaskFilter _$DateTimeTaskFilterFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DateTimeTaskFilterToJson(DateTimeTaskFilter instance) =>
     <String, dynamic>{
-      'field': instance.field.toIso8601String(),
+      'field': instance.field,
       'mode': _$DateTimeMatchModeEnumMap[instance.mode]!,
       'pattern': instance.pattern.inMicroseconds,
     };
