@@ -23,13 +23,12 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('编辑"${widget.filter.displayName}"')),
+      appBar: AppBar(title: Text('编辑${widget.filter.displayName}')),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        tooltip: '确定',
+        onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.check),
-        label: Text('确定'),
+        label: Text('确定并返回'),
       ),
     );
   }
@@ -87,7 +86,7 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
   Widget _buildCompositeFilterAppbar(CompositeFilter compositeFilter) {
     return SliverAppBar(
       automaticallyImplyLeading: false, // 禁止自动推断
-      title: Text(compositeFilter.displayName),
+      title: const Text('子过滤器'),
       actions: _buildCompositeFilterAppbarActions(compositeFilter),
     );
   }
