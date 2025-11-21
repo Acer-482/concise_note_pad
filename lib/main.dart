@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:concise_note_pad/config_helper.dart';
-import 'package:concise_note_pad/filter/registry/task_filter_registry.dart';
-import 'package:concise_note_pad/global_settings.dart';
-import 'package:concise_note_pad/log_level.dart';
-import 'package:concise_note_pad/page/main_page.dart';
-import 'package:concise_note_pad/task_item/task_manager.dart';
+import 'package:concise_note_pad/core/utils/config_helper.dart';
+import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
+import 'package:concise_note_pad/features/settings/models/global_settings.dart';
+import 'package:concise_note_pad/core/enums/log_level.dart';
+import 'package:concise_note_pad/core/pages/main_page.dart';
+import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
