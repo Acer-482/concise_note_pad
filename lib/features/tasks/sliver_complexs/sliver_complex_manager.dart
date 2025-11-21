@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:concise_note_pad/core/utils/config_helper.dart';
+import 'package:concise_note_pad/features/filters/enums/match_modes/boolean_match_mode.dart';
+import 'package:concise_note_pad/features/filters/models/composite_filter.dart';
+import 'package:concise_note_pad/features/filters/models/field_filters/boolean_task_filter.dart';
+import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_state.dart';
 import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +24,21 @@ class SliverComplexManager {
     final loadSuccessful = await load();
     if (!loadSuccessful) {
       sliverComplexList.addAll([
-        SliverComplex(iconData: Icons.list_alt_rounded, title: '未完成项'),
+        SliverComplex(
+          state: SliverComplexState(
+            compositeFilter: CompositeFilter(
+              filterList: [
+                BooleanTaskFilter(
+                  field: 'isChecked',
+                  mode: BooleanMatchMode.exact,
+                  pattern: false,
+                ),
+              ],
+            ),
+          ),
+          iconData: Icons.list_alt_rounded,
+          title: '未完成项',
+        ),
         SliverComplex(
           iconData: Icons.list_alt_rounded,
           title: '所有项',

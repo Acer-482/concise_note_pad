@@ -15,7 +15,7 @@ part 'composite_filter.g.dart';
 class CompositeFilter extends TaskFilter {
   /// 过滤器列表
   @TaskFilterConverter()
-  List<TaskFilter> filterList;
+  final List<TaskFilter> filterList;
 
   /// 与逻辑模式
   ///

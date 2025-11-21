@@ -30,6 +30,12 @@ class SliverComplexState extends ChangeNotifier {
   /// 作用于排序缓冲和UI动画显示
   final List<TaskItem> _taskList = [];
 
+  /// 获取列表
+  List<TaskItem> get taskList => _taskList;
+
+  /// 获取列表项数量
+  int get listSize => _taskList.length;
+
   SliverComplexState({
     CompositeFilter? compositeFilter,
     this.isReverseSort = true,
@@ -76,12 +82,6 @@ class SliverComplexState extends ChangeNotifier {
           (isReverseSort ? -1 : 1);
     });
   }
-
-  /// 获取列表
-  List<TaskItem> get taskList => _taskList;
-
-  /// 获取列表项数量
-  int get listSize => _taskList.length;
 
   /// 更新
   void update() {
