@@ -168,7 +168,7 @@ class _TaskFieldFilterFormMenuState<T extends MatchModeMixin, enums>
         ..isReverse = isReverse
         ..field = _fieldController.text
         ..mode = matchModeMixin!
-        ..pattern = _patternController.text;
+        ..setPattern(_patternController.text);
       Navigator.pop(context); // 返回上一页
     }
   }

@@ -14,6 +14,16 @@ part 'date_time_task_filter.g.dart';
 @JsonSerializable()
 class DateTimeTaskFilter
     extends TaskFieldFilter<DateTime, DateTime, DateTimeMatchMode> {
+  /// 字符串转时间
+  static DateTime? _strToDateTime(dynamic v) {
+    final clean = v.toString().trim();
+    return DateTime.tryParse(clean) ??
+        DateTime.tryParse(clean.replaceAll(' ', 'T')) ??
+        (RegExp(r'^\d{4}$').hasMatch(clean)
+            ? DateTime(int.parse(clean))
+            : null);
+  }
+
   /// 私有构造
   DateTimeTaskFilter._({
     required super.field,
@@ -35,23 +45,13 @@ class DateTimeTaskFilter
   }
 
   @override
-  set pattern(dynamic pattern) {
+  void setPattern(dynamic d) {
     super.pattern = _strToDateTime(pattern) ?? DateTime.now();
   }
 
   @override
   DateTime? fieldCast(field) {
     return _strToDateTime(field);
-  }
-
-  /// 字符串转时间
-  static DateTime? _strToDateTime(dynamic v) {
-    final clean = v.toString().trim();
-    return DateTime.tryParse(clean) ??
-        DateTime.tryParse(clean.replaceAll(' ', 'T')) ??
-        (RegExp(r'^\d{4}$').hasMatch(clean)
-            ? DateTime(int.parse(clean))
-            : null);
   }
 
   /// 注册

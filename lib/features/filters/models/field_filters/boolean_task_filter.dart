@@ -13,6 +13,11 @@ part 'boolean_task_filter.g.dart';
 /// 支持匹配任意布尔字段
 @JsonSerializable()
 class BooleanTaskFilter extends TaskFieldFilter<bool, bool, BooleanMatchMode> {
+  /// 字符串转布尔
+  static bool _strToBoolean(dynamic v) {
+    return v.toString().toLowerCase() == 'true';
+  }
+
   BooleanTaskFilter({
     required super.field,
     required super.mode,
@@ -20,13 +25,8 @@ class BooleanTaskFilter extends TaskFieldFilter<bool, bool, BooleanMatchMode> {
   });
 
   @override
-  set pattern(dynamic pattern) {
-    super.pattern = _strToBoolean(pattern);
-  }
-
-  /// 字符串转布尔
-  static bool _strToBoolean(dynamic v) {
-    return v.toString().toLowerCase() == 'true';
+  void setPattern(dynamic d) {
+    super.pattern = _strToBoolean(d);
   }
 
   /// 注册

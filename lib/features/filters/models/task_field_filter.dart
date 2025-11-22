@@ -47,7 +47,18 @@ abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
     return mode.matchesPattern(fieldData, pattern) != isReverse;
   }
 
-  /// 字段转换
+  /// 设置样板 - 安全转型
+  ///
+  /// 建议子类重写
+  ///
+  /// 通过该类设置样板将会尝试安全转型
+  void setPattern(dynamic d) {
+    pattern = d.toString() as S;
+  }
+
+  /// 字段转换 - 安全转型
+  ///
+  /// 当需要自定义字段转换到字段类型时请重写该类
   T? fieldCast(dynamic field) {
     return field as T;
   }
