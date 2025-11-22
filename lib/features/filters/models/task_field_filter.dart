@@ -31,13 +31,9 @@ abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
     required this.pattern,
   });
 
-  dynamic getField(TaskItem item) {
-    return item.toJson()[field];
-  }
-
   @override
   bool matches(TaskItem taskItem) {
-    final field = getField(taskItem);
+    final field = taskItem.toJson()[this.field];
     // 检测字段是否有效
     if (field == null) {
       // 字段无效
@@ -46,7 +42,14 @@ abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
     } else {
       isValid = true;
     }
-    return mode.matchesPattern(field as T, pattern) != isReverse;
+    final fieldData = fieldCast(field);
+    if (fieldData == null) return isReverse;
+    return mode.matchesPattern(fieldData, pattern) != isReverse;
+  }
+
+  /// 字段转换
+  T? fieldCast(dynamic field) {
+    return field as T;
   }
 
   @override

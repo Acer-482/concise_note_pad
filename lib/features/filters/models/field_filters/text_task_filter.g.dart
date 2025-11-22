@@ -8,13 +8,17 @@ part of 'text_task_filter.dart';
 
 TextTaskFilter _$TextTaskFilterFromJson(Map<String, dynamic> json) =>
     TextTaskFilter(
-      field: json['field'] as String,
-      mode: $enumDecode(_$TextMatchModeEnumMap, json['mode']),
-      pattern: json['pattern'] as String? ?? '',
-    );
+        field: json['field'] as String,
+        mode: $enumDecode(_$TextMatchModeEnumMap, json['mode']),
+        pattern: json['pattern'] as String? ?? '',
+      )
+      ..isReverse = json['isReverse'] as bool
+      ..isValid = json['isValid'] as bool;
 
 Map<String, dynamic> _$TextTaskFilterToJson(TextTaskFilter instance) =>
     <String, dynamic>{
+      'isReverse': instance.isReverse,
+      'isValid': instance.isValid,
       'field': instance.field,
       'mode': _$TextMatchModeEnumMap[instance.mode]!,
       'pattern': instance.pattern,

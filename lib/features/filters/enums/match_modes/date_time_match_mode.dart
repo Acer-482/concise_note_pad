@@ -14,7 +14,7 @@ enum DateTimeMatchMode with MatchModeMixin<DateTime, DateTime> {
   String get displayName => switch (this) {
     exactYear => '精确时间（年）',
     exactMonth => '精确时间（月）',
-    exactDay => '精确时间（天）',
+    exactDay => '精确时间（日）',
     exact => '绝对精确时间',
     before => '字段值在匹配模板之前',
     after => '字段值在匹配模板之后',

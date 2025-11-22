@@ -13,12 +13,46 @@ part 'date_time_task_filter.g.dart';
 /// 支持匹配任意时间字段
 @JsonSerializable()
 class DateTimeTaskFilter
-    extends TaskFieldFilter<DateTime, Duration, DateTimeMatchMode> {
-  DateTimeTaskFilter({
+    extends TaskFieldFilter<DateTime, DateTime, DateTimeMatchMode> {
+  /// 私有构造
+  DateTimeTaskFilter._({
     required super.field,
     required super.mode,
-    super.pattern = const Duration(seconds: 1),
+    required super.pattern,
   });
+
+  /// 工厂构造函数
+  factory DateTimeTaskFilter({
+    required String field,
+    required DateTimeMatchMode mode,
+    DateTime? pattern,
+  }) {
+    return DateTimeTaskFilter._(
+      field: field,
+      mode: mode,
+      pattern: pattern ?? DateTime.now(),
+    );
+  }
+
+  @override
+  set pattern(dynamic pattern) {
+    super.pattern = _strToDateTime(pattern) ?? DateTime.now();
+  }
+
+  @override
+  DateTime? fieldCast(field) {
+    return _strToDateTime(field);
+  }
+
+  /// 字符串转时间
+  static DateTime? _strToDateTime(dynamic v) {
+    final clean = v.toString().trim();
+    return DateTime.tryParse(clean) ??
+        DateTime.tryParse(clean.replaceAll(' ', 'T')) ??
+        (RegExp(r'^\d{4}$').hasMatch(clean)
+            ? DateTime(int.parse(clean))
+            : null);
+  }
 
   /// 注册
   static void initRegistry() {
@@ -35,7 +69,7 @@ class DateTimeTaskFilter
             DateTimeTaskFilter(
               field: field,
               mode: mode as DateTimeMatchMode,
-              pattern: pattern,
+              pattern: _strToDateTime(pattern),
             ),
       ),
     );
