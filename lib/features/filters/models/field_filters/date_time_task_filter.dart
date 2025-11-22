@@ -46,7 +46,7 @@ class DateTimeTaskFilter
 
   @override
   void setPattern(dynamic d) {
-    super.pattern = _strToDateTime(pattern) ?? DateTime.now();
+    super.pattern = _strToDateTime(d) ?? DateTime.now();
   }
 
   @override
