@@ -45,7 +45,8 @@ class SliverComplexAppbar extends StatelessWidget {
     await Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => FilterFieldEditPage(filter: state.compositeFilter),
+        builder: (context) =>
+            FilterFieldEditPage(filter: state.compositeFilter),
       ),
     );
     state.update(); // 更新以保存应用过滤器

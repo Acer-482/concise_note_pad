@@ -45,14 +45,20 @@ class CompositeFilter extends TaskFilter {
   bool matches(TaskItem taskItem) {
     if (filterList.isEmpty) return true; // 为空则直接满足条件
     if (isAndLogic) {
+      bool isValid = true;
       for (var filter in filterList) {
+        if (isValid && !filter.isValid) isValid = false;
         if (!filter.matches(taskItem)) return false;
       }
+      this.isValid = isValid;
       return true != isReverse;
     } else {
+      bool isValid = true;
       for (var filter in filterList) {
+        if (isValid && !filter.isValid) isValid = false;
         if (filter.matches(taskItem)) return true;
       }
+      this.isValid = isValid;
       return false != isReverse;
     }
   }
@@ -71,5 +77,5 @@ class CompositeFilter extends TaskFilter {
 
   @override
   String get stateusInfo =>
-      '逻辑模式：${isAndLogic ? '与' : '或'}，成员数量:"${filterList.length}"${isReverse ? '，已反转' : ''}';
+      '${!isValid ? '子过滤器字段无效！' : ''}逻辑模式：${isAndLogic ? '与' : '或'}，成员数量:"${filterList.length}"${isReverse ? '，已反转' : ''}';
 }

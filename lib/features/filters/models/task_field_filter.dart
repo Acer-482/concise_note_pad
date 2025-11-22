@@ -31,13 +31,25 @@ abstract class TaskFieldFilter<T, S, M extends MatchModeMixin>
     required this.pattern,
   });
 
-  @override
-  String get stateusInfo =>
-      '字段: "$field", 样板: "$pattern", 模式: ${mode.displayName}${isReverse ? '，已反转' : ''}';
+  dynamic getField(TaskItem item) {
+    return item.toJson()[field];
+  }
 
   @override
   bool matches(TaskItem taskItem) {
-    return mode.matchesPattern(taskItem.toJson()[field] as T, pattern) !=
-        isReverse;
+    final field = getField(taskItem);
+    // 检测字段是否有效
+    if (field == null) {
+      // 字段无效
+      isValid = false;
+      return false;
+    } else {
+      isValid = true;
+    }
+    return mode.matchesPattern(field as T, pattern) != isReverse;
   }
+
+  @override
+  String get stateusInfo =>
+      '${!isValid ? '过滤器字段无效！' : ''}字段: "$field", 样板: "$pattern", 模式: ${mode.displayName}${isReverse ? '，已反转' : ''}';
 }

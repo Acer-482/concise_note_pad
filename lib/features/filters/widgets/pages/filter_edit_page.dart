@@ -6,6 +6,7 @@ import 'package:concise_note_pad/features/filters/registry/task_filter_registry.
 import 'package:concise_note_pad/features/filters/widgets/menus/filter_type_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/filters/widgets/menus/task_field_filter_form_menu.dart';
+import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,8 @@ class FilterFieldEditPage extends StatefulWidget {
 }
 
 class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
+  final CompletableTaskItem _testTaskitem = CompletableTaskItem(title: '临时测试用CompletableTaskItem');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +116,10 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
           TaskFilterRegistry.instance.getRegistration(filter.type)!.iconData,
         ),
         title: Text(filter.displayName), // 标题
-        subtitle: Text(filter.stateusInfo), // 状态信息
+        subtitle: Text(
+          filter.stateusInfo,
+          style: TextStyle(color: filter.isValid ? null : Colors.red),
+        ), // 状态信息
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           spacing: 8,
@@ -145,7 +151,7 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
     // 判断返回的过滤器是否为空
     if (filter != null) {
       widget.filter.filterList.add(filter); // 添加
-      setState(() {}); // 更新
+      setState(() {}); // 更新状态
     }
   }
 
@@ -158,11 +164,14 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
           builder: (context) => FilterFieldEditPage(filter: filter),
         ),
       );
+      filter.matches(_testTaskitem); // 匹配一次以更新状态
+      setState(() {}); // 更新状态
     } else if (filter is TaskFieldFilter) {
       await PageUtils.showDefaultModalBottomSheet(
         context,
         child: TaskFieldFilterFormMenu.edit(filter: filter),
       );
+      filter.matches(_testTaskitem); // 匹配一次以更新状态
       setState(() {}); // 更新状态
     } else {
       throw Exception('未知过滤器类型');

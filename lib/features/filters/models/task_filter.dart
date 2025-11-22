@@ -6,21 +6,30 @@ import 'package:flutter/material.dart';
 ///
 /// 提供过滤方法 实现此方法可过滤taskItem
 abstract class TaskFilter {
-  bool isReverse = false; // 反转条件
-  
+  /// 反转条件
+  bool isReverse = false;
+
+  /// 过滤器是否有效
+  bool isValid = true;
+
   /// 匹配任务
   ///
   /// 当匹配项满足条件时，返回true
   bool matches(TaskItem taskItem);
 
+  /// 显示名称
   String get displayName {
     return TaskFilterRegistry.instance.getRegistration(type)!.displayName;
   }
 
-  /// 获取类型 用于辅助Json
+  /// 获取类型
+  ///
+  /// 用于辅助Json
   String get type;
 
-  /// 获取状态 用于显示当前过滤器的状态
+  /// 获取状态
+  ///
+  /// 用于显示当前过滤器的状态
   String get stateusInfo;
 
   @mustCallSuper
