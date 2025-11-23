@@ -12,13 +12,13 @@ class GlobalSettings extends ChangeNotifier {
   /// 默认值：青色
   @ColorDataConverter()
   Color themeColor;
-  static const Color themeColorDefault = Colors.cyan;
+  static Color get themeColorDefault => Colors.cyan;
 
   /// 主题模式
   ///
   /// 默认值：跟随系统
   ThemeMode themeMode;
-  static const ThemeMode themeModeDefault = ThemeMode.system;
+  static ThemeMode get themeModeDefault => ThemeMode.system;
 
   /// 更新
   void update() {
@@ -32,10 +32,9 @@ class GlobalSettings extends ChangeNotifier {
   }
 
   /// 默认构造函数
-  GlobalSettings({
-    this.themeColor = themeColorDefault,
-    this.themeMode = themeModeDefault,
-  });
+  GlobalSettings({Color? themeColor, ThemeMode? themeMode})
+    : themeColor = themeColor ?? themeColorDefault,
+      themeMode = themeMode ?? themeModeDefault;
 
   factory GlobalSettings.fromJson(Map<String, dynamic> json) =>
       _$GlobalSettingsFromJson(json);
