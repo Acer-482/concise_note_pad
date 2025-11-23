@@ -37,7 +37,17 @@ dev_dependencies:
   flutter_lints: ^6.0.0 # flutter代码规范包
   build_runner: ^2.10.3 # 代码生成工具包
 
-  json_serializable: ^6.11.1 # json序列包
+  json_serializable: ^6.11.3 # json序列包
+
+  flutter_launcher_icons: ^0.14.4 # flutter图标替换包
 
 flutter:
   uses-material-design: true
+
+flutter_icons:
+  android: true
+  ios: true
+  windows:
+    generate: true
+    image_path: "./assets/icon.png"
+  image_path: "./assets/icon.png"
