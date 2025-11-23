@@ -3,7 +3,7 @@ name: Build and Release Flutter App
 on:
   push:
     tags:
-      - "Release-v*" # 监听标签推送事件
+      - "v*" # 监听标签推送事件
   workflow_dispatch: # 允许手动触发
 
 jobs:
