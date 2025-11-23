@@ -1,6 +1,7 @@
 import 'package:concise_note_pad/features/filters/models/composite_filter.dart';
 import 'package:concise_note_pad/features/filters/models/field_filters/boolean_task_filter.dart';
 import 'package:concise_note_pad/features/filters/models/field_filters/date_time_task_filter.dart';
+import 'package:concise_note_pad/features/filters/models/field_filters/duration_task_filter.dart';
 import 'package:concise_note_pad/features/filters/models/field_filters/text_task_filter.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
 
@@ -22,6 +23,7 @@ class TaskFilterRegistry {
     TextTaskFilter.initRegistry();
     BooleanTaskFilter.initRegistry();
     DateTimeTaskFilter.initRegistry();
+    DurationTaskFilter.initRegistry();
   }
 
   /// 注册

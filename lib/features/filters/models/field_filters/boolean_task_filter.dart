@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/utils/string_cast_utils.dart';
 import 'package:concise_note_pad/features/filters/enums/match_mode_mixin.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/boolean_match_mode.dart';
 import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
@@ -13,11 +14,6 @@ part 'boolean_task_filter.g.dart';
 /// 支持匹配任意布尔字段
 @JsonSerializable()
 class BooleanTaskFilter extends TaskFieldFilter<bool, bool, BooleanMatchMode> {
-  /// 字符串转布尔
-  static bool _strToBoolean(dynamic v) {
-    return v.toString().toLowerCase() == 'true';
-  }
-
   BooleanTaskFilter({
     required super.field,
     required super.mode,
@@ -26,7 +22,7 @@ class BooleanTaskFilter extends TaskFieldFilter<bool, bool, BooleanMatchMode> {
 
   @override
   void setPattern(dynamic d) {
-    super.pattern = _strToBoolean(d);
+    super.pattern = StringCastUtils.strToBoolean(d);
   }
 
   /// 注册
@@ -44,7 +40,7 @@ class BooleanTaskFilter extends TaskFieldFilter<bool, bool, BooleanMatchMode> {
             BooleanTaskFilter(
               field: field,
               mode: mode as BooleanMatchMode,
-              pattern: _strToBoolean(pattern),
+              pattern: StringCastUtils.strToBoolean(pattern),
             ),
       ),
     );
