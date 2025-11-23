@@ -48,14 +48,14 @@ class _AboutPageState extends State<AboutPage> {
           return Column(
             spacing: 10,
             children: [
-              CircleAvatar(radius: 32,child: Icon(Icons.apps, size: 24,),),
+              CircleAvatar(radius: 32, child: Icon(Icons.apps, size: 24)),
               Text('简记', style: Theme.of(context).textTheme.displayLarge),
               Text(
                 '© 2024 Acer',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
-                'Version ${packageInfo.version} (${packageInfo.buildNumber})',
+                'Version ${packageInfo.version} ${packageInfo.buildNumber.isEmpty ? '' : '(${packageInfo.buildNumber})'}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
