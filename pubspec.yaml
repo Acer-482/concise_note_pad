@@ -2,7 +2,7 @@ name: concise_note_pad
 description: "A concise and easy-to-use notepad software."
 publish_to: "none"
 
-version: 0.2.2+1
+version: 0.3.1
 
 environment:
   sdk: ^3.9.0
@@ -44,10 +44,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
+  remove_alpha_ios: true
   windows:
     generate: true
-    image_path: "./assets/icon.png"
+    image_path: "./assets/icon-border.png"
   image_path: "./assets/icon.png"
