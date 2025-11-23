@@ -1,0 +1,55 @@
+name: Build and Release Flutter App
+
+on:
+  push:
+    tags:
+      - "Release-v*" # 监听标签推送事件
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 赋予工作流写入内容（创建Release）的权限
+
+    steps:
+      # 获取代码
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # 配置Flutter环境
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable"
+
+      # 安装项目依赖
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 运行buildRunner
+      - name: Run build_runner
+        run: dart run build_runner build
+
+      # 构建Android APK
+      - name: Build Android APK
+        run: flutter build apk --release --no-tree-shake-icons
+
+      # 构建windows APK
+      - name: Build Windows APK
+        run: flutter build windows --release
+
+      # 5. 构建iOS IPA
+      # - name: Build iOS IPA
+      #   run: flutter build ipa --export-options-plist=<plist路径>
+
+      # 上传产物到GitHub Release
+      - name: Upload Assets to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/windows/runner/Release/**/*
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
