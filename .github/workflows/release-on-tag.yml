@@ -75,7 +75,7 @@ jobs:
       # 获取代码
       - name: Checkout code
         uses: actions/checkout@v6
-      
+
       # 安装依赖
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
@@ -89,7 +89,7 @@ jobs:
             libgtk-3-dev \
             liblzma-dev \
             libstdc++-12-dev
-      
+
       # 配置Flutter环境
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.21.0
@@ -117,7 +117,7 @@ jobs:
 
       # 上传桌面构建
       - name: Upload Desktop Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.artifact-name }}
           path: ${{ matrix.artifact-name }}.*
@@ -131,13 +131,13 @@ jobs:
 
     steps:
       - name: Download Android Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: android-apks
           path: artifacts/android/
 
       - name: Download Desktop Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: artifacts/desktop/
 
@@ -151,6 +151,30 @@ jobs:
           find artifacts/desktop -type f | while read file; do
             echo "- $(basename "$file") - $(du -h "$file" | cut -f1)"
           done
+
+      # 文件检查
+      - name: Verify downloaded files
+        run: |
+          echo "=== Android APKs ==="
+          find artifacts/android -name "*.apk" -type f | while read file; do
+            if [ -f "$file" ]; then
+              echo "✅ $(basename "$file") - $(du -h "$file" | cut -f1)"
+            else
+              echo "❌ $(basename "$file") - FILE NOT FOUND"
+            fi
+          done
+
+          echo "=== Desktop Builds ==="
+          find artifacts/desktop -type f | while read file; do
+            if [ -f "$file" ]; then
+              echo "✅ $(basename "$file") - $(du -h "$file" | cut -f1)"
+            else
+              echo "❌ $(basename "$file") - FILE NOT FOUND"
+            fi
+          done
+
+          echo "=== 目录结构 ==="
+          find artifacts -type f | sort
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
