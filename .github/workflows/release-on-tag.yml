@@ -34,7 +34,7 @@ jobs:
       # 生成代码
       - name: Generate code
         run: dart run build_runner build --delete-conflicting-outputs
-        
+
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
         run: |
@@ -61,44 +61,67 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         include:
           - os: windows-latest
-            build-cmd: build windows
+            build-cmd: windows
             artifact-name: windows-build
             output-path: build/windows/x64/runner/Release/*
             package-cmd: Compress-Archive -Path "build/windows/x64/runner/Release/*" -DestinationPath "windows-build.zip" -Force
           - os: ubuntu-latest
-            build-cmd: build linux
+            build-cmd: linux
             artifact-name: linux-build
             output-path: build/linux/x64/release/bundle/*
             package-cmd: tar -czf linux-build.tar.gz -C build/linux/x64/release/bundle .
 
     steps:
+      # 获取代码
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v6
+      
+      # 安装依赖
+      - name: Install Linux dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            clang \
+            cmake \
+            ninja-build \
+            pkg-config \
+            libgtk-3-dev \
+            liblzma-dev \
+            libstdc++-12-dev
+      
+      # 配置Flutter环境
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2.21.0
         with:
-          flutter-version: "3.35.1"
           cache: true
+          flutter-version: 3.35.1
+          cache-key: flutter-stable-3.35.1
+          cache-path: /opt/flutter
 
+      # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
 
+      # 生成代码
       - name: Generate code
         run: dart run build_runner build --delete-conflicting-outputs
 
+      # 构建桌面应用
       - name: Build Desktop App
         run: flutter build ${{ matrix.build-cmd }} --release
 
+      # 打包桌面应用
       - name: Package Desktop Build
         run: ${{ matrix.package-cmd }}
 
+      # 上传桌面构建
       - name: Upload Desktop Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact-name }}
           path: ${{ matrix.artifact-name }}.*
-          
+
   # 创建资源
   create-release:
     runs-on: ubuntu-latest
@@ -139,13 +162,13 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: |
             ## 构建详情内容
-            
+
             ### Android应用
             - **app-release.apk** - Universal APK (包含所有架构)
             - **app-armeabi-v7a-release.apk** - ARM 32位
             - **app-arm64-v8a-release.apk** - ARM 64位  
             - **app-x86_64-release.apk** - x86 64位
-            
+
             ### 桌面构建
             - Windows x64
             - Linux x64
