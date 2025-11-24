@@ -2,6 +2,7 @@ import 'package:concise_note_pad/core/pages/about_page.dart';
 import 'package:concise_note_pad/core/pages/home_page.dart';
 import 'package:concise_note_pad/features/settings/pages/settings_page.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
+import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_manager.dart';
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_icons_animated/flutter_animated_icons.dart';
@@ -210,5 +211,12 @@ class _MainPageState extends State<MainPage> {
       body: _buildBody(mode),
       bottomNavigationBar: _buildBottomNavigationBar(mode),
     );
+  }
+
+  @override
+  void dispose() {
+    // 释放单例类资源 //
+    SliverComplexManager.instance.dispose();
+    super.dispose();
   }
 }

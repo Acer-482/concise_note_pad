@@ -14,11 +14,20 @@ import 'package:flutter/material.dart';
 /// 管理所有的薄片复合项
 /// 提供配置文件保存写入操作
 class SliverComplexManager {
+  // 单例 //
+  static final SliverComplexManager _instance =
+      SliverComplexManager._internal();
+  static SliverComplexManager get instance => _instance; // 获取单例类
+
+  /// 单例构造
+  SliverComplexManager._internal() {
+    _init();
+  }
   final ConfigHelper config = ConfigHelper(); // 配置文件
   final List<SliverComplex> sliverComplexList = []; // 薄片复合项列表
 
   /// 初始化
-  Future<Null> init() async {
+  Future<Null> _init() async {
     await config.init('sliverComplexs.json');
     // 加载薄片复合项列表 //
     final loadSuccessful = await load();

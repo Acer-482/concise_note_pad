@@ -5,7 +5,6 @@ import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_m
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_select_list.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 /// 任务页面
@@ -19,35 +18,12 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
-  late final SlidableController slidableController = SlidableController(
-    this,
-  ); // 滑动控制器
-  final SliverComplexManager sliverComplexManager =
-      SliverComplexManager(); // 控制器
-
-  @override
-  void initState() {
-    super.initState();
-    sliverComplexManager.init().then((_) {
-      setState(() {});
-    }); // 初始化控制器
-  }
-
-  // 显示选择任务类型页面
-  Future<T?> _showSelectTaskType<T>() {
-    return PageUtils.showDefaultModalBottomSheet(
-      context,
-      title: '选择任务类型',
-      child: const TaskSelectList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskManager>(
       builder: (context, taskManager, child) {
         return Scaffold(
-          body: sliverComplexManager.buildScrollView(),
+          body: SliverComplexManager.instance.buildScrollView(),
           floatingActionButton: FloatingActionButton(
             tooltip: '新建任务',
             onPressed: () async {
@@ -61,9 +37,12 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
     );
   }
 
-  @override
-  void dispose() {
-    sliverComplexManager.dispose();
-    super.dispose();
+  // 显示选择任务类型页面
+  Future<T?> _showSelectTaskType<T>() {
+    return PageUtils.showDefaultModalBottomSheet(
+      context,
+      title: '选择任务类型',
+      child: const TaskSelectList(),
+    );
   }
 }
