@@ -128,22 +128,29 @@ class TaskManager extends ChangeNotifier {
     return _taskList.map((taskItem) => taskItem.toJson()).toList();
   }
 
-  /// 保存
-  Future<bool> save() async =>
-      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
+  /// 从Json设置
+  void fromJson(String jsonData) {
+    fromList(jsonDecode(jsonData) as List<dynamic>);
+  }
 
-  /// 加载
-  Future<bool> load() async => await config.load((jsonData) {
+  /// 从列表设置
+  void fromList(List<dynamic> list) {
     // 反序列化 //
-    List<Map<String, dynamic>> dataMap = (jsonDecode(jsonData) as List<dynamic>)
-        .cast<Map<String, dynamic>>(); // jsonDecode返回List<dynamic> 需要转换
-    List<TaskItem> data = dataMap
+    List<TaskItem> data = list
+        .cast<Map<String, dynamic>>()
         .map((map) => TaskItem.fromJson(map))
         .toList(); // 反序列化数据内容
     // 保存 //
     _taskList.clear();
     _taskList.addAll(data);
-  });
+  }
+
+  /// 保存
+  Future<bool> save() async =>
+      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
+
+  /// 加载
+  Future<bool> load() async => await config.load(fromJson);
 
   /// 检测任务是否存在
   bool contains(TaskItem taskItem) => _taskList.contains(taskItem);

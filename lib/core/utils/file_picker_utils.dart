@@ -27,4 +27,17 @@ class FilePickerUtils {
       bytes: bytes ?? Uint8List.fromList(utf8.encode(data!)),
     );
   }
+
+  /// 加载文件
+  static Future<FilePickerResult?> getFile({
+    String? dialogTitle,
+    String? initialDirectory,
+    bool lockParentWindow = true,
+  }) async {
+    return await FilePicker.platform.pickFiles(
+      dialogTitle: dialogTitle,
+      initialDirectory: initialDirectory,
+      lockParentWindow: lockParentWindow,
+    );
+  }
 }

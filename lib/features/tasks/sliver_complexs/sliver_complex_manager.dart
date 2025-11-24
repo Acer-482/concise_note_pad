@@ -68,23 +68,29 @@ class SliverComplexManager {
     return sliverComplexList.map((complex) => complex.toJson()).toList();
   }
 
-  /// 保存
-  Future<bool> save() async =>
-      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
+  /// 从Json设置
+  void fromJson(String jsonData) {
+    fromList(JsonDecoder().convert(jsonData) as List<dynamic>);
+  }
 
-  /// 加载
-  Future<bool> load() async => await config.load((jsonData) {
+  /// 从列表设置
+  void fromList(List<dynamic> list) {
     // 反序列化 //
-    List<Map<String, dynamic>> data =
-        (JsonDecoder().convert(jsonData) as List<dynamic>)
-            .cast<Map<String, dynamic>>();
-    List<SliverComplex> complexList = data
+    List<SliverComplex> complexList = list
+        .cast<Map<String, dynamic>>()
         .map((map) => SliverComplex.fromJson(map))
         .toList();
     // 保存数据 //
     sliverComplexList.clear();
     sliverComplexList.addAll(complexList);
-  });
+  }
+
+  /// 保存
+  Future<bool> save() async =>
+      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
+
+  /// 加载
+  Future<bool> load() async => await config.load(fromJson);
 
   /// 更新
   void update() {
