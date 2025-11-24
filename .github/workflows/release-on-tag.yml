@@ -31,91 +31,123 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # 运行buildRunner
-      - name: Run build_runner
-        run: dart run build_runner build
-
-      # 构建Android APK
-      - name: Build Android APK
-        run: flutter build apk --release --no-tree-shake-icons
+      # 生成代码
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+        
+      # 构建安卓应用
+      - name: Build Android APKs (all architectures)
+        run: |
+          # 构建 Universal APK
+          flutter build apk --release --no-tree-shake-icons
+          # 构建分架构 APK
+          flutter build apk --release --no-tree-shake-icons --split-per-abi
 
       # 上传安卓构建
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v5
         with:
-          name: android-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: android-apks
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/flutter-apk/app-*-release.apk
+          retention-days: 7
 
   # 构建桌面应用
-  build-windows:
-    runs-on: windows-latest
-    permissions:
-      contents: write
+  build-desktop:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            build-cmd: build windows
+            artifact-name: windows-build
+            output-path: build/windows/x64/runner/Release/*
+            package-cmd: Compress-Archive -Path "build/windows/x64/runner/Release/*" -DestinationPath "windows-build.zip" -Force
+          - os: ubuntu-latest
+            build-cmd: build linux
+            artifact-name: linux-build
+            output-path: build/linux/x64/release/bundle/*
+            package-cmd: tar -czf linux-build.tar.gz -C build/linux/x64/release/bundle .
 
     steps:
-      # 获取代码
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      # 配置Flutter环境
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.35.1"
-          cache-key: flutter-stable-3.35.1
-          cache-path: /opt/flutter
+          cache: true
 
-      # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
 
-      # 运行buildRunner
-      - name: Run build_runner
-        run: dart run build_runner build
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
-      # 构建桌面应用
-      - name: Build Windows App
-        run: flutter build windows --release
+      - name: Build Desktop App
+        run: flutter build ${{ matrix.build-cmd }} --release
 
-      # 打包桌面应用
-      - name: Package Windows Build
-        run: |
-          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "windows-build.zip" -Force
+      - name: Package Desktop Build
+        run: ${{ matrix.package-cmd }}
 
-      # 上传桌面构建
-      - name: Upload Windows Artifact
-        uses: actions/upload-artifact@v5
+      - name: Upload Desktop Artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: windows-build
-          path: windows-build.zip
-  
+          name: ${{ matrix.artifact-name }}
+          path: ${{ matrix.artifact-name }}.*
+          
   # 创建资源
   create-release:
     runs-on: ubuntu-latest
-    needs: [build-android, build-windows]
+    needs: [build-android, build-desktop]
     permissions:
       contents: write
 
     steps:
-      - name: Download Android Artifact
-        uses: actions/download-artifact@v6
+      - name: Download Android Artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: android-apk
-          path: ./
+          name: android-apks
+          path: artifacts/android/
 
-      - name: Download Windows Artifact
-        uses: actions/download-artifact@v6
+      - name: Download Desktop Artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: windows-build
-          path: ./
+          path: artifacts/desktop/
+
+      - name: List generated files
+        run: |
+          echo "=== Android APKs ==="
+          find artifacts/android -name "*.apk" -type f | while read file; do
+            echo "- $(basename "$file") - $(du -h "$file" | cut -f1)"
+          done
+          echo "=== Desktop Builds ==="
+          find artifacts/desktop -type f | while read file; do
+            echo "- $(basename "$file") - $(du -h "$file" | cut -f1)"
+          done
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            app-release.apk
-            windows-build.zip
+            artifacts/android/*.apk
+            artifacts/desktop/*/*
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
+          body: |
+            ## 构建详情内容
+            
+            ### Android应用
+            - **app-release.apk** - Universal APK (包含所有架构)
+            - **app-armeabi-v7a-release.apk** - ARM 32位
+            - **app-arm64-v8a-release.apk** - ARM 64位  
+            - **app-x86_64-release.apk** - x86 64位
+            
+            ### 桌面构建
+            - Windows x64
+            - Linux x64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
