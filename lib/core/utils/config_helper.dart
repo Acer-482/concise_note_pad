@@ -5,7 +5,11 @@ import 'package:path_provider/path_provider.dart';
 
 /// 配置工具类
 ///
-/// 目前提供配置文件的实用方法
+/// 提供基本配置文件的实用方法
+///
+/// 实例化该类可以创建一个配置文件
+/// 配置文件由该类管理
+/// 保存和加载时仅需返回数据
 class ConfigHelper {
   /// 获取默认文件存放目录
   static Future<Directory> getDefaultFileDirectory() {
@@ -16,9 +20,14 @@ class ConfigHelper {
     }
   }
 
-  late final String configFileName; // 配置文件名称
-  late final File file; // 配置文件
-  bool _isReady = false; // 准备就绪
+  /// 配置文件名称
+  late final String configFileName;
+
+  /// 配置文件
+  late final File file;
+
+  /// 准备就绪
+  bool _isReady = false;
 
   ConfigHelper();
 
