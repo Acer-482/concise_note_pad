@@ -64,8 +64,12 @@ class SliverComplexAppbar extends StatelessWidget {
       _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
 
   // 显示导出设置
-  Future<Null> _showExportOption(BuildContext context) =>
-      _showPopMenu(context, title: '导出设置', child: const ExportFileOptionMenu());
+  Future<Null> _showExportOption(BuildContext context) => _showPopMenu(
+    context,
+    title: '导出设置',
+    padding: EdgeInsets.all(10),
+    child: const ExportFileOptionMenu(),
+  );
 
   // 显示导入设置
   Future<Null> _showImportOption(BuildContext context) =>

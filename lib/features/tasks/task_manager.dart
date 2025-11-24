@@ -124,15 +124,13 @@ class TaskManager extends ChangeNotifier {
   }
 
   /// 转为Json
-  String toJson(JsonEncoder jsonEncoder) {
-    return jsonEncoder.convert(
-      _taskList.map((taskItem) => taskItem.toJson()).toList(),
-    );
+  List<Map<String, dynamic>> toJson() {
+    return _taskList.map((taskItem) => taskItem.toJson()).toList();
   }
 
   /// 保存
   Future<bool> save() async =>
-      await config.save(() => toJson(JsonEncoder.withIndent('\t')));
+      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
 
   /// 加载
   Future<bool> load() async => await config.load((jsonData) {

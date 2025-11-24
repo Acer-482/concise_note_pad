@@ -64,15 +64,13 @@ class SliverComplexManager {
   }
 
   /// 转为Json
-  String toJson(JsonEncoder jsonEncoder) {
-    return jsonEncoder.convert(
-      sliverComplexList.map((complex) => complex.toJson()).toList(),
-    );
+  List<Map<String, dynamic>> toJson() {
+    return sliverComplexList.map((complex) => complex.toJson()).toList();
   }
 
   /// 保存
   Future<bool> save() async =>
-      await config.save(() => toJson(JsonEncoder.withIndent('\t')));
+      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
 
   /// 加载
   Future<bool> load() async => await config.load((jsonData) {
