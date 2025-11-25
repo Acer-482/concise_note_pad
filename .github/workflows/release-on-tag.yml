@@ -27,6 +27,10 @@ jobs:
           cache-key: flutter-stable-3.35.1
           cache-path: /opt/flutter
 
+      # 设置构建工具
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
       # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
