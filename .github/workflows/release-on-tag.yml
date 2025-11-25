@@ -36,8 +36,8 @@ jobs:
         run: flutter pub get
 
       # 生成代码
-      # - name: Generate code
-      #   run: dart run build_runner build --delete-conflicting-outputs
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
@@ -122,8 +122,8 @@ jobs:
         run: flutter pub get
 
       # 生成代码
-      # - name: Generate code
-      #   run: dart run build_runner build --delete-conflicting-outputs
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
       # 构建桌面应用
       - name: Build Desktop App
