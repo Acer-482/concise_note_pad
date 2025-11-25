@@ -43,6 +43,12 @@ jobs:
           # 构建分架构 APK
           flutter build apk --release --no-tree-shake-icons --split-per-abi
 
+      # 安装签名所需工具
+      - name: Install Android Build Tools
+        run: |
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3"
+
+      # 注册签名
       - name: Sign APKs
         uses: r0adkll/sign-android-release@v1
         with:
@@ -52,7 +58,7 @@ jobs:
           alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          
+
       # 上传安卓构建
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v5
@@ -172,18 +178,18 @@ jobs:
           echo "=== Android APKs ==="
           find artifacts/android -name "*.apk" -type f | while read file; do
             if [ -f "$file" ]; then
-              echo "✅ $(basename "$file") - $(du -h "$file" | cut -f1)"
+              echo "+ $(basename "$file") - $(du -h "$file" | cut -f1)"
             else
-              echo "❌ $(basename "$file") - FILE NOT FOUND"
+              echo "! $(basename "$file") - FILE NOT FOUND"
             fi
           done
 
           echo "=== Desktop Builds ==="
           find artifacts/desktop -type f | while read file; do
             if [ -f "$file" ]; then
-              echo "✅ $(basename "$file") - $(du -h "$file" | cut -f1)"
+              echo "+ $(basename "$file") - $(du -h "$file" | cut -f1)"
             else
-              echo "❌ $(basename "$file") - FILE NOT FOUND"
+              echo "! $(basename "$file") - FILE NOT FOUND"
             fi
           done
 
