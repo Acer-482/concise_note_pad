@@ -5,6 +5,9 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+import java.util.Properties
+import java.io.FileInputStream
+
 android {
     namespace = "com.example.concise_note_pad"
     compileSdk = flutter.compileSdkVersion
@@ -30,12 +33,36 @@ android {
         versionName = flutter.versionName
     }
 
+    // 添加签名配置
+    // signingConfigs {
+    //     create("release") {
+    //         // 从 key.properties 文件读取签名配置
+    //         val keystorePropertiesFile = rootProject.file("key.properties")
+    //         val keystoreProperties = Properties()
+    //         keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+    //         keyAlias = keystoreProperties.getProperty("keyAlias")
+    //         keyPassword = keystoreProperties.getProperty("keyPassword")
+    //         storeFile = file(keystoreProperties.getProperty("storeFile"))
+    //         storePassword = keystoreProperties.getProperty("storePassword")
+    //     }
+    // }
+
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
-        }
+      // getByName("release") {
+      //     // 使用release签名配置
+      //     signingConfig = signingConfigs.getByName("release")
+      //     isMinifyEnabled = true
+      //     isShrinkResources = true
+      //     proguardFiles(
+      //         getDefaultProguardFile("proguard-android.txt"),
+      //         "proguard-rules.pro"
+      //     )
+      // }
+        
+      getByName("debug") {
+          signingConfig = signingConfigs.getByName("debug")
+      }
     }
 }
 

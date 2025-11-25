@@ -35,6 +35,20 @@ jobs:
       - name: Generate code
         run: dart run build_runner build
 
+      # 配置签名
+      - name: Configure signing properties
+        run: |
+          # 从github获取创建key.properties文件
+          cat << EOF > android/key.properties
+          storePassword=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=../../release-key.keystore
+          EOF
+
+          # 将 Base64 编码的密钥库解码为文件
+          echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > android/app/key.jks
+
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
         run: |
@@ -43,22 +57,60 @@ jobs:
           # 构建分架构 APK
           flutter build apk --release --no-tree-shake-icons --split-per-abi
 
+      # 签名所有应用
+      - name: Sign APKs
+        run: |
+          echo "Signing Universal APK..."
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore release-key.keystore \
+            -storepass "${{ secrets.ANDROID_KEY_STORE_PASSWORD }}" \
+            -keypass "${{ secrets.ANDROID_KEY_PASSWORD }}" \
+            build/app/outputs/flutter-apk/app-release.apk \
+            "${{ secrets.ANDROID_KEY_ALIAS }}"
+          echo "Signing split APKs..."
+          for apk in build/app/outputs/flutter-apk/app-*-release.apk; do
+            echo "Signing $apk"
+            jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+              -keystore release-key.keystore \
+              -storepass "${{ secrets.ANDROID_KEY_STORE_PASSWORD }}" \
+              -keypass "${{ secrets.ANDROID_KEY_PASSWORD }}" \
+              "$apk" \
+              "${{ secrets.ANDROID_KEY_ALIAS }}"
+          done
+
+      # 验证签名
+      - name: Verify APK signatures
+        run: |
+          echo "Verifying APK signatures..."
+          for apk in build/app/outputs/flutter-apk/app-*.apk; do
+            if [ -f "$apk" ]; then
+              echo "Verifying: $(basename $apk)"
+              jarsigner -verify -verbose "$apk"
+              if [ $? -eq 0 ]; then
+                echo "✅ $(basename $apk) - Signature verified"
+              else
+                echo "❌ $(basename $apk) - Signature verification failed"
+                exit 1
+              fi
+            fi
+          done
+
       # 安装签名所需工具
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v2
-        with:
-          build-tools: 29.0.3
+      # - name: Set up Android SDK
+      #   uses: android-actions/setup-android@v2
+      #   with:
+      #     build-tools: 29.0.3
 
       # 注册签名
-      - name: Sign APKs
-        uses: r0adkll/sign-android-release@v1
-        with:
-          # 明确指定到apk文件所在目录
-          releaseDirectory: build/app/outputs/flutter-apk
-          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      # - name: Sign APKs
+      #   uses: r0adkll/sign-android-release@v1
+      #   with:
+      #     # 明确指定到apk文件所在目录
+      #     releaseDirectory: build/app/outputs/flutter-apk
+      #     signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+      #     alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+      #     keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
       # 上传安卓构建
       - name: Upload Android Artifact
