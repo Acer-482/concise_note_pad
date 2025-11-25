@@ -27,10 +27,6 @@ jobs:
           cache-key: flutter-stable-3.35.1
           cache-path: /opt/flutter
 
-      # 启用原生资源支持
-      # - name: Enable native assets
-      #   run: flutter config --enable-native-assets
-
       # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
@@ -47,16 +43,16 @@ jobs:
           # 构建分架构 APK
           flutter build apk --release --no-tree-shake-icons --split-per-abi
 
-      # 签名
-      # - name: Sign APKs
-      #   uses: r0adkll/sign-android-release@v1
-      #   with:
-      #     releaseDirectory: build/app/outputs/flutter-apk/
-      #     signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-      #     alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-      #     keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-      #     keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-
+      - name: Sign APKs
+        uses: r0adkll/sign-android-release@v1
+        with:
+          # 明确指定到apk文件所在目录
+          releaseDirectory: build/app/outputs/flutter-apk
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          
       # 上传安卓构建
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v5
