@@ -28,8 +28,8 @@ jobs:
           cache-path: /opt/flutter
 
       # 启用原生资源支持
-      - name: Enable native assets
-        run: flutter config --enable-native-assets
+      # - name: Enable native assets
+      #   run: flutter config --enable-native-assets
 
       # 安装项目依赖
       - name: Install dependencies
@@ -48,14 +48,14 @@ jobs:
           flutter build apk --release --no-tree-shake-icons --split-per-abi
 
       # 签名
-      - name: Sign APKs
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: build/app/outputs/flutter-apk/
-          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      # - name: Sign APKs
+      #   uses: r0adkll/sign-android-release@v1
+      #   with:
+      #     releaseDirectory: build/app/outputs/flutter-apk/
+      #     signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+      #     alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+      #     keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
       # 上传安卓构建
       - name: Upload Android Artifact
