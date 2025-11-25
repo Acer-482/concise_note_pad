@@ -31,6 +31,12 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
+      # 设置PATH
+      - name: Install Android Build Tools
+        run: |
+          yes | sdkmanager "build-tools;34.0.0"
+          echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+
       # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
@@ -68,7 +74,7 @@ jobs:
       - name: Sign APKs with apksigner
         run: |
           echo "Signing Universal APK with apksigner (V2/V3)..."
-          apksigner sign \
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
             --ks release-key.keystore \
             --ks-key-alias "${{ secrets.ANDROID_KEY_ALIAS }}" \
             --ks-pass pass:"${{ secrets.ANDROID_KEY_STORE_PASSWORD }}" \
@@ -79,7 +85,7 @@ jobs:
           echo "Signing split APKs..."
           for apk in build/app/outputs/flutter-apk/app-*-release.apk; do
             apk_name=$(basename "$apk" .apk)
-            apksigner sign \
+            $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
               --ks release-key.keystore \
               --ks-key-alias "${{ secrets.ANDROID_KEY_ALIAS }}" \
               --ks-pass pass:"${{ secrets.ANDROID_KEY_STORE_PASSWORD }}" \
@@ -127,8 +133,8 @@ jobs:
         with:
           name: android-apks
           path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/flutter-apk/app-*-release.apk
+            build/app/outputs/flutter-apk/app-release-signed.apk
+            build/app/outputs/flutter-apk/app-*-signed.apk
           retention-days: 7
 
   # 构建桌面应用
@@ -262,7 +268,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/android/app-*.apk
+            artifacts/android/app-*-signed.apk
             artifacts/desktop/linux-build/linux-build.tar.gz
             artifacts/desktop/windows-build/windows-build.zip
           tag_name: ${{ github.ref_name }}
