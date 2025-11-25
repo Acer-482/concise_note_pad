@@ -27,13 +27,17 @@ jobs:
           cache-key: flutter-stable-3.35.1
           cache-path: /opt/flutter
 
+      # 启用原生资源支持
+      - name: Enable native assets
+        run: flutter config --enable-native-assets
+
       # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
 
       # 生成代码
-      - name: Generate code
-        run: dart run build_runner build --delete-conflicting-outputs
+      # - name: Generate code
+      #   run: dart run build_runner build --delete-conflicting-outputs
 
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
@@ -42,6 +46,16 @@ jobs:
           flutter build apk --release --no-tree-shake-icons
           # 构建分架构 APK
           flutter build apk --release --no-tree-shake-icons --split-per-abi
+
+      # 签名
+      - name: Sign APKs
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: build/app/outputs/flutter-apk/
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
       # 上传安卓构建
       - name: Upload Android Artifact
@@ -99,13 +113,17 @@ jobs:
           cache-key: flutter-stable-3.35.1
           cache-path: /opt/flutter
 
+      # 启用原生资源支持
+      - name: Enable native assets
+        run: flutter config --enable-native-assets
+
       # 安装项目依赖
       - name: Install dependencies
         run: flutter pub get
 
       # 生成代码
-      - name: Generate code
-        run: dart run build_runner build --delete-conflicting-outputs
+      # - name: Generate code
+      #   run: dart run build_runner build --delete-conflicting-outputs
 
       # 构建桌面应用
       - name: Build Desktop App
@@ -180,8 +198,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/android/*.apk
-            artifacts/desktop/*/*
+            artifacts/android/app-*.apk
+            artifacts/desktop/linux-build/linux-build.tar.gz
+            artifacts/desktop/windows-build/windows-build.zip
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: |
