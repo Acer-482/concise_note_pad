@@ -35,26 +35,29 @@ jobs:
       - name: Generate code
         run: dart run build_runner build
 
-      # 配置签名
-      - name: Configure signing properties
+      # 解码 keystore 文件到项目根目录
+      - name: Setup signing key
         run: |
-          # 从github获取创建key.properties文件
-          cat << EOF > android/key.properties
-          storePassword=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
-          storeFile=../../release-key.keystore
-          EOF
+          echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > release-key.keystore
 
-          # 将 Base64 编码的密钥库解码为文件
-          echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > android/app/key.jks
+      # 配置签名
+      # - name: Configure signing properties
+      #   run: |
+      #     # 从github获取创建key.properties文件
+      #     cat << EOF > android/key.properties
+      #     storePassword=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+      #     keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+      #     keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+      #     storeFile=../../release-key.keystore
+      #     EOF
+
+      #     # 将 Base64 编码的密钥库解码为文件
+      #     echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > android/app/key.jks
 
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
         run: |
-          # 构建 Universal APK
           flutter build apk --release --no-tree-shake-icons
-          # 构建分架构 APK
           flutter build apk --release --no-tree-shake-icons --split-per-abi
 
       # 签名所有应用
@@ -67,6 +70,7 @@ jobs:
             -keypass "${{ secrets.ANDROID_KEY_PASSWORD }}" \
             build/app/outputs/flutter-apk/app-release.apk \
             "${{ secrets.ANDROID_KEY_ALIAS }}"
+
           echo "Signing split APKs..."
           for apk in build/app/outputs/flutter-apk/app-*-release.apk; do
             echo "Signing $apk"
@@ -94,7 +98,6 @@ jobs:
               fi
             fi
           done
-
       # 安装签名所需工具
       # - name: Set up Android SDK
       #   uses: android-actions/setup-android@v2
