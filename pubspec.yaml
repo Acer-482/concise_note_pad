@@ -16,7 +16,8 @@ dependencies:
   # source_gen: ^4.1.1 # 源码生成包
   intl: ^0.20.2 # 时间格式化包
   provider: ^6.1.5 # 状态管理器
-  path_provider: ^2.1.5 # 路径获取包
+  path_provider: ^2.1.4 # 路径获取包
+  path_provider_foundation: 2.4.4 # 显示指定版本 降级该包以禁用native-assets
 
   json_annotation: ^4.9.0 # Json注解包
 
