@@ -141,10 +141,10 @@ class _ImportFileOptionMenuState extends State<ImportFileOptionMenu> {
       final json = jsonData!;
       // 解析覆盖数据 //
       if (json.containsKey('AppbarConfig')) {
-        SliverComplexManager.instance.fromList(json['AppbarConfig']!);
+        SliverComplexManager.instance.setFromJsonList(json['AppbarConfig']!);
       }
       if (json.containsKey('TaskItem')) {
-        TaskManager.instance.fromList(json['TaskItem']!);
+        TaskManager.instance.setFromJsonList(json['TaskItem']!);
       }
       // 更新任务管理器 //
       TaskManager.instance.update();

@@ -7,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'sliver_complex.g.dart';
 
-/// 薄片复合项
+/// 任务菜单栏
 ///
 /// 复合应用栏和列表
 @JsonSerializable(ignoreUnannotated: true)

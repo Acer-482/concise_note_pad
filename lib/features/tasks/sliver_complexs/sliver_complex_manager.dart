@@ -9,27 +9,28 @@ import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex.dart';
 import 'package:flutter/material.dart';
 
-/// 薄片复合管理器
+/// 任务菜单管理器 - 单例模式类
 ///
-/// 管理所有的薄片复合项
-/// 提供配置文件保存写入操作
+/// 管理所有的任务菜单项
+///
+/// 提供配置文件保存、读取操作
 class SliverComplexManager {
   // 单例 //
   static final SliverComplexManager _instance =
       SliverComplexManager._internal();
   static SliverComplexManager get instance => _instance; // 获取单例类
-
   /// 单例构造
   SliverComplexManager._internal() {
     _init();
   }
-  final ConfigHelper config = ConfigHelper(); // 配置文件
-  final List<SliverComplex> sliverComplexList = []; // 薄片复合项列表
+
+  final ConfigHelper _config = ConfigHelper(); // 配置文件
+  final List<SliverComplex> sliverComplexList = []; // 任务菜单栏列表
 
   /// 初始化
   Future<Null> _init() async {
-    await config.init('sliverComplexs.json');
-    // 加载薄片复合项列表 //
+    await _config.init('sliverComplexs.json');
+    // 加载任务菜单项列表 //
     final loadSuccessful = await load();
     if (!loadSuccessful) {
       sliverComplexList.addAll([
@@ -63,18 +64,8 @@ class SliverComplexManager {
     }
   }
 
-  /// 转为Json
-  List<Map<String, dynamic>> toJson() {
-    return sliverComplexList.map((complex) => complex.toJson()).toList();
-  }
-
-  /// 从Json设置
-  void fromJson(String jsonData) {
-    fromList(JsonDecoder().convert(jsonData) as List<dynamic>);
-  }
-
-  /// 从列表设置
-  void fromList(List<dynamic> list) {
+  /// 从Json列表设置
+  void setFromJsonList(List<dynamic> list) {
     // 反序列化 //
     List<SliverComplex> complexList = list
         .cast<Map<String, dynamic>>()
@@ -85,12 +76,22 @@ class SliverComplexManager {
     sliverComplexList.addAll(complexList);
   }
 
+  /// 从Json设置
+  void fromJson(String jsonData) {
+    setFromJsonList(JsonDecoder().convert(jsonData) as List<dynamic>);
+  }
+
+  /// 转为Json
+  List<Map<String, dynamic>> toJson() {
+    return sliverComplexList.map((complex) => complex.toJson()).toList();
+  }
+
   /// 保存
   Future<bool> save() async =>
-      await config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
+      await _config.save(() => JsonEncoder.withIndent('\t').convert(toJson()));
 
   /// 加载
-  Future<bool> load() async => await config.load(fromJson);
+  Future<bool> load() async => await _config.load(fromJson);
 
   /// 更新
   void update() {
@@ -98,7 +99,7 @@ class SliverComplexManager {
     save(); // 保存
   }
 
-  /// 构建滚动浏览器
+  /// 构建为滚动浏览器
   CustomScrollView buildScrollView() {
     // 构建复合薄片列表 //
     List<Widget> slivers = [];

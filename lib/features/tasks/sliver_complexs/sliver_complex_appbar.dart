@@ -5,11 +5,12 @@ import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.d
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_state.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
+import 'package:concise_note_pad/features/tasks/widgets/task_menu_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// 薄片复合应用栏
+/// 任务菜单应用栏
 class SliverComplexAppbar extends StatelessWidget {
   final IconData? iconData; // 图标
   final String title; // 标题
@@ -52,33 +53,13 @@ class SliverComplexAppbar extends StatelessWidget {
     state.update(); // 更新以保存应用过滤器
   }
 
-  // 显示排序设置
-  Future<Null> _showSortOption(BuildContext context) => _showPopMenu(
-    context,
-    padding: EdgeInsets.all(18),
-    child: const SortOptionMenu(),
-  );
-
-  // 显示视图设置
-  Future<Null> _showViewOption(BuildContext context) =>
-      _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
-
-  // 显示导出设置
-  Future<Null> _showExportOption(BuildContext context) => _showPopMenu(
-    context,
-    title: '导出设置',
-    padding: EdgeInsets.all(10),
-    child: const ExportFileOptionMenu(),
-  );
-
-  // 显示导入设置
-  Future<Null> _showImportOption(BuildContext context) =>
-      _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
+  // 刷新
+  void _refresh() => state.update();
 
   // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
     IconButton(
-      onPressed: () => state.update(), // 更新状态
+      onPressed: _refresh, // 更新状态
       tooltip: '刷新',
       icon: const Icon(Icons.refresh),
     ),
@@ -112,17 +93,54 @@ class SliverComplexAppbar extends StatelessWidget {
             children: const [Icon(Icons.file_download), Text('导出')],
           ),
           onTap: () => _showExportOption(context),
-        ), // 导出
+        ),
         PopupMenuItem(
           child: Row(
             spacing: 10,
             children: const [Icon(Icons.file_open_rounded), Text('导入')],
           ),
           onTap: () => _showImportOption(context),
+        ),
+        PopupMenuItem(
+          child: Row(
+            spacing: 10,
+            children: const [Icon(Icons.settings), Text('管理任务菜单')],
+          ),
+          onTap: () => _showTaskMenuOption(context),
         ), // 导出
       ],
     ),
   ];
+
+  // 显示排序设置
+  Future<Null> _showSortOption(BuildContext context) => _showPopMenu(
+    context,
+    padding: EdgeInsets.all(18),
+    child: const SortOptionMenu(),
+  );
+
+  // 显示视图设置
+  Future<Null> _showViewOption(BuildContext context) =>
+      _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
+
+  // 显示导出设置
+  Future<Null> _showExportOption(BuildContext context) => _showPopMenu(
+    context,
+    title: '导出设置',
+    padding: EdgeInsets.all(10),
+    child: const ExportFileOptionMenu(),
+  );
+
+  // 显示导入设置
+  Future<Null> _showImportOption(BuildContext context) =>
+      _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
+
+  // 显示任务菜单设置
+  Future<Null> _showTaskMenuOption(BuildContext context) => _showPopMenu(
+    context,
+    padding: EdgeInsets.all(18),
+    child: const TaskMenuSettings(),
+  );
 
   /// 构建列表项
   @override

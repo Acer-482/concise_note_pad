@@ -8,9 +8,11 @@ import 'package:concise_note_pad/features/tasks/models/completable_task_item.dar
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:flutter/material.dart';
 
-/// 任务管理器
+/// 任务管理器 - 单例模式类
 ///
-/// 单例类，管理所有任务项
+/// 管理所有的任务项
+/// 
+/// 提供配置文件保存、读取操作
 class TaskManager extends ChangeNotifier {
   // 静态常量 //
   static const String taskDataJsonConfig = 'taskData.json'; // 任务项配置Json文件
@@ -130,11 +132,11 @@ class TaskManager extends ChangeNotifier {
 
   /// 从Json设置
   void fromJson(String jsonData) {
-    fromList(jsonDecode(jsonData) as List<dynamic>);
+    setFromJsonList(jsonDecode(jsonData) as List<dynamic>);
   }
 
-  /// 从列表设置
-  void fromList(List<dynamic> list) {
+  /// 从Json列表设置
+  void setFromJsonList(List<dynamic> list) {
     // 反序列化 //
     List<TaskItem> data = list
         .cast<Map<String, dynamic>>()

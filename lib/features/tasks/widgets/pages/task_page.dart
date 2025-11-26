@@ -7,9 +7,11 @@ import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// 任务页面
+/// 任务主页面
 ///
-/// 显示、添加、删除、更改...等等。用于管理任务项
+/// 用于管理所有任务项
+///
+/// 显示、添加、删除、更改...等等。
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
 
