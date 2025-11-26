@@ -5,7 +5,7 @@ import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.d
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
-import 'package:concise_note_pad/features/tasks/widgets/task_menu_settings.dart';
+import 'package:concise_note_pad/features/task_menus/widgets/task_menu_setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,21 +40,6 @@ class TaskMenuAppbar extends StatelessWidget {
       child: child,
     ), // 提供ChangeNotifierProvider - 此处调用value构造是为了防止自动调用dispose提前释放state
   );
-
-  // 显示过滤器设置
-  void _showFilterOption(BuildContext context) async {
-    await Navigator.push(
-      context,
-      CupertinoPageRoute(
-        builder: (context) =>
-            FilterFieldEditPage(filter: state.compositeFilter),
-      ),
-    );
-    state.update(); // 更新以保存应用过滤器
-  }
-
-  // 刷新
-  void _refresh() => state.update();
 
   // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
@@ -112,6 +97,21 @@ class TaskMenuAppbar extends StatelessWidget {
     ),
   ];
 
+  // 刷新
+  void _refresh() => state.update();
+
+  // 显示过滤器设置
+  void _showFilterOption(BuildContext context) async {
+    await Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) =>
+            FilterFieldEditPage(filter: state.compositeFilter),
+      ),
+    );
+    state.update(); // 更新以保存应用过滤器
+  }
+
   // 显示排序设置
   Future<void> _showSortOption(BuildContext context) => _showPopMenu(
     context,
@@ -136,10 +136,9 @@ class TaskMenuAppbar extends StatelessWidget {
       _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
 
   // 显示任务菜单设置
-  Future<void> _showTaskMenuOption(BuildContext context) => _showPopMenu(
+  Future<void> _showTaskMenuOption(BuildContext context) => Navigator.push(
     context,
-    padding: EdgeInsets.all(18),
-    child: const TaskMenuSettings(),
+    CupertinoPageRoute(builder: (context) => const TaskMenuSettingPage()),
   );
 
   /// 构建列表项
