@@ -54,3 +54,8 @@ flutter_launcher_icons:
     generate: true
     image_path: "./assets/icon-border.png"
   image_path: "./assets/icon.png"
+
+license: GPL-3.0
+homepage: https://github.com/Acer-482
+repository: https://github.com/Acer-482/concise_note_pad
+issue_tracker: https://github.com/Acer-482/concise_note_pad/issues

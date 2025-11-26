@@ -24,12 +24,16 @@ class _AboutPageState extends State<AboutPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 40,
+            spacing: 20,
             children: [
               _buildAboutContext(),
-              ElevatedButton(
-                onPressed: () => showLicensePage(context: context),
-                child: Text('许可证信息'),
+              Divider(),
+              Text('更多', style: Theme.of(context).textTheme.bodyLarge),
+              ListTile(
+                leading: const Icon(Icons.info_outline_rounded),
+                title: Text('更多许可证信息'),
+                onTap: () => showLicensePage(context: context),
+                trailing: const Icon(Icons.arrow_right),
               ),
             ],
           ),
@@ -58,7 +62,15 @@ class _AboutPageState extends State<AboutPage> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
-                'Version ${packageInfo.version} ${packageInfo.buildNumber.isEmpty ? '' : '(${packageInfo.buildNumber})'}',
+                '版本 ${packageInfo.version}',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              Text(
+                '本软件采用 GPL-3.0 许可证',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              Text(
+                '版权所有 © 2025 Acer',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
