@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:concise_note_pad/features/tasks/task_menu/task_menu_state.dart';
+import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

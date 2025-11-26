@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 /// 提供配置文件保存、读取操作
 class TaskManager extends ChangeNotifier {
   // 静态常量 //
-  static const String taskDataJsonConfig = 'taskData.json'; // 任务项配置Json文件
+  static const String configName = 'task_items.json';
 
   // 单例 //
   static final TaskManager _instance = TaskManager._internal();
@@ -37,7 +37,7 @@ class TaskManager extends ChangeNotifier {
 
   // 初始化
   void _init() async {
-    await config.init('taskData.json');
+    await config.init(configName);
     bool loadSuccessful = await load(); // 尝试加载数据
     // 根据情况设置属性 //
     if (loadSuccessful != true || taskList.isEmpty) {

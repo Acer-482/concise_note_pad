@@ -2,7 +2,7 @@ import 'package:concise_note_pad/core/pages/about_page.dart';
 import 'package:concise_note_pad/core/pages/home_page.dart';
 import 'package:concise_note_pad/features/settings/pages/settings_page.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
-import 'package:concise_note_pad/features/tasks/task_menu/task_menu_manager.dart';
+import 'package:concise_note_pad/features/task_menus/task_menu_manager.dart';
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_page.dart';
 import 'package:flutter/material.dart';
 

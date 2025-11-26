@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:concise_note_pad/core/utils/config_helper.dart';
-import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
+import 'package:concise_note_pad/features/task_filters/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
 import 'package:concise_note_pad/core/enums/log_level.dart';
 import 'package:concise_note_pad/core/pages/main_page.dart';

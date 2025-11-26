@@ -1,6 +1,6 @@
-import 'package:concise_note_pad/features/filters/registry/task_filter_registration.dart';
-import 'package:concise_note_pad/features/filters/registry/task_filter_registry.dart';
-import 'package:concise_note_pad/features/filters/models/task_filter.dart';
+import 'package:concise_note_pad/features/task_filters/registry/task_filter_registration.dart';
+import 'package:concise_note_pad/features/task_filters/registry/task_filter_registry.dart';
+import 'package:concise_note_pad/features/task_filters/models/task_filter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
