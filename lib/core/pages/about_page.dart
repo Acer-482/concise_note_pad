@@ -38,6 +38,7 @@ class _AboutPageState extends State<AboutPage> {
     ); // 骨架
   }
 
+  // 构建关于内容
   Widget _buildAboutContext() {
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(), // 获取平台信息
@@ -48,15 +49,17 @@ class _AboutPageState extends State<AboutPage> {
           return Column(
             spacing: 10,
             children: [
-              CircleAvatar(radius: 32, child: Icon(Icons.apps, size: 24)),
-              Text('简记', style: Theme.of(context).textTheme.displayLarge),
+              CircleAvatar(
+                radius: 32,
+                backgroundImage: AssetImage('assets/icon.png'),
+              ),
               Text(
-                '© 2024 Acer',
+                '简记 © 2024 Acer',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
                 'Version ${packageInfo.version} ${packageInfo.buildNumber.isEmpty ? '' : '(${packageInfo.buildNumber})'}',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
           );
