@@ -1,21 +1,47 @@
 # Concise Notepad
 
-一款简洁易用、Material风格的记事本应用，使用 Dart / Flutter 开发。
+A clean and easy-to-use notepad application with Material Design, built with Dart/Flutter.
 
-## 特性
-- 📱 跨平台支持
-- 📝 多样的任务添加
-- 🎨 丰富的UI动画
-- 💾 本地数据存储
+## Features
+- Clean and intuitive UI experience
+- Pure Material Design implementation  
+- Straightforward task management and editing
+- Powerful filtering and search capabilities
 
-## 开始使用
+<!--
+## Download & Installation
+(Release builds table here)
 
+## Development
+-->
 
-## 开发
+## License
 
+This project is licensed under the [GPL-3.0](LICENSE) license.
 
-## 协议
+You are free to:
+- Use, study, and modify the code
+- Contribute code and improvements  
+- Distribute under the same license terms
 
+You must:
+- Keep derivative works under the same license
+- Preserve copyright and license notices
+- Clearly indicate any modifications made
 
-## 贡献
-欢迎提交 Issue 和 Pull Request！
+### Contact
+
+For commercial licensing, please contact: 482936046@qq.com
+
+## Contributing
+
+We welcome Issues and Pull Requests! Whether it's feature suggestions or code improvements, your contributions are appreciated.
+
+---
+
+> Development takes effort. If this project helps you, please give it a Star⭐<br>
+For questions or collaboration, feel free to contact: *482936046@qq.com*
+
+---
+
+**Copyright © 2025 Acer. All rights reserved.**
