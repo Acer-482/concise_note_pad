@@ -73,7 +73,7 @@ abstract class TaskItem {
   // 操作 //
 
   /// 显示详细信息
-  Future<Null> showInfo(BuildContext context) async {
+  Future<void> showInfo(BuildContext context) async {
     await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => TaskItemInfoPage(taskItem: this)),
     );

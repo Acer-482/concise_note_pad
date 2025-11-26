@@ -28,7 +28,7 @@ class SliverComplexManager {
   final List<SliverComplex> sliverComplexList = []; // 任务菜单栏列表
 
   /// 初始化
-  Future<Null> _init() async {
+  Future<void> _init() async {
     await _config.init('sliverComplexs.json');
     // 加载任务菜单项列表 //
     final loadSuccessful = await load();

@@ -26,7 +26,7 @@ class SliverComplexAppbar extends StatelessWidget {
   });
 
   // 显示弹出菜单
-  Future<Null> _showPopMenu(
+  Future<void> _showPopMenu(
     BuildContext context, {
     String? title,
     EdgeInsetsGeometry? padding,
@@ -113,18 +113,18 @@ class SliverComplexAppbar extends StatelessWidget {
   ];
 
   // 显示排序设置
-  Future<Null> _showSortOption(BuildContext context) => _showPopMenu(
+  Future<void> _showSortOption(BuildContext context) => _showPopMenu(
     context,
     padding: EdgeInsets.all(18),
     child: const SortOptionMenu(),
   );
 
   // 显示视图设置
-  Future<Null> _showViewOption(BuildContext context) =>
+  Future<void> _showViewOption(BuildContext context) =>
       _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
 
   // 显示导出设置
-  Future<Null> _showExportOption(BuildContext context) => _showPopMenu(
+  Future<void> _showExportOption(BuildContext context) => _showPopMenu(
     context,
     title: '导出设置',
     padding: EdgeInsets.all(10),
@@ -132,11 +132,11 @@ class SliverComplexAppbar extends StatelessWidget {
   );
 
   // 显示导入设置
-  Future<Null> _showImportOption(BuildContext context) =>
+  Future<void> _showImportOption(BuildContext context) =>
       _showPopMenu(context, title: '导入设置', child: const ImportFileOptionMenu());
 
   // 显示任务菜单设置
-  Future<Null> _showTaskMenuOption(BuildContext context) => _showPopMenu(
+  Future<void> _showTaskMenuOption(BuildContext context) => _showPopMenu(
     context,
     padding: EdgeInsets.all(18),
     child: const TaskMenuSettings(),
