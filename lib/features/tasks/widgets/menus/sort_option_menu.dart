@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_state.dart';
+import 'package:concise_note_pad/features/tasks/task_menu/task_menu_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class SortOptionMenu extends StatefulWidget {
 class _SortOptionMenuState extends State<SortOptionMenu> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SliverComplexState>(
+    return Consumer<TaskMenuState>(
       builder: (context, state, child) => Expanded(
         child: ListView(
           children: [
@@ -30,7 +30,7 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
   }
 
   /// 构建排序方式按钮
-  Widget _buildSortReverseButton(SliverComplexState state) => ListTile(
+  Widget _buildSortReverseButton(TaskMenuState state) => ListTile(
     title: const Text('排序方式：'),
     trailing: SegmentedButton<bool>(
       segments: [
@@ -57,7 +57,7 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
   );
 
   /// 构建自动关闭复选框
-  Widget _buildAutoCloseCheckBox(SliverComplexState state) => ListTile(
+  Widget _buildAutoCloseCheckBox(TaskMenuState state) => ListTile(
     title: const Text('选择类型后自动关闭当前页'),
     trailing: Checkbox(
       value: state.isSortOptionAutoClose,
@@ -69,7 +69,7 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
   );
 
   /// 构建排序设置单选框组
-  Widget _buildSortOptionRadioGroup(SliverComplexState state) =>
+  Widget _buildSortOptionRadioGroup(TaskMenuState state) =>
       RadioGroup<SortOption>(
         groupValue: state.sortOption,
         onChanged: (SortOption? value) {

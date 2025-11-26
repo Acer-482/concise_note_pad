@@ -4,9 +4,9 @@ import 'package:concise_note_pad/core/utils/config_helper.dart';
 import 'package:concise_note_pad/features/filters/enums/match_modes/boolean_match_mode.dart';
 import 'package:concise_note_pad/features/filters/models/composite_filter.dart';
 import 'package:concise_note_pad/features/filters/models/field_filters/boolean_task_filter.dart';
-import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_state.dart';
+import 'package:concise_note_pad/features/tasks/task_menu/task_menu_state.dart';
 import 'package:concise_note_pad/main.dart';
-import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex.dart';
+import 'package:concise_note_pad/features/tasks/task_menu/task_menu.dart';
 import 'package:flutter/material.dart';
 
 /// 任务菜单管理器 - 单例模式类
@@ -14,28 +14,28 @@ import 'package:flutter/material.dart';
 /// 管理所有的任务菜单项
 ///
 /// 提供配置文件保存、读取操作
-class SliverComplexManager {
+class TaskMenuManager {
   // 单例 //
-  static final SliverComplexManager _instance =
-      SliverComplexManager._internal();
-  static SliverComplexManager get instance => _instance; // 获取单例类
+  static final TaskMenuManager _instance =
+      TaskMenuManager._internal();
+  static TaskMenuManager get instance => _instance; // 获取单例类
   /// 单例构造
-  SliverComplexManager._internal() {
+  TaskMenuManager._internal() {
     _init();
   }
 
   final ConfigHelper _config = ConfigHelper(); // 配置文件
-  final List<SliverComplex> sliverComplexList = []; // 任务菜单栏列表
+  final List<TaskMenu> taskMenuList = []; // 任务菜单栏列表
 
   /// 初始化
   Future<void> _init() async {
-    await _config.init('sliverComplexs.json');
+    await _config.init('taskMenuConfig.json');
     // 加载任务菜单项列表 //
     final loadSuccessful = await load();
     if (!loadSuccessful) {
-      sliverComplexList.addAll([
-        SliverComplex(
-          state: SliverComplexState(
+      taskMenuList.addAll([
+        TaskMenu(
+          state: TaskMenuState(
             compositeFilter: CompositeFilter(
               filterList: [
                 BooleanTaskFilter(
@@ -49,7 +49,7 @@ class SliverComplexManager {
           iconData: Icons.list_alt_rounded,
           title: '未完成项',
         ),
-        SliverComplex(
+        TaskMenu(
           iconData: Icons.list_alt_rounded,
           title: '所有项',
           pinned: true,
@@ -58,7 +58,7 @@ class SliverComplexManager {
       save(); // 保存
     }
     // 添加监听器 //
-    for (var complex in sliverComplexList) {
+    for (var complex in taskMenuList) {
       complex.state.update(); // 更新
       complex.state.addListener(update);
     }
@@ -67,13 +67,13 @@ class SliverComplexManager {
   /// 从Json列表设置
   void setFromJsonList(List<dynamic> list) {
     // 反序列化 //
-    List<SliverComplex> complexList = list
+    List<TaskMenu> complexList = list
         .cast<Map<String, dynamic>>()
-        .map((map) => SliverComplex.fromJson(map))
+        .map((map) => TaskMenu.fromJson(map))
         .toList();
     // 保存数据 //
-    sliverComplexList.clear();
-    sliverComplexList.addAll(complexList);
+    taskMenuList.clear();
+    taskMenuList.addAll(complexList);
   }
 
   /// 从Json设置
@@ -83,7 +83,7 @@ class SliverComplexManager {
 
   /// 转为Json
   List<Map<String, dynamic>> toJson() {
-    return sliverComplexList.map((complex) => complex.toJson()).toList();
+    return taskMenuList.map((complex) => complex.toJson()).toList();
   }
 
   /// 保存
@@ -95,7 +95,7 @@ class SliverComplexManager {
 
   /// 更新
   void update() {
-    MainApp.logInf('SliverComplexManager 更新');
+    MainApp.logInf('TaskMenuManager 更新');
     save(); // 保存
   }
 
@@ -103,7 +103,7 @@ class SliverComplexManager {
   CustomScrollView buildScrollView() {
     // 构建复合薄片列表 //
     List<Widget> slivers = [];
-    for (SliverComplex complex in sliverComplexList) {
+    for (TaskMenu complex in taskMenuList) {
       slivers.add(complex.appbar);
       slivers.add(complex.list);
     }
@@ -113,9 +113,9 @@ class SliverComplexManager {
 
   /// 销毁释放
   void dispose() {
-    for (var complex in sliverComplexList) {
+    for (var complex in taskMenuList) {
       complex.state.removeListener(update);
     } // 删除监听器
-    sliverComplexList.map((complex) => complex.dispose()); // 销毁释放
+    taskMenuList.map((complex) => complex.dispose()); // 销毁释放
   }
 }

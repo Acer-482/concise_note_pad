@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sliver_complex_state.dart';
+part of 'task_menu_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SliverComplexState _$SliverComplexStateFromJson(Map<String, dynamic> json) =>
-    SliverComplexState(
+TaskMenuState _$TaskMenuStateFromJson(Map<String, dynamic> json) =>
+    TaskMenuState(
       compositeFilter: json['compositeFilter'] == null
           ? null
           : CompositeFilter.fromJson(
@@ -20,7 +20,7 @@ SliverComplexState _$SliverComplexStateFromJson(Map<String, dynamic> json) =>
       isSortOptionAutoClose: json['isSortOptionAutoClose'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$SliverComplexStateToJson(SliverComplexState instance) =>
+Map<String, dynamic> _$TaskMenuStateToJson(TaskMenuState instance) =>
     <String, dynamic>{
       'compositeFilter': instance.compositeFilter,
       'isReverseSort': instance.isReverseSort,

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:concise_note_pad/core/utils/file_picker_utils.dart';
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
-import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_manager.dart';
+import 'package:concise_note_pad/features/tasks/task_menu/task_menu_manager.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +141,7 @@ class _ImportFileOptionMenuState extends State<ImportFileOptionMenu> {
       final json = jsonData!;
       // 解析覆盖数据 //
       if (json.containsKey('AppbarConfig')) {
-        SliverComplexManager.instance.setFromJsonList(json['AppbarConfig']!);
+        TaskMenuManager.instance.setFromJsonList(json['AppbarConfig']!);
       }
       if (json.containsKey('TaskItem')) {
         TaskManager.instance.setFromJsonList(json['TaskItem']!);

@@ -5,7 +5,7 @@ import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'sliver_complex_state.g.dart';
+part 'task_menu_state.g.dart';
 
 /// 排序选项
 enum SortOption {
@@ -15,9 +15,9 @@ enum SortOption {
   date, // 创建日期
 }
 
-/// 复合薄片 状态
+/// 任务菜单状态
 @JsonSerializable()
-class SliverComplexState extends ChangeNotifier {
+class TaskMenuState extends ChangeNotifier {
   CompositeFilter compositeFilter; // 复合过滤器
 
   bool isReverseSort; // 反转排序
@@ -36,7 +36,7 @@ class SliverComplexState extends ChangeNotifier {
   /// 获取列表项数量
   int get listSize => _taskList.length;
 
-  SliverComplexState({
+  TaskMenuState({
     CompositeFilter? compositeFilter,
     this.isReverseSort = true,
     this.sortOption = SortOption.importance,
@@ -45,9 +45,9 @@ class SliverComplexState extends ChangeNotifier {
     TaskManager.instance.addListener(update); // 添加监听
   }
 
-  factory SliverComplexState.fromJson(Map<String, dynamic> map) =>
-      _$SliverComplexStateFromJson(map);
-  Map<String, dynamic> toJson() => _$SliverComplexStateToJson(this);
+  factory TaskMenuState.fromJson(Map<String, dynamic> map) =>
+      _$TaskMenuStateFromJson(map);
+  Map<String, dynamic> toJson() => _$TaskMenuStateToJson(this);
 
   // 比较重要性
   int _compareByImportance(TaskItem a, TaskItem b) {

@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sliver_complex.dart';
+part of 'task_menu.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SliverComplex _$SliverComplexFromJson(Map<String, dynamic> json) {
+TaskMenu _$TaskMenuFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['state']);
-  return SliverComplex(
+  return TaskMenu(
     state: json['state'] == null
         ? null
-        : SliverComplexState.fromJson(json['state'] as Map<String, dynamic>),
+        : TaskMenuState.fromJson(json['state'] as Map<String, dynamic>),
     iconData: _$JsonConverterFromJson<Map<String, dynamic>, IconData>(
       json['iconData'],
       const IconDataConverter().fromJson,
@@ -21,16 +21,15 @@ SliverComplex _$SliverComplexFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$SliverComplexToJson(SliverComplex instance) =>
-    <String, dynamic>{
-      'state': instance.state,
-      'iconData': _$JsonConverterToJson<Map<String, dynamic>, IconData>(
-        instance.iconData,
-        const IconDataConverter().toJson,
-      ),
-      'title': instance.title,
-      'pinned': instance.pinned,
-    };
+Map<String, dynamic> _$TaskMenuToJson(TaskMenu instance) => <String, dynamic>{
+  'state': instance.state,
+  'iconData': _$JsonConverterToJson<Map<String, dynamic>, IconData>(
+    instance.iconData,
+    const IconDataConverter().toJson,
+  ),
+  'title': instance.title,
+  'pinned': instance.pinned,
+};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

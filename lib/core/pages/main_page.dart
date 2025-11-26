@@ -2,11 +2,9 @@ import 'package:concise_note_pad/core/pages/about_page.dart';
 import 'package:concise_note_pad/core/pages/home_page.dart';
 import 'package:concise_note_pad/features/settings/pages/settings_page.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
-import 'package:concise_note_pad/features/tasks/sliver_complexs/sliver_complex_manager.dart';
+import 'package:concise_note_pad/features/tasks/task_menu/task_menu_manager.dart';
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_page.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_icons_animated/flutter_animated_icons.dart';
-// import 'package:lottie/lottie.dart';
 
 /// 导航页面
 class _NavigationPage {
@@ -216,7 +214,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     // 释放单例类资源 //
-    SliverComplexManager.instance.dispose();
+    TaskMenuManager.instance.dispose();
     super.dispose();
   }
 }
