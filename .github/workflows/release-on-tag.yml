@@ -50,20 +50,6 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > release-key.keystore
 
-      # 配置签名
-      # - name: Configure signing properties
-      #   run: |
-      #     # 从github获取创建key.properties文件
-      #     cat << EOF > android/key.properties
-      #     storePassword=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-      #     keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-      #     keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
-      #     storeFile=../../release-key.keystore
-      #     EOF
-
-      #     # 将 Base64 编码的密钥库解码为文件
-      #     echo "${{ secrets.ANDROID_SIGNING_KEY }}" | base64 -d > android/app/key.jks
-
       # 构建安卓应用
       - name: Build Android APKs (all architectures)
         run: |
@@ -110,22 +96,6 @@ jobs:
               fi
             fi
           done
-      # 安装签名所需工具
-      # - name: Set up Android SDK
-      #   uses: android-actions/setup-android@v2
-      #   with:
-      #     build-tools: 29.0.3
-
-      # 注册签名
-      # - name: Sign APKs
-      #   uses: r0adkll/sign-android-release@v1
-      #   with:
-      #     # 明确指定到apk文件所在目录
-      #     releaseDirectory: build/app/outputs/flutter-apk
-      #     signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
-      #     alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-      #     keyStorePassword: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-      #     keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
       # 上传安卓构建
       - name: Upload Android Artifact
@@ -160,7 +130,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      # 安装依赖
+      # 安装Linux依赖
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -182,10 +152,6 @@ jobs:
           flutter-version: 3.35.1
           cache-key: flutter-stable-3.35.1
           cache-path: /opt/flutter
-
-      # 启用原生资源支持
-      - name: Enable native assets
-        run: flutter config --enable-native-assets
 
       # 安装项目依赖
       - name: Install dependencies
@@ -210,7 +176,7 @@ jobs:
           name: ${{ matrix.artifact-name }}
           path: ${{ matrix.artifact-name }}.*
 
-  # 创建资源
+  # 创建上传资源构建
   create-release:
     runs-on: ubuntu-latest
     needs: [build-android, build-desktop]
@@ -229,6 +195,7 @@ jobs:
         with:
           path: artifacts/desktop/
 
+      # 列出构建文件
       - name: List generated files
         run: |
           echo "=== Android APKs ==="
@@ -240,7 +207,7 @@ jobs:
             echo "- $(basename "$file") - $(du -h "$file" | cut -f1)"
           done
 
-      # 文件检查
+      # 检查文件
       - name: Verify downloaded files
         run: |
           echo "=== Android APKs ==="
@@ -264,6 +231,7 @@ jobs:
           echo "=== 目录结构 ==="
           find artifacts -type f | sort
 
+      # 创建上传
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -276,13 +244,13 @@ jobs:
           body: |
             ## 构建详情内容
 
-            ### Android应用
-            - **app-release.apk** - Universal APK (包含所有架构)
+            ### Android应用支持平台
             - **app-armeabi-v7a-release.apk** - ARM 32位
             - **app-arm64-v8a-release.apk** - ARM 64位  
             - **app-x86_64-release.apk** - x86 64位
+            - **app-release.apk** - Universal
 
-            ### 桌面构建
+            ### 桌面应用支持平台
             - Windows x64
             - Linux x64
         env:

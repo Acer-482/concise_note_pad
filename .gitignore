@@ -44,6 +44,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
 # 签名密钥
 release-key.keystore
