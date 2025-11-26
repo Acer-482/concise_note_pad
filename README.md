@@ -1,3 +1,11 @@
+<div dir="ltr" align=center>
+
+**Language Selection**
+
+[**English us**](README.md) / [**简体中文 🇨🇳**](README_cn.md)
+
+</div>
+
 # Concise Notepad
 
 A clean and easy-to-use notepad application with Material Design, built with Dart/Flutter.

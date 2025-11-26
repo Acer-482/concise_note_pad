@@ -1,39 +1,54 @@
+<div dir="ltr" align=center>
+
+**Language Selection**
+
+[**English us**](README.md) / [**简体中文 🇨🇳**](README_cn.md)
+
+</div>
+
 # Concise Notepad
 
-A simple and easy-to-use, Material style notepad application developed using Dart/Flutter.
+一款简洁易用、Material风格的记事本应用，使用 Dart / Flutter 开发。
 
-## Characteristics
-- Concise and clear application interface experience
-- A relatively pure Material Design experience
-- Intuitive task management and editing
-- Powerful filtering and search functions
+## 特点
+- 简洁明了的应用界面体验
+- 较为纯粹的 Material Design 体验
+- 直观的任务管理和编辑
+- 强大的筛选和搜索功能
 
-## Agreement&License
+<!--
+## 下载 & 安装
+(此处显示Release构建表格)
 
-This project adopts the GPL-3.0 (LICENSE) license.
+## 开发
+-->
 
-You can:
-- Free use, learning, and modification of code
-- Contribution code and improvement suggestions
-- Distribute under the premise of complying with the same agreement
+## 协议 & 许可证
 
-You need:
-- Derivative works maintain the same agreement
-- Retain the copyright statement of the original project
-- Clearly label the modifications made
+本项目采用 [GPL-3.0](LICENSE) 许可证。
 
-### Contact us
+你可以：
+- 自由使用、学习和修改代码
+- 贡献代码和改进建议
+- 在遵守相同协议的前提下分发
 
-For commercial authorization, please contact: 482936046@qq.com
+你需要：
+- 衍生作品保持相同协议
+- 保留原项目的版权声明
+- 明确标注所做的修改
 
-## Participate and contribute
+### 联系
 
-Welcome to submit Issue and Pull Requests! We look forward to your participation in both feature suggestions and code optimization.
+如需商业授权，请联系：482936046@qq.com
+
+## 参与贡献
+
+欢迎提交 Issue 和 Pull Request！无论是功能建议还是代码优化，都很期待你的参与。
 
 ---
 
-> Development is not easy. If this project is helpful to you, please give it to a Star ⭐  Please support<br>
-If you have any questions or intentions for cooperation, please feel free to contact:* 482936046@qq.com *
+> 开发不易，如果这个项目对你有帮助，麻烦给个 Star⭐ 支持一下<br>
+有任何问题或合作意向，欢迎联系：*482936046@qq.com*
 
 ---
 
