@@ -1,5 +1,8 @@
+import 'package:concise_note_pad/core/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:toastification/toastification.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -34,6 +37,13 @@ class _AboutPageState extends State<AboutPage> {
                 title: Text('更多许可证信息'),
                 onTap: () => showLicensePage(context: context),
                 trailing: const Icon(Icons.arrow_right),
+              ),
+              ListTile(
+                leading: const Icon(Icons.warehouse),
+                title: Text('跳转到github仓库'),
+                subtitle: Text('https://github.com/Acer-482/concise_note_pad'),
+                onTap: () => _launchUrl(),
+                trailing: const Icon(Icons.launch),
               ),
             ],
           ),
@@ -83,5 +93,32 @@ class _AboutPageState extends State<AboutPage> {
         }
       },
     );
+  }
+
+  // 跳转到网页
+  Future<void> _launchUrl() async {
+    final Uri uri = Uri.parse('https://github.com/Acer-482/concise_note_pad');
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        if (mounted) {
+          ToastUtils.showStandardToast(
+            context,
+            title: '跳转失败',
+            msg: '跳转到"$uri"失败',
+            type: ToastificationType.error,
+          );
+        }
+      }
+    } catch (e) {
+      // 跳转错误
+      if (mounted) {
+        ToastUtils.showStandardToast(
+          context,
+          title: '跳转失败',
+          msg: '跳转到"$uri"时发生错误：$e',
+          type: ToastificationType.error,
+        );
+      }
+    }
   }
 }

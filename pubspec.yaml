@@ -29,6 +29,7 @@ dependencies:
   lottie: ^3.3.2 # 高质量动画播放包
   flutter_icons_animated: ^1.2.0 # 图标动画包
 
+  url_launcher: ^6.3.2 # url启动包
   file_picker: ^10.3.6 # 文件选择器 - miguelruivo.com
   # file_selector: ^1.1.0 # 文件选择器 - flutter.dev
   flutter_colorpicker: ^1.1.0 # 颜色选择包
