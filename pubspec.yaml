@@ -23,6 +23,7 @@ dependencies:
 
   flutter_slidable: ^4.0.3 # 滑动组件包
   animated_list_plus: ^0.5.2 # 动画列表包
+  reorderables: ^0.6.0 # 拖动记录包
   toastification: ^3.0.3 # Toast通知库
 
   cupertino_icons: ^1.0.8 # IOS风格图标
