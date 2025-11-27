@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:concise_note_pad/core/utils/config_helper.dart';
+import 'package:concise_note_pad/features/settings/global_settings_manager.dart';
 import 'package:concise_note_pad/features/task_filters/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
 import 'package:concise_note_pad/core/enums/log_level.dart';
@@ -14,12 +12,14 @@ import 'package:provider/provider.dart';
 /// @Acer-482
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // 初始化绑定
-  TaskFilterRegistry.instance.initAllRegister(); // 初始化过滤器的注册器
-  await MainApp.initSettings(); // 初始化设置
+  TaskFilterRegistry.instance.initAllRegister(); // 初始化过滤器注册器
+  await GlobalSettingsManager.instance.init(); // 初始化全局设置
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MainApp.settings), // 全局设置
+        ChangeNotifierProvider(
+          create: (context) => GlobalSettingsManager.instance.settings,
+        ), // 全局设置
         ChangeNotifierProvider(
           create: (context) => TaskManager.instance,
         ), // 任务管理器
@@ -33,34 +33,12 @@ void main() async {
 ///
 /// @Acer-482
 class MainApp extends StatelessWidget {
-  static final GlobalSettings settings = GlobalSettings(); // 全局设置
-  static final ConfigHelper _config = ConfigHelper(); // 配置
   const MainApp({super.key});
-
-  /// 初始化设置
-  static Future<void> initSettings() async {
-    await _config.init('settings.json'); // 初始化配置
-    if (!await loadSettings()) {
-      await saveSettings(); // 保存默认设置
-    }
-    settings.addListener(() => saveSettings()); // 更改后保存
-  }
-
-  /// 加载设置
-  static Future<bool> loadSettings() => _config.load(
-    (data) =>
-        settings.set(GlobalSettings.fromJson(JsonDecoder().convert(data))),
-  );
-
-  /// 保存设置
-  static Future<bool> saveSettings() => _config.save(
-    () => JsonEncoder.withIndent('\t').convert(settings.toJson()),
-  );
 
   @override
   Widget build(BuildContext context) {
     return Consumer<GlobalSettings>(
-      builder: (context, globalSettings, child) => MaterialApp(
+      builder: (context, settings, child) => MaterialApp(
         title: '简记',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
@@ -68,7 +46,7 @@ class MainApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
           useMaterial3: true, // 启用Material3
-        ), // 主题数据
+        ), // 浅色主题
         darkTheme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: settings.themeColor,
@@ -76,6 +54,20 @@ class MainApp extends StatelessWidget {
           ),
           useMaterial3: true, // 启用Material3
         ), // 深色主题
+        highContrastTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: settings.themeColor,
+            brightness: Brightness.light,
+          ),
+          useMaterial3: true, // 启用Material3
+        ), // 浅色高对比度主题
+        highContrastDarkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: settings.themeColor,
+            brightness: Brightness.dark,
+          ),
+          useMaterial3: true, // 启用Material3
+        ), // 深色高对比度主题
         themeMode: settings.themeMode, // 主题模式
         home: const MainPage(),
       ),

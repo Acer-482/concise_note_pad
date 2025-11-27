@@ -1,10 +1,11 @@
+import 'package:concise_note_pad/features/settings/global_settings_manager.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
-import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/core/constants/theme_mode_display_name.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+/// 设置页面
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -42,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   /// 显示颜色选择器
   Future<T?> _showColorPicker<T>() {
-    Color currentColor = MainApp.settings.themeColor;
+    Color currentColor = GlobalSettingsManager.instance.settings.themeColor;
     return showDialog<T>(
       context: context,
       builder: (context) => AlertDialog(
@@ -64,8 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
         actions: [
           TextButton(
             onPressed: () {
-              MainApp.settings.themeColor = currentColor; // 设置为当前颜色
-              MainApp.settings.update(); // 更新
+              GlobalSettingsManager.instance.settings.themeColor =
+                  currentColor; // 设置为当前颜色
+              GlobalSettingsManager.instance.settings.update(); // 更新
               Navigator.pop(context);
             },
             child: Text('确定'),
@@ -81,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = MainApp.settings;
+    final settings = GlobalSettingsManager.instance.settings;
     return Scaffold(
       appBar: AppBar(title: Text('设置')),
       body: Column(
