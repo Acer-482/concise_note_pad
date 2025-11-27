@@ -14,44 +14,45 @@ part 'task_menu.g.dart';
 class TaskMenu {
   @JsonKey(required: true)
   final TaskMenuState state; // 状态
-  final TaskMenuAppbar appbar; // 应用栏
   final TaskMenuList list; // 列表
 
+  /// 图标数据
   @JsonKey()
   @IconDataConverter()
-  final IconData? iconData;
-  @JsonKey()
-  final String title;
-  @JsonKey()
-  final bool pinned;
+  IconData? iconData;
 
-  TaskMenu({
-    TaskMenuState? state,
-    this.iconData,
-    String? title,
-    bool? pinned,
-  }) : state = state ?? TaskMenuState(),
-       title = title ?? '',
-       pinned = pinned ?? false,
-       appbar = TaskMenuAppbar(
-         // 在初始化列表中初始化
-         iconData: iconData,
-         title: title ?? '',
-         pinned: pinned ?? false,
-         state: state ?? TaskMenuState(),
-       ),
-       list = TaskMenuList(
-         // 在初始化列表中初始化
-         state: state ?? TaskMenuState(),
-       );
+  /// 标题
+  @JsonKey()
+  String title;
+
+  /// 固定标题栏
+  @JsonKey()
+  bool isPinned;
+
+  TaskMenu({TaskMenuState? state, this.iconData, String? title, bool? isPinned})
+    : state = state ?? TaskMenuState(),
+      title = title ?? '',
+      isPinned = isPinned ?? false,
+      list = TaskMenuList(
+        // 在初始化列表中初始化
+        state: state ?? TaskMenuState(),
+      );
 
   factory TaskMenu.fromJson(Map<String, dynamic> json) =>
       _$TaskMenuFromJson(json);
   Map<String, dynamic> toJson() => _$TaskMenuToJson(this);
 
-  /// 添加到列表
-  void addToList(List<dynamic> l) {
-    l.add(appbar);
+  /// 添加到组件列表
+  void addToSliverList(List<dynamic> l) {
+    l.add(
+      TaskMenuAppbar(
+        // 在初始化列表中初始化
+        iconData: iconData,
+        title: title,
+        pinned: isPinned,
+        state: state,
+      ),
+    );
     l.add(list);
   }
 

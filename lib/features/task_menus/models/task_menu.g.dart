@@ -17,7 +17,7 @@ TaskMenu _$TaskMenuFromJson(Map<String, dynamic> json) {
       const IconDataConverter().fromJson,
     ),
     title: json['title'] as String?,
-    pinned: json['pinned'] as bool?,
+    isPinned: json['pinned'] as bool?,
   );
 }
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$TaskMenuToJson(TaskMenu instance) => <String, dynamic>{
     const IconDataConverter().toJson,
   ),
   'title': instance.title,
-  'pinned': instance.pinned,
+  'pinned': instance.isPinned,
 };
 
 Value? _$JsonConverterFromJson<Json, Value>(
