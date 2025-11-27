@@ -68,7 +68,7 @@ class _AboutPageState extends State<AboutPage> {
                 backgroundImage: AssetImage('assets/icon.png'),
               ),
               Text(
-                '简记 © 2024 Acer',
+                '简记',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
