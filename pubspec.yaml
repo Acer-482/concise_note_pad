@@ -34,6 +34,7 @@ dependencies:
   file_picker: ^10.3.6 # 文件选择器 - miguelruivo.com
   # file_selector: ^1.1.0 # 文件选择器 - flutter.dev
   flutter_colorpicker: ^1.1.0 # 颜色选择包
+  flutter_iconpicker: ^4.0.3 # 图标选择包
 
 dev_dependencies:
   flutter_test:
