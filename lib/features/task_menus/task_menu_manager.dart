@@ -14,12 +14,11 @@ import 'package:flutter/material.dart';
 /// 管理所有的任务菜单项
 ///
 /// 提供配置文件保存、读取操作
-class TaskMenuManager {
+class TaskMenuManager extends ChangeNotifier {
   // 静态常量 //
   static const String configName = 'task_menu_configs.json';
   // 单例 //
-  static final TaskMenuManager _instance =
-      TaskMenuManager._internal();
+  static final TaskMenuManager _instance = TaskMenuManager._internal();
   static TaskMenuManager get instance => _instance; // 获取单例类
   /// 单例构造
   TaskMenuManager._internal() {
@@ -27,7 +26,8 @@ class TaskMenuManager {
   }
 
   final ConfigHelper _config = ConfigHelper(); // 配置文件
-  final List<TaskMenu> taskMenuList = []; // 任务菜单栏列表
+  final List<TaskMenu> _taskMenuList = []; // 任务菜单栏列表
+  List<TaskMenu> get taskMenuList => _taskMenuList; // 获取任务菜单列表
 
   /// 初始化
   Future<void> _init() async {
@@ -35,7 +35,7 @@ class TaskMenuManager {
     // 加载任务菜单项列表 //
     final loadSuccessful = await load();
     if (!loadSuccessful) {
-      taskMenuList.addAll([
+      _taskMenuList.addAll([
         TaskMenu(
           state: TaskMenuState(
             compositeFilter: CompositeFilter(
@@ -54,16 +54,12 @@ class TaskMenuManager {
         TaskMenu(
           iconData: Icons.list_alt_rounded,
           title: '所有项',
-          pinned: true,
+          isPinned: true,
         ),
       ]); // 设置默认值
       save(); // 保存
     }
-    // 添加监听器 //
-    for (var complex in taskMenuList) {
-      complex.state.update(); // 更新
-      complex.state.addListener(update);
-    }
+    update(); // 更新
   }
 
   /// 从Json列表设置
@@ -74,8 +70,8 @@ class TaskMenuManager {
         .map((map) => TaskMenu.fromJson(map))
         .toList();
     // 保存数据 //
-    taskMenuList.clear();
-    taskMenuList.addAll(complexList);
+    _taskMenuList.clear();
+    _taskMenuList.addAll(complexList);
   }
 
   /// 从Json设置
@@ -85,7 +81,7 @@ class TaskMenuManager {
 
   /// 转为Json
   List<Map<String, dynamic>> toJson() {
-    return taskMenuList.map((complex) => complex.toJson()).toList();
+    return _taskMenuList.map((complex) => complex.toJson()).toList();
   }
 
   /// 保存
@@ -98,26 +94,27 @@ class TaskMenuManager {
   /// 更新
   void update() {
     MainApp.logInf('TaskMenuManager 更新');
-    save(); // 保存
+    for (var taskMenu in _taskMenuList) {
+      taskMenu.state.update();
+    } // 更新状态
+    notifyListeners(); // 通知监听者
   }
 
   /// 构建为滚动浏览器
   CustomScrollView buildScrollView() {
     // 构建复合薄片列表 //
     List<Widget> slivers = [];
-    for (TaskMenu complex in taskMenuList) {
-      slivers.add(complex.appbar);
-      slivers.add(complex.list);
+    for (TaskMenu complex in _taskMenuList) {
+      complex.addToSliverList(slivers);
     }
     // 构建返回滚动浏览器 //
     return CustomScrollView(slivers: slivers);
   }
 
   /// 销毁释放
+  @override
   void dispose() {
-    for (var complex in taskMenuList) {
-      complex.state.removeListener(update);
-    } // 删除监听器
-    taskMenuList.map((complex) => complex.dispose()); // 销毁释放
+    _taskMenuList.map((complex) => complex.dispose()); // 销毁释放
+    super.dispose();
   }
 }

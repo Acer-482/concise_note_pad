@@ -21,6 +21,12 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
   @override
+  void initState() {
+    super.initState();
+    TaskMenuManager.instance.addListener(() => setState(_update));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<TaskManager>(
       builder: (context, taskManager, child) {
@@ -39,6 +45,11 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
     );
   }
 
+  // 更新页面
+  void _update() {
+    setState(() {});
+  }
+
   // 显示选择任务类型页面
   Future<T?> _showSelectTaskType<T>() {
     return PageUtils.showDefaultModalBottomSheet(
@@ -46,5 +57,11 @@ class _TaskPageState extends State<TaskPage> with TickerProviderStateMixin {
       title: '选择任务类型',
       child: const TaskSelectList(),
     );
+  }
+
+  @override
+  void dispose() {
+    TaskMenuManager.instance.removeListener(_update);
+    super.dispose();
   }
 }

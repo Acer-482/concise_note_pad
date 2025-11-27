@@ -142,6 +142,7 @@ class _ImportFileOptionMenuState extends State<ImportFileOptionMenu> {
       // 解析覆盖数据 //
       if (json.containsKey('AppbarConfig')) {
         TaskMenuManager.instance.setFromJsonList(json['AppbarConfig']!);
+        TaskMenuManager.instance.save(); // 保存
       }
       if (json.containsKey('TaskItem')) {
         TaskManager.instance.setFromJsonList(json['TaskItem']!);

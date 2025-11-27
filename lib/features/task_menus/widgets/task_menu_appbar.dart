@@ -5,7 +5,7 @@ import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.d
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
-import 'package:concise_note_pad/features/task_menus/widgets/task_menu_setting_page.dart';
+import 'package:concise_note_pad/features/task_menus/widgets/pages/task_menu_setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +44,7 @@ class TaskMenuAppbar extends StatelessWidget {
   // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
     IconButton(
-      onPressed: _refresh, // 更新状态
+      onPressed: () => state.update(), // 更新状态
       tooltip: '刷新',
       icon: const Icon(Icons.refresh),
     ),
@@ -96,9 +96,6 @@ class TaskMenuAppbar extends StatelessWidget {
       ],
     ),
   ];
-
-  // 刷新
-  void _refresh() => state.update();
 
   // 显示过滤器设置
   void _showFilterOption(BuildContext context) async {
