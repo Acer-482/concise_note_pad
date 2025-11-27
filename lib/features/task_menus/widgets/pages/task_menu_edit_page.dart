@@ -1,6 +1,8 @@
 import 'package:concise_note_pad/features/task_menus/models/task_menu.dart';
 import 'package:concise_note_pad/features/task_menus/task_menu_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/Models/configuration.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
 /// 任务菜单编辑页面
 class TaskMenuEditPage extends StatefulWidget {
@@ -15,15 +17,16 @@ class TaskMenuEditPage extends StatefulWidget {
 class _TaskMenuEditPageState extends State<TaskMenuEditPage> {
   final GlobalKey<FormState> _formKey = GlobalKey(); // 表单验证键
   late final TextEditingController _titleController; // 标题控制器
+  late IconData? iconData; // 图标数据
   late bool isPinned; // 固定标题栏
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(
-      text: widget.taskMenu?.title ?? '新建标题栏',
-    );
-    isPinned = widget.taskMenu?.isPinned ?? false;
+    final taskMenu = widget.taskMenu;
+    _titleController = TextEditingController(text: taskMenu?.title ?? '新建标题栏');
+    iconData = taskMenu?.iconData;
+    isPinned = taskMenu?.isPinned ?? false;
   }
 
   @override
@@ -72,6 +75,13 @@ class _TaskMenuEditPageState extends State<TaskMenuEditPage> {
               ),
             ),
           ),
+          ListTile(
+            leading: iconData != null ? Icon(iconData) : Text('(无图标)'),
+            title: Text('图标'),
+            subtitle: Text('点击选择图标'),
+            trailing: const Icon(Icons.arrow_right),
+            onTap: _selectIconData,
+          ),
           SwitchListTile(
             value: isPinned,
             onChanged: (v) => setState(() => isPinned = v),
@@ -94,12 +104,17 @@ class _TaskMenuEditPageState extends State<TaskMenuEditPage> {
     TaskMenu taskMenu;
     // 判断是否为新建模式
     if (widget.taskMenu == null) {
-      taskMenu = TaskMenu(title: _titleController.text, isPinned: isPinned);
+      taskMenu = TaskMenu(
+        title: _titleController.text,
+        iconData: iconData,
+        isPinned: isPinned,
+      );
       TaskMenuManager.instance.taskMenuList.add(taskMenu);
     } else {
       // 编辑模式 设置属性
       taskMenu = widget.taskMenu!;
       taskMenu.title = _titleController.text;
+      taskMenu.iconData = iconData;
       taskMenu.isPinned = isPinned;
     }
     taskMenu.state.update(); // 更新状态
@@ -107,6 +122,22 @@ class _TaskMenuEditPageState extends State<TaskMenuEditPage> {
     TaskMenuManager.instance.save(); // 保存状态
     Navigator.pop(context, taskMenu); // 返回
     return true; // 成功
+  }
+
+  // 选择图标
+  Future<void> _selectIconData() async {
+    final iconPickerIcon = await showIconPicker(
+      context,
+      configuration: SinglePickerConfiguration(
+        showTooltips: true,
+        title: const Text('选择一个图标'),
+        closeChild: Text('空图标'),
+      ),
+    );
+    // 更新图标
+    setState(() {
+      iconData = iconPickerIcon?.data;
+    });
   }
 
   @override
