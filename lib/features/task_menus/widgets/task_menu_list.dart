@@ -18,12 +18,6 @@ class TaskMenuList extends StatefulWidget {
 
 class _TaskMenuListState extends State<TaskMenuList> {
   @override
-  void initState() {
-    super.initState();
-    widget.state.addListener(_update); // 添加监听器更新
-  }
-
-  @override
   Widget build(BuildContext context) => SlidableAutoCloseBehavior(
     child: SliverImplicitlyAnimatedList<TaskItem>(
       items: widget.state.taskList, // 数据列表
@@ -40,14 +34,8 @@ class _TaskMenuListState extends State<TaskMenuList> {
     ), // Sliver动画列表组件
   ); // 自动关闭滑动组件 - 防止同时拉开多个Slidable侧边栏
 
-  // 更新ui
-  void _update() {
-    setState(() {});
-  }
-
   @override
   void dispose() {
-    widget.state.removeListener(_update); // 删除监听器
     super.dispose();
   }
 }

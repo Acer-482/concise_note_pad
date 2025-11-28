@@ -14,7 +14,6 @@ part 'task_menu.g.dart';
 class TaskMenu {
   @JsonKey(required: true)
   final TaskMenuState state; // 状态
-  final TaskMenuList list; // 列表
 
   /// 图标数据
   @JsonKey()
@@ -32,28 +31,23 @@ class TaskMenu {
   TaskMenu({TaskMenuState? state, this.iconData, String? title, bool? isPinned})
     : state = state ?? TaskMenuState(),
       title = title ?? '',
-      isPinned = isPinned ?? false,
-      list = TaskMenuList(
-        // 在初始化列表中初始化
-        state: state ?? TaskMenuState(),
-      );
+      isPinned = isPinned ?? false;
 
   factory TaskMenu.fromJson(Map<String, dynamic> json) =>
       _$TaskMenuFromJson(json);
   Map<String, dynamic> toJson() => _$TaskMenuToJson(this);
 
-  /// 添加到组件列表
-  void addToSliverList(List<dynamic> l) {
+  /// 构建到组件列表
+  void buildToSliverList(List<dynamic> l) {
     l.add(
       TaskMenuAppbar(
-        // 在初始化列表中初始化
         iconData: iconData,
         title: title,
         pinned: isPinned,
         state: state,
       ),
     );
-    l.add(list);
+    l.add(TaskMenuList(state: state));
   }
 
   /// 销毁

@@ -105,7 +105,7 @@ class TaskMenuManager extends ChangeNotifier {
     // 构建复合薄片列表 //
     List<Widget> slivers = [];
     for (TaskMenu complex in _taskMenuList) {
-      complex.addToSliverList(slivers);
+      complex.buildToSliverList(slivers);
     }
     // 构建返回滚动浏览器 //
     return CustomScrollView(slivers: slivers);
