@@ -1,13 +1,27 @@
 import 'package:concise_note_pad/features/task_menus/models/task_menu.dart';
 import 'package:concise_note_pad/features/task_menus/task_menu_manager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
+/// 显示任务菜单编辑页面
+Future<T?> showTaskMenuEditPage<T>(BuildContext context, {TaskMenu? taskMenu}) {
+  return Navigator.push<T>(
+    context,
+    CupertinoPageRoute(
+      builder: (context) => TaskMenuEditPage(taskMenu: taskMenu),
+    ),
+  );
+}
+
 /// 任务菜单编辑页面
+///
+/// 提供编辑修改任务菜单的表单页面
 class TaskMenuEditPage extends StatefulWidget {
   final TaskMenu? taskMenu; // 任务菜单
 
+  /// 当[taskMenu]为null时，为创建模式
   const TaskMenuEditPage({super.key, this.taskMenu});
 
   @override

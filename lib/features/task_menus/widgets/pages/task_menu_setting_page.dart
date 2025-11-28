@@ -16,21 +16,22 @@ class TaskMenuSettingPage extends StatefulWidget {
 class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildBody());
+    return Scaffold(
+      appBar: AppBar(title: const Text('构建任务菜单')),
+      body: _buildBody(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.pop(context),
+        icon: const Icon(Icons.check),
+        label: Text('完成'),
+      ),
+    );
   }
 
   // 构建页面主题
   Widget? _buildBody() {
-    return CustomScrollView(slivers: [_buildAppbar(), _buildList()]);
-  }
-
-  // 构建应用栏
-  Widget _buildAppbar() {
-    return SliverAppBar(
-      title: const Text('任务菜单管理'),
-      actions: [
-        IconButton(onPressed: _addTaskMenu, icon: const Icon(Icons.add)),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: CustomScrollView(slivers: [_buildList(), _buildBottomBox()]),
     );
   }
 
@@ -62,11 +63,30 @@ class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
                     ),
                   ],
                 ), // 删除按钮
+                onTap: () => _editTaskMenu(item),
               ),
             )
             .toList(),
       ),
       onReorder: _onReorder,
+    );
+  }
+
+  // 构建底部选项
+  Widget _buildBottomBox() {
+    return SliverToBoxAdapter(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Divider(),
+          ListTile(
+            leading: const Icon(Icons.assignment_add),
+            title: Text('添加任务'),
+            trailing: const Icon(Icons.add),
+            onTap: _addTaskMenu,
+          ),
+        ],
+      ),
     );
   }
 
@@ -80,19 +100,15 @@ class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
   }
 
   // 新建任务项
-  void _addTaskMenu() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TaskMenuEditPage()),
-    );
+  Future<void> _addTaskMenu() async {
+    await showTaskMenuEditPage(context);
+    setState(() {});
   }
 
   // 编辑任务项
-  void _editTaskMenu(TaskMenu menu) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => TaskMenuEditPage(taskMenu: menu)),
-    );
+  Future<void> _editTaskMenu(TaskMenu menu) async {
+    await showTaskMenuEditPage(context, taskMenu: menu);
+    setState(() {});
   }
 
   // 删除任务项
