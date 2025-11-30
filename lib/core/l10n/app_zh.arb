@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh",
+  "@@last_modified": "2025-12-01T1:00:00Z",
+  "appName": "简记",
+  "@appName": {
+    "description": "应用程序的名称",
+    "context": "菜单栏、关于页面",
+    "type": "text"
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/core/pages/about_page.dart';
 import 'package:concise_note_pad/core/pages/home_page.dart';
 import 'package:concise_note_pad/features/settings/pages/settings_page.dart';
@@ -198,10 +199,12 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       drawerEdgeDragWidth: 50, // 手势打开滑动触发区域的宽度
       drawerEnableOpenDragGesture: mode == 0, // 启用/禁用手势打开
-
       appBar: PageUtils.buildDefaultAppbar(
         context,
-        const Text('简记', textAlign: TextAlign.center),
+        Text(
+          AppLocalizations.of(context)!.appName,
+          textAlign: TextAlign.center,
+        ),
       ), // 应用栏
       drawer: mode == 0 ? _buildDrawer(mode) : null, // 左侧抽屉（移动模式）
       endDrawer: mode != 0 ? _buildDrawer(mode) : null, // 右侧抽屉（非移动模式）

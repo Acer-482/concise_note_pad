@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/settings/global_settings_manager.dart';
 import 'package:concise_note_pad/features/task_filters/registry/task_filter_registry.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
@@ -39,8 +40,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GlobalSettings>(
       builder: (context, settings, child) => MaterialApp(
-        title: '简记',
-        theme: _buildTheme(settings, Brightness.light), // 浅色主题
+        title: 'Concise Notepad',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: const [Locale('en'), Locale('zh')],
+        theme: _buildTheme(settings, Brightness.light), // 浅色主题q
         darkTheme: _buildTheme(settings, Brightness.dark), // 深色主题
         highContrastTheme: _buildTheme(settings, Brightness.light), // 浅色高对比度主题
         highContrastDarkTheme: _buildTheme(
