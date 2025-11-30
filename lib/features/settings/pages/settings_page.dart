@@ -48,17 +48,15 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('选择主题色'),
-        content: ListView(
-          children: [
-            ColorPicker(
-              pickerColor: currentColor,
-              enableAlpha: false, // 禁用alpha
-              hexInputBar: true, // 十六进制输入框
-              onColorChanged: (v) {
-                currentColor = v;
-              },
-            ),
-          ],
+        content: SingleChildScrollView(
+          child: ColorPicker(
+            pickerColor: currentColor,
+            enableAlpha: false, // 禁用alpha
+            hexInputBar: true, // 十六进制输入框
+            onColorChanged: (v) {
+              currentColor = v;
+            },
+          ),
         ),
         actions: [
           TextButton(
