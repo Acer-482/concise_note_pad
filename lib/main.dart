@@ -61,13 +61,6 @@ class MainApp extends StatelessWidget {
         seedColor: settings.themeColor, // 获取主题色
         brightness: brightness,
       ), // 颜色主题
-      appBarTheme: AppBarTheme(
-        titleTextStyle: TextStyle(
-          fontFamily: 'AlibabaPuHuiTi',
-          fontWeight: FontWeight.w800,
-          fontSize: 20,
-        ),
-      ), // 应用栏主题
       useMaterial3: true, // 启用Material3
     );
   }
