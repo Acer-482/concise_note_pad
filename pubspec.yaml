@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # flutter国际化包
+    sdk: flutter
   package_info_plus: ^9.0.0 # 包信息
   # reflectable: ^5.0.1 # 反射包
   # source_gen: ^4.1.1 # 源码生成包
@@ -45,6 +47,7 @@ dev_dependencies:
   json_serializable: ^6.11.3 # json序列包
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/
