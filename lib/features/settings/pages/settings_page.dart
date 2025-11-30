@@ -86,7 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(title: Text('设置')),
       body: Column(
         children: [
-          Text('全局设置', style: Theme.of(context).textTheme.bodyLarge),
+          Text('全局设置', style: Theme.of(context).textTheme.titleLarge),
           Column(
             children: [
               ListTile(
@@ -106,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           Divider(),
-          Text('主题', style: Theme.of(context).textTheme.bodyLarge),
+          Text('主题', style: Theme.of(context).textTheme.titleLarge),
           ListTile(
             leading: Icon(Icons.light_mode),
             title: Text('主题模式'),
