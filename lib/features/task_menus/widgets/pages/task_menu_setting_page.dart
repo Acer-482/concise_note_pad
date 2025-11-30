@@ -17,7 +17,7 @@ class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('构建任务菜单')),
+      appBar: AppBar(title: const Text('管理任务菜单')),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.pop(context),

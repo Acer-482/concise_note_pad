@@ -89,7 +89,7 @@ class TaskMenuAppbar extends StatelessWidget {
         PopupMenuItem(
           child: Row(
             spacing: 10,
-            children: const [Icon(Icons.settings), Text('管理任务菜单')],
+            children: const [Icon(Icons.settings), Text('管理菜单')],
           ),
           onTap: () => _showTaskMenuOption(context),
         ), // 导出
