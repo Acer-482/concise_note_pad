@@ -1,9 +1,10 @@
 import 'package:concise_note_pad/features/task_filters/widgets/pages/filter_edit_page.dart';
+import 'package:concise_note_pad/features/task_menus/models/task_menu.dart';
+import 'package:concise_note_pad/features/task_menus/widgets/pages/task_menu_edit_page.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/export_file_option_menu.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
 // import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
-import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
 import 'package:concise_note_pad/features/task_menus/widgets/pages/task_menu_setting_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,14 +16,14 @@ class TaskMenuAppbar extends StatelessWidget {
   final IconData? iconData; // 图标
   final String title; // 标题
   final bool pinned; // 固定在顶部
-  final TaskMenuState state; // 状态
+  final TaskMenu taskMenu; // 状态
 
   const TaskMenuAppbar({
     super.key,
     this.iconData,
     this.title = '',
     this.pinned = false,
-    required this.state,
+    required this.taskMenu,
   });
 
   // 显示弹出菜单
@@ -36,7 +37,7 @@ class TaskMenuAppbar extends StatelessWidget {
     title: title,
     padding: padding,
     child: ChangeNotifierProvider.value(
-      value: state,
+      value: taskMenu.state,
       child: child,
     ), // 提供ChangeNotifierProvider - 此处调用value构造是为了防止自动调用dispose提前释放state
   );
@@ -44,7 +45,7 @@ class TaskMenuAppbar extends StatelessWidget {
   // 构建选项按钮
   List<Widget> _buildActions(BuildContext context) => [
     IconButton(
-      onPressed: () => state.update(), // 更新状态
+      onPressed: () => taskMenu.state.update(), // 更新状态
       tooltip: '刷新',
       icon: const Icon(Icons.refresh),
     ),
@@ -103,10 +104,10 @@ class TaskMenuAppbar extends StatelessWidget {
       context,
       CupertinoPageRoute(
         builder: (context) =>
-            FilterFieldEditPage(filter: state.compositeFilter),
+            FilterFieldEditPage(filter: taskMenu.state.compositeFilter),
       ),
     );
-    state.update(); // 更新以保存应用过滤器
+    taskMenu.state.update(); // 更新以保存应用过滤器
   }
 
   // 显示排序设置
@@ -141,7 +142,11 @@ class TaskMenuAppbar extends StatelessWidget {
   /// 构建列表项
   @override
   Widget build(BuildContext context) => SliverAppBar(
-    leading: Icon(iconData), // 图标
+    leading: IconButton(
+      onPressed: () => showTaskMenuEditPage(context, taskMenu: taskMenu),
+      tooltip: '编辑任务菜单',
+      icon: Icon(iconData),
+    ), // 图标
     title: Text(title),
     pinned: pinned, // 固定在顶部
     actions: _buildActions(context), // 显示选项

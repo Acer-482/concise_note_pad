@@ -44,7 +44,7 @@ class TaskMenu {
         iconData: iconData,
         title: title,
         pinned: isPinned,
-        state: state,
+        taskMenu: this,
       ),
     );
     l.add(TaskMenuList(state: state));
