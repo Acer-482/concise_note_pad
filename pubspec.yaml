@@ -48,6 +48,27 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: AlibabaPuHuiTi
+      fonts:
+        - asset: assets/fonts/AlibabaPuHuiTi-3-35-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/AlibabaPuHuiTi-3-45-Light.ttf
+          weight: 300
+        - asset: assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/AlibabaPuHuiTi-3-75-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/AlibabaPuHuiTi-3-95-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/AlibabaPuHuiTi-3-105-Heavy.ttf
+          weight: 900
+        - asset: assets/fonts/AlibabaPuHuiTi-3-115-Black.ttf
+          weight: 900
 
 flutter_launcher_icons:
   android: true

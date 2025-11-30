@@ -40,37 +40,35 @@ class MainApp extends StatelessWidget {
     return Consumer<GlobalSettings>(
       builder: (context, settings, child) => MaterialApp(
         title: '简记',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: settings.themeColor,
-            brightness: Brightness.light,
-          ),
-          useMaterial3: true, // 启用Material3
-        ), // 浅色主题
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: settings.themeColor,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true, // 启用Material3
-        ), // 深色主题
-        highContrastTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: settings.themeColor,
-            brightness: Brightness.light,
-          ),
-          useMaterial3: true, // 启用Material3
-        ), // 浅色高对比度主题
-        highContrastDarkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: settings.themeColor,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true, // 启用Material3
+        theme: _buildTheme(settings, Brightness.light), // 浅色主题
+        darkTheme: _buildTheme(settings, Brightness.dark), // 深色主题
+        highContrastTheme: _buildTheme(settings, Brightness.light), // 浅色高对比度主题
+        highContrastDarkTheme: _buildTheme(
+          settings,
+          Brightness.dark,
         ), // 深色高对比度主题
         themeMode: settings.themeMode, // 主题模式
         home: const MainPage(),
       ),
+    );
+  }
+
+  // 构建主题
+  ThemeData _buildTheme(GlobalSettings settings, Brightness brightness) {
+    return ThemeData(
+      fontFamily: 'AlibabaPuHuiTi', // 字体
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: settings.themeColor, // 获取主题色
+        brightness: brightness,
+      ), // 颜色主题
+      appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+          fontFamily: 'AlibabaPuHuiTi',
+          fontWeight: FontWeight.w800,
+          fontSize: 20,
+        ),
+      ), // 应用栏主题
+      useMaterial3: true, // 启用Material3
     );
   }
 
