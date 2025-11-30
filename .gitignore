@@ -46,3 +46,6 @@ app.*.map.json
 
 # 签名密钥
 release-key.keystore
+
+# json序列化脚本生成类
+**/*.g.dart
