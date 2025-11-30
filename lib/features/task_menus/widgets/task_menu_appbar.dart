@@ -1,7 +1,7 @@
 import 'package:concise_note_pad/features/task_filters/widgets/pages/filter_edit_page.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/export_file_option_menu.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
-import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.dart';
+// import 'package:concise_note_pad/features/tasks/widgets/menus/view_option_menu.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/sort_option_menu.dart';
@@ -65,13 +65,13 @@ class TaskMenuAppbar extends StatelessWidget {
           ),
           onTap: () => _showSortOption(context),
         ),
-        PopupMenuItem(
-          child: Row(
-            spacing: 10,
-            children: const [Icon(Icons.view_list), Text('切换视图')],
-          ),
-          onTap: () => _showViewOption(context),
-        ),
+        // PopupMenuItem(
+        //   child: Row(
+        //     spacing: 10,
+        //     children: const [Icon(Icons.view_list), Text('切换视图')],
+        //   ),
+        //   onTap: () => _showViewOption(context),
+        // ),
         PopupMenuItem(
           child: Row(
             spacing: 10,
@@ -117,8 +117,8 @@ class TaskMenuAppbar extends StatelessWidget {
   );
 
   // 显示视图设置
-  Future<void> _showViewOption(BuildContext context) =>
-      _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
+  // Future<void> _showViewOption(BuildContext context) =>
+  //     _showPopMenu(context, title: '视图设置', child: const ViewOptionMenu());
 
   // 显示导出设置
   Future<void> _showExportOption(BuildContext context) => _showPopMenu(
