@@ -27,11 +27,25 @@ class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
     );
   }
 
-  // 构建页面主题
+  // 构建页面主体
   Widget? _buildBody() {
     return Padding(
       padding: EdgeInsets.all(10),
-      child: CustomScrollView(slivers: [_buildList(), _buildBottomBox()]),
+      child: CustomScrollView(
+        slivers: [_buildList(), _buildTip(), _buildBottomBox()],
+      ),
+    );
+  }
+
+  // 构建提示
+  Widget _buildTip() {
+    return SliverToBoxAdapter(
+      child: Text(
+        '长按拖动任务项可以调整顺序',
+        style: Theme.of(context).textTheme.labelSmall,
+        selectionColor: Colors.grey, // 灰色
+        textAlign: TextAlign.center, // 居中
+      ),
     );
   }
 
