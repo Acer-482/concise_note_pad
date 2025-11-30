@@ -13,12 +13,17 @@ GlobalSettings _$GlobalSettingsFromJson(Map<String, dynamic> json) =>
         const ColorDataConverter().fromJson,
       ),
       themeMode: $enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']),
+      fontFamilyType: $enumDecodeNullable(
+        _$FontFamilyTypeEnumMap,
+        json['fontFamilyType'],
+      ),
     );
 
 Map<String, dynamic> _$GlobalSettingsToJson(GlobalSettings instance) =>
     <String, dynamic>{
       'themeColor': const ColorDataConverter().toJson(instance.themeColor),
       'themeMode': _$ThemeModeEnumMap[instance.themeMode]!,
+      'fontFamilyType': _$FontFamilyTypeEnumMap[instance.fontFamilyType]!,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -30,4 +35,9 @@ const _$ThemeModeEnumMap = {
   ThemeMode.system: 'system',
   ThemeMode.light: 'light',
   ThemeMode.dark: 'dark',
+};
+
+const _$FontFamilyTypeEnumMap = {
+  FontFamilyType.system: 'system',
+  FontFamilyType.alibabaPuHuiTi: 'alibabaPuHuiTi',
 };

@@ -56,7 +56,7 @@ class MainApp extends StatelessWidget {
   // 构建主题
   ThemeData _buildTheme(GlobalSettings settings, Brightness brightness) {
     return ThemeData(
-      fontFamily: 'AlibabaPuHuiTi', // 字体
+      fontFamily: settings.fontFamilyType.fontFamily, // 字体
       colorScheme: ColorScheme.fromSeed(
         seedColor: settings.themeColor, // 获取主题色
         brightness: brightness,

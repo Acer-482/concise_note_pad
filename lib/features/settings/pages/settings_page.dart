@@ -1,7 +1,7 @@
+import 'package:concise_note_pad/core/enums/font_family_type.dart';
 import 'package:concise_note_pad/features/settings/global_settings_manager.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
 import 'package:concise_note_pad/core/constants/theme_mode_display_name.dart';
-import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -48,17 +48,15 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('选择主题色'),
-        content: Column(
+        content: ListView(
           children: [
-            Expanded(
-              child: ColorPicker(
-                pickerColor: currentColor,
-                enableAlpha: false, // 禁用alpha
-                // hexInputBar: true, // 十六进制输入框
-                onColorChanged: (v) {
-                  currentColor = v;
-                },
-              ),
+            ColorPicker(
+              pickerColor: currentColor,
+              enableAlpha: false, // 禁用alpha
+              hexInputBar: true, // 十六进制输入框
+              onColorChanged: (v) {
+                currentColor = v;
+              },
             ),
           ],
         ),
@@ -88,72 +86,80 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(title: Text('设置')),
       body: Column(
         children: [
-          PageUtils.buildDefaultTitleFrame(
-            context: context,
-            title: '全局设置',
-            childWidget: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.replay_outlined),
-                  title: Text('重置所有设置'),
-                  trailing: TextButton(
-                    onPressed: () => _showConfirmDialog(
-                      '重置所有设置',
-                      (context) {
-                        settings.set(GlobalSettings());
-                        settings.update(); // 更新
-                      }, // 重置设置
-                    ),
-                    child: Text('重置', style: TextStyle(color: Colors.red)),
+          Text('全局设置', style: Theme.of(context).textTheme.bodyLarge),
+          Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.replay_outlined),
+                title: Text('重置所有设置'),
+                trailing: TextButton(
+                  onPressed: () => _showConfirmDialog(
+                    '重置所有设置',
+                    (context) {
+                      settings.set(GlobalSettings());
+                      settings.update(); // 更新
+                    }, // 重置设置
                   ),
+                  child: Text('重置', style: TextStyle(color: Colors.red)),
                 ),
-              ],
+              ),
+            ],
+          ),
+          Divider(),
+          Text('主题', style: Theme.of(context).textTheme.bodyLarge),
+          ListTile(
+            leading: Icon(Icons.light_mode),
+            title: Text('主题模式'),
+            trailing: DropdownButton(
+              value: settings.themeMode,
+              items: ThemeMode.values
+                  .map(
+                    (mode) => DropdownMenuItem(
+                      value: mode,
+                      child: Text(mode.displayName),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) => setState(() {
+                settings.themeMode = value!;
+                settings.update();
+              }),
             ),
           ),
-          PageUtils.buildDefaultTitleFrame(
-            context: context,
-            title: '主题',
-            childWidget: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.light_mode),
-                  title: Text('主题'),
-                  trailing: DropdownButton(
-                    value: settings.themeMode,
-                    items: ThemeMode.values
-                        .map(
-                          (mode) => DropdownMenuItem(
-                            value: mode,
-                            child: Text(mode.displayName),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      settings.themeMode = value!;
-                      settings.update();
-                    },
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.color_lens_rounded),
-                  title: Text('主题颜色'),
-                  trailing: TextButton(
-                    onPressed: _showColorPicker,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.colorize_rounded,
-                          color: settings.themeColor,
-                        ),
-                        Text('选取颜色'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+          ListTile(
+            leading: Icon(Icons.color_lens_rounded),
+            title: Text('主题颜色'),
+            trailing: TextButton(
+              onPressed: _showColorPicker,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.colorize_rounded, color: settings.themeColor),
+                  Text('选取颜色'),
+                ],
+              ),
             ),
           ),
+          ListTile(
+            leading: Icon(Icons.color_lens_rounded),
+            title: Text('主题字体'),
+            trailing: DropdownButton(
+              value: settings.fontFamilyType,
+              items: FontFamilyType.values
+                  .map(
+                    (mode) => DropdownMenuItem(
+                      value: mode,
+                      child: Text(mode.displayName),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) => setState(() {
+                settings.fontFamilyType = value!;
+                settings.update();
+              }),
+            ),
+          ),
+          Divider(),
         ],
       ),
     );

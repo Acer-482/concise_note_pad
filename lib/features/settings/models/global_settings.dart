@@ -1,4 +1,5 @@
 import 'package:concise_note_pad/core/converters/color_data_converter.dart';
+import 'package:concise_note_pad/core/enums/font_family_type.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,6 +21,10 @@ class GlobalSettings extends ChangeNotifier {
   ThemeMode themeMode;
   static ThemeMode get themeModeDefault => ThemeMode.system;
 
+  /// 主题字体类型
+  FontFamilyType fontFamilyType;
+  static FontFamilyType get fontFamilyTypeDefault => FontFamilyType.system;
+
   /// 更新
   void update() {
     notifyListeners();
@@ -29,12 +34,17 @@ class GlobalSettings extends ChangeNotifier {
   void set(GlobalSettings newSettings) {
     themeColor = newSettings.themeColor;
     themeMode = newSettings.themeMode;
+    fontFamilyType = newSettings.fontFamilyType;
   }
 
   /// 默认构造函数
-  GlobalSettings({Color? themeColor, ThemeMode? themeMode})
-    : themeColor = themeColor ?? themeColorDefault,
-      themeMode = themeMode ?? themeModeDefault;
+  GlobalSettings({
+    Color? themeColor,
+    ThemeMode? themeMode,
+    FontFamilyType? fontFamilyType,
+  }) : themeColor = themeColor ?? themeColorDefault,
+       themeMode = themeMode ?? themeModeDefault,
+       fontFamilyType = fontFamilyType ?? fontFamilyTypeDefault;
 
   factory GlobalSettings.fromJson(Map<String, dynamic> json) =>
       _$GlobalSettingsFromJson(json);
