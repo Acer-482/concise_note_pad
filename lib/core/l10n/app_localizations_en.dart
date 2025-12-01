@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'Concise Note';
 
   @override
+  String get languageType_system => 'Follow System';
+
+  @override
   String get themeModeDisplayName_system => 'Follow System';
 
   @override

@@ -7,6 +7,11 @@
     "context": "Menu bar, About page",
     "type": "text"
   },
+  "languageType_system": "Follow System",
+  "@languageType_system": {
+    "description": "Language mode: Follow system settings",
+    "type": "text"
+  },
   "themeModeDisplayName_system": "Follow System",
   "@themeModeDisplayName_system": {
     "description": "Theme mode: Follow system settings",

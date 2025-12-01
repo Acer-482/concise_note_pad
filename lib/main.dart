@@ -40,10 +40,14 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GlobalSettings>(
       builder: (context, settings, child) => MaterialApp(
-        title: 'Concise Notepad',
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: const [Locale('en'), Locale('zh')],
-        theme: _buildTheme(settings, Brightness.light), // 浅色主题q
+        title: 'Concise Notepad', // 标题
+        localizationsDelegates:
+            AppLocalizations.localizationsDelegates, // 本地化代表
+        supportedLocales: const [Locale('en'), Locale('zh')], // 支持地区语言
+        locale: settings.languageType.code != null
+            ? Locale.fromSubtags(languageCode: settings.languageType.code!)
+            : null, // 本地语言
+        theme: _buildTheme(settings, Brightness.light), // 浅色主题
         darkTheme: _buildTheme(settings, Brightness.dark), // 深色主题
         highContrastTheme: _buildTheme(settings, Brightness.light), // 浅色高对比度主题
         highContrastDarkTheme: _buildTheme(

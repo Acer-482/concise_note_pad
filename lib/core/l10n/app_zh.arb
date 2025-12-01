@@ -7,6 +7,11 @@
     "context": "菜单栏、关于页面",
     "type": "text"
   },
+  "languageType_system": "跟随系统",
+  "@languageType_system": {
+    "description": "语言类型枚举：跟随系统设置",
+    "type": "text"
+  },
   "themeModeDisplayName_system": "跟随系统",
   "@themeModeDisplayName_system": {
     "description": "主题模式：跟随系统设置",

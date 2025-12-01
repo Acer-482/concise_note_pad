@@ -104,6 +104,12 @@ abstract class AppLocalizations {
   /// **'Concise Note'**
   String get appName;
 
+  /// Language mode: Follow system settings
+  ///
+  /// In en, this message translates to:
+  /// **'Follow System'**
+  String get languageType_system;
+
   /// Theme mode: Follow system settings
   ///
   /// In en, this message translates to:
