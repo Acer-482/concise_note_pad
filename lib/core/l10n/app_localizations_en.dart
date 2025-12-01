@@ -15,12 +15,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageType_system => 'Follow System';
 
   @override
-  String get languageType_en => 'English';
-
-  @override
-  String get languageType_zh => '简体中文';
-
-  @override
   String get themeModeDisplayName_system => 'Follow System';
 
   @override

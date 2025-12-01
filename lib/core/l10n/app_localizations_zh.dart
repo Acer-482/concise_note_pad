@@ -15,12 +15,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get languageType_system => '跟随系统';
 
   @override
-  String get languageType_en => 'English';
-
-  @override
-  String get languageType_zh => '简体中文';
-
-  @override
   String get themeModeDisplayName_system => '跟随系统';
 
   @override

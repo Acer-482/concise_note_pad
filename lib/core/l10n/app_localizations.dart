@@ -110,18 +110,6 @@ abstract class AppLocalizations {
   /// **'Follow System'**
   String get languageType_system;
 
-  /// Language type enum: English
-  ///
-  /// In en, this message translates to:
-  /// **'English'**
-  String get languageType_en;
-
-  /// Language type enum: Simplified Chinese
-  ///
-  /// In en, this message translates to:
-  /// **'简体中文'**
-  String get languageType_zh;
-
   /// Theme mode: Follow system settings
   ///
   /// In en, this message translates to:

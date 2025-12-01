@@ -12,16 +12,6 @@
     "description": "Language type enum: Follow system settings",
     "type": "text"
   },
-  "languageType_en": "English",
-  "@languageType_en": {
-    "description": "Language type enum: English",
-    "type": "text"
-  },
-  "languageType_zh": "简体中文",
-  "@languageType_zh": {
-    "description": "Language type enum: Simplified Chinese",
-    "type": "text"
-  },
   "themeModeDisplayName_system": "Follow System",
   "@themeModeDisplayName_system": {
     "description": "Theme mode: Follow system settings",

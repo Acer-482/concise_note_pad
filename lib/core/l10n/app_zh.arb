@@ -12,16 +12,6 @@
     "description": "语言类型枚举：跟随系统设置",
     "type": "text"
   },
-  "languageType_en": "English",
-  "@languageType_en": {
-    "description": "语言类型枚举：英文",
-    "type": "text"
-  },
-  "languageType_zh": "简体中文",
-  "@languageType_zh": {
-    "description": "语言类型枚举：简体中文",
-    "type": "text"
-  },
   "themeModeDisplayName_system": "跟随系统",
   "@themeModeDisplayName_system": {
     "description": "主题模式：跟随系统设置",
