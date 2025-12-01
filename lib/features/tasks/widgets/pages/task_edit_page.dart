@@ -127,21 +127,23 @@ class _TaskEditPageState extends State<TaskEditPage> {
               ] // 更多按钮
             : null,
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
+      body: Padding(
+        padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              PageUtils.buildDefaultTitleFrame(
-                context: context,
-                title: loc.mainOptions,
-                childWidget: widget.formData.buildFormWidget(context),
+              Text(
+                loc.mainOptions,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              PageUtils.buildDefaultTitleFrame(
-                context: context,
-                title: loc.moreOptions,
-                childWidget: widget.formData.buildMoreFormWidget(context),
+              widget.formData.buildFormWidget(context),
+              Divider(),
+              Text(
+                loc.moreOptions,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
+              widget.formData.buildMoreFormWidget(context),
+              Divider(),
             ],
           ),
         ),
