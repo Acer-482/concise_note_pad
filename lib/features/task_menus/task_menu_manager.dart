@@ -1,10 +1,8 @@
 import 'dart:convert';
 
+import 'package:concise_note_pad/core/constants/default_global_config.dart';
 import 'package:concise_note_pad/core/utils/config_helper.dart';
-import 'package:concise_note_pad/features/task_filters/enums/match_modes/boolean_match_mode.dart';
-import 'package:concise_note_pad/features/task_filters/models/composite_filter.dart';
-import 'package:concise_note_pad/features/task_filters/models/field_filters/boolean_task_filter.dart';
-import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
 import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/features/task_menus/models/task_menu.dart';
 import 'package:flutter/material.dart';
@@ -35,28 +33,9 @@ class TaskMenuManager extends ChangeNotifier {
     // 加载任务菜单项列表 //
     final loadSuccessful = await load();
     if (!loadSuccessful) {
-      _taskMenuList.addAll([
-        TaskMenu(
-          state: TaskMenuState(
-            compositeFilter: CompositeFilter(
-              filterList: [
-                BooleanTaskFilter(
-                  field: 'isChecked',
-                  mode: BooleanMatchMode.exact,
-                  pattern: false,
-                ),
-              ],
-            ),
-          ),
-          iconData: Icons.list_alt_rounded,
-          title: '未完成项',
-        ),
-        TaskMenu(
-          iconData: Icons.list_alt_rounded,
-          title: '所有项',
-          isPinned: true,
-        ),
-      ]); // 设置默认值
+      setFromJsonList(
+        ImportFileOptionMenu.parseData(defaultConfig)['AppbarConfig']!,
+      ); // 设置默认值
       save(); // 保存
     }
     update(); // 更新

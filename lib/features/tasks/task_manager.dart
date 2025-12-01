@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:concise_note_pad/core/constants/default_global_config.dart';
 import 'package:concise_note_pad/core/utils/config_helper.dart';
 import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
 import 'package:concise_note_pad/main.dart';
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 /// 任务管理器 - 单例模式类
 ///
@@ -43,11 +43,7 @@ class TaskManager extends ChangeNotifier {
       MainApp.logInf('设置任务数据为默认值...');
       // 添加默认值
       setFromJsonList(
-        ImportFileOptionMenu.parseData(
-          await rootBundle.loadString(
-            'assets/default_json/default_task_item_json.json',
-          ),
-        )['TaskItem']!,
+        ImportFileOptionMenu.parseData(defaultConfig)['TaskItem']!,
       );
       // 重新保存 //
       save();
@@ -55,18 +51,7 @@ class TaskManager extends ChangeNotifier {
       // 加载成功 //
       notifyListeners(); // 通知监听者更新
     }
-    // 尝试加载数据 //
-    // loadSettings().then((value) {
-    //   // 加载失败
-    //   if (value != true) {
-    //     MainApp.logInf('设置任务配置为默认值...');
-    //     // 重新保存 //
-    //     saveSettings();
-    //   } else {
-    //     // 加载成功 //
-    //     notifyListeners(); // 通知监听者更新
-    //   }
-    // });
+    update();
   }
 
   /// 添加任务项
