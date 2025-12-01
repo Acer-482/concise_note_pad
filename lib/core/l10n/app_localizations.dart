@@ -98,11 +98,173 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// Main application title displayed in app bar
+  /// The name of the application
   ///
   /// In en, this message translates to:
-  /// **'Concise Notepad'**
+  /// **'Concise Note'**
   String get appName;
+
+  /// Theme mode: Follow system settings
+  ///
+  /// In en, this message translates to:
+  /// **'Follow System'**
+  String get themeModeDisplayName_system;
+
+  /// Theme mode: Light theme
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeModeDisplayName_light;
+
+  /// Theme mode: Dark theme
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeModeDisplayName_dark;
+
+  /// Font family type: System default font
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get fontFamilyType_system;
+
+  /// Font family type: Alibaba PuHuiTi font
+  ///
+  /// In en, this message translates to:
+  /// **'Alibaba PuHuiTi'**
+  String get fontFamilyType_alibabaPuHuiTi;
+
+  /// Title of delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete?'**
+  String get deleteConfirmDialogTitle;
+
+  /// Default message content for delete confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'This will delete the item and cannot be recovered!'**
+  String get deleteConfirmDialogDefaultMessage;
+
+  /// Generic cancel button text
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Generic confirm button text
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Success message after delete operation
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Successful'**
+  String get deleteSuccess;
+
+  /// Home page navigation item label
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navigationHome;
+
+  /// Tasks page navigation item label
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get navigationTasks;
+
+  /// Title of drawer menu
+  ///
+  /// In en, this message translates to:
+  /// **'Sidebar'**
+  String get drawerTitle;
+
+  /// Settings item in drawer menu
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get drawerSettings;
+
+  /// About item in drawer menu
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get drawerAbout;
+
+  /// About page: Title
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutPageTitle;
+
+  /// Title of 'More' section in about page
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get more;
+
+  /// Button text to view more license information
+  ///
+  /// In en, this message translates to:
+  /// **'More License Information'**
+  String get moreLicenseInfo;
+
+  /// Button text to jump to GitHub repository
+  ///
+  /// In en, this message translates to:
+  /// **'Go to GitHub Repository'**
+  String get goToGithubRepo;
+
+  /// GitHub repository URL displayed on about page
+  ///
+  /// In en, this message translates to:
+  /// **'https://github.com/Acer-482/concise_note_pad'**
+  String get githubRepoUrl;
+
+  /// Version number prefix text with version parameter
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String versionWithParam(String version);
+
+  /// Software license statement
+  ///
+  /// In en, this message translates to:
+  /// **'This software is licensed under GPL-3.0'**
+  String get softwareLicense;
+
+  /// Copyright statement
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright © 2025 Acer'**
+  String get copyright;
+
+  /// Error message when package information retrieval fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get application information'**
+  String get failedToGetAppInfo;
+
+  /// Title for URL jump failure notification
+  ///
+  /// In en, this message translates to:
+  /// **'Jump Failed'**
+  String get jumpFailed;
+
+  /// Notification message for URL jump failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to jump to \"{uri}\"'**
+  String jumpToUriFailed(String uri);
+
+  /// Notification message for error during URL jump
+  ///
+  /// In en, this message translates to:
+  /// **'Error occurred when jumping to \"{uri}\": {error}'**
+  String jumpToUriError(String uri, String error);
 }
 
 class _AppLocalizationsDelegate

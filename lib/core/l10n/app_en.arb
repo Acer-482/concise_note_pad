@@ -1,10 +1,178 @@
 {
   "@@locale": "en",
   "@@last_modified": "2025-12-01T1:00:00Z",
-  "appName": "Concise Notepad",
+  "appName": "Concise Note",
   "@appName": {
-    "description": "Main application title displayed in app bar",
-    "context": "AppBar",
+    "description": "The name of the application",
+    "context": "Menu bar, About page",
+    "type": "text"
+  },
+  "themeModeDisplayName_system": "Follow System",
+  "@themeModeDisplayName_system": {
+    "description": "Theme mode: Follow system settings",
+    "type": "text"
+  },
+  "themeModeDisplayName_light": "Light",
+  "@themeModeDisplayName_light": {
+    "description": "Theme mode: Light theme",
+    "type": "text"
+  },
+  "themeModeDisplayName_dark": "Dark",
+  "@themeModeDisplayName_dark": {
+    "description": "Theme mode: Dark theme",
+    "type": "text"
+  },
+  "fontFamilyType_system": "System Default",
+  "@fontFamilyType_system": {
+    "description": "Font family type: System default font",
+    "type": "text"
+  },
+  "fontFamilyType_alibabaPuHuiTi": "Alibaba PuHuiTi",
+  "@fontFamilyType_alibabaPuHuiTi": {
+    "description": "Font family type: Alibaba PuHuiTi font",
+    "type": "text"
+  },
+  "deleteConfirmDialogTitle": "Confirm Delete?",
+  "@deleteConfirmDialogTitle": {
+    "description": "Title of delete confirmation dialog",
+    "type": "text"
+  },
+  "deleteConfirmDialogDefaultMessage": "This will delete the item and cannot be recovered!",
+  "@deleteConfirmDialogDefaultMessage": {
+    "description": "Default message content for delete confirmation dialog",
+    "type": "text"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Generic cancel button text",
+    "type": "text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Generic confirm button text",
+    "type": "text"
+  },
+  "deleteSuccess": "Delete Successful",
+  "@deleteSuccess": {
+    "description": "Success message after delete operation",
+    "type": "text"
+  },
+  "navigationHome": "Home",
+  "@navigationHome": {
+    "description": "Home page navigation item label",
+    "type": "text"
+  },
+  "navigationTasks": "Tasks",
+  "@navigationTasks": {
+    "description": "Tasks page navigation item label",
+    "type": "text"
+  },
+  "drawerTitle": "Sidebar",
+  "@drawerTitle": {
+    "description": "Title of drawer menu",
+    "type": "text"
+  },
+  "drawerSettings": "Settings",
+  "@drawerSettings": {
+    "description": "Settings item in drawer menu",
+    "type": "text"
+  },
+  "drawerAbout": "About",
+  "@drawerAbout": {
+    "description": "About item in drawer menu",
+    "type": "text"
+  },
+  "aboutPageTitle": "About",
+  "@aboutPageTitle": {
+    "description": "About page: Title",
+    "type": "text"
+  },
+  "more": "More",
+  "@more": {
+    "description": "Title of 'More' section in about page",
+    "context": "About page",
+    "type": "text"
+  },
+  "moreLicenseInfo": "More License Information",
+  "@moreLicenseInfo": {
+    "description": "Button text to view more license information",
+    "context": "ListTile",
+    "type": "text"
+  },
+  "goToGithubRepo": "Go to GitHub Repository",
+  "@goToGithubRepo": {
+    "description": "Button text to jump to GitHub repository",
+    "context": "ListTile",
+    "type": "text"
+  },
+  "githubRepoUrl": "https://github.com/Acer-482/concise_note_pad",
+  "@githubRepoUrl": {
+    "description": "GitHub repository URL displayed on about page",
+    "context": "ListTile subtitle",
+    "type": "text"
+  },
+  "versionWithParam": "Version {version}",
+  "@versionWithParam": {
+    "description": "Version number prefix text with version parameter",
+    "context": "About page",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    },
+    "type": "text"
+  },
+  "softwareLicense": "This software is licensed under GPL-3.0",
+  "@softwareLicense": {
+    "description": "Software license statement",
+    "context": "About page",
+    "type": "text"
+  },
+  "copyright": "Copyright © 2025 Acer",
+  "@copyright": {
+    "description": "Copyright statement",
+    "context": "About page",
+    "type": "text"
+  },
+  "failedToGetAppInfo": "Failed to get application information",
+  "@failedToGetAppInfo": {
+    "description": "Error message when package information retrieval fails",
+    "context": "FutureBuilder",
+    "type": "text"
+  },
+  "jumpFailed": "Jump Failed",
+  "@jumpFailed": {
+    "description": "Title for URL jump failure notification",
+    "context": "Toast notification",
+    "type": "text"
+  },
+  "jumpToUriFailed": "Failed to jump to \"{uri}\"",
+  "@jumpToUriFailed": {
+    "description": "Notification message for URL jump failure",
+    "context": "Toast notification",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "https://example.com"
+      }
+    },
+    "type": "text"
+  },
+  "jumpToUriError": "Error occurred when jumping to \"{uri}\": {error}",
+  "@jumpToUriError": {
+    "description": "Notification message for error during URL jump",
+    "context": "Toast notification",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "https://example.com"
+      },
+      "error": {
+        "type": "String",
+        "example": "Network connection failed"
+      }
+    },
     "type": "text"
   }
 }

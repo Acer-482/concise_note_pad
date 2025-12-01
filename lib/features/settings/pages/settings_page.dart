@@ -114,7 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   .map(
                     (mode) => DropdownMenuItem(
                       value: mode,
-                      child: Text(mode.displayName),
+                      child: Text(mode.displayName(context)),
                     ),
                   )
                   .toList(),
@@ -147,7 +147,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   .map(
                     (mode) => DropdownMenuItem(
                       value: mode,
-                      child: Text(mode.displayName),
+                      child: Text(mode.displayName(context)),
                     ),
                   )
                   .toList(),

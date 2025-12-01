@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -19,8 +20,9 @@ class _AboutPageState extends State<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return Scaffold(
-      appBar: AppBar(title: Text('关于')),
+      appBar: AppBar(title: Text(loc.aboutPageTitle)),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(18),
@@ -31,17 +33,17 @@ class _AboutPageState extends State<AboutPage> {
             children: [
               _buildAboutContext(),
               Divider(),
-              Text('更多', style: Theme.of(context).textTheme.bodyLarge),
+              Text(loc.more, style: Theme.of(context).textTheme.bodyLarge),
               ListTile(
                 leading: const Icon(Icons.info_outline_rounded),
-                title: Text('更多许可证信息'),
+                title: Text(loc.moreLicenseInfo),
                 onTap: () => showLicensePage(context: context),
                 trailing: const Icon(Icons.arrow_right),
               ),
               ListTile(
                 leading: const Icon(Icons.warehouse),
-                title: Text('跳转到github仓库'),
-                subtitle: Text('https://github.com/Acer-482/concise_note_pad'),
+                title: Text(loc.goToGithubRepo),
+                subtitle: Text(loc.githubRepoUrl),
                 onTap: () => _launchUrl(),
                 trailing: const Icon(Icons.launch),
               ),
@@ -54,6 +56,7 @@ class _AboutPageState extends State<AboutPage> {
 
   // 构建关于内容
   Widget _buildAboutContext() {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(), // 获取平台信息
       builder: (context, snapshot) {
@@ -67,29 +70,22 @@ class _AboutPageState extends State<AboutPage> {
                 radius: 32,
                 backgroundImage: AssetImage('assets/icon.png'),
               ),
+              Text(loc.appName, style: Theme.of(context).textTheme.titleLarge),
               Text(
-                '简记',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              Text(
-                '版本 ${packageInfo.version}',
+                loc.versionWithParam(packageInfo.version),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
-                '本软件采用 GPL-3.0 许可证',
+                loc.softwareLicense,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              Text(
-                '版权所有 © 2025 Acer',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              Text(loc.copyright, style: Theme.of(context).textTheme.bodyLarge),
             ],
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          // 正在获取 显示等待加载指示器
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(); // 显示等待加载指示器
         } else {
-          return const Text('获取应用信息失败');
+          return Text(loc.failedToGetAppInfo);
         }
       },
     );
@@ -97,14 +93,15 @@ class _AboutPageState extends State<AboutPage> {
 
   // 跳转到网页
   Future<void> _launchUrl() async {
-    final Uri uri = Uri.parse('https://github.com/Acer-482/concise_note_pad');
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    final Uri uri = Uri.parse(loc.githubRepoUrl);
     try {
       if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
         if (mounted) {
           ToastUtils.showStandardToast(
             context,
-            title: '跳转失败',
-            msg: '跳转到"$uri"失败',
+            title: loc.jumpFailed,
+            msg: loc.jumpToUriFailed(uri.toString()),
             type: ToastificationType.error,
           );
         }
@@ -114,8 +111,8 @@ class _AboutPageState extends State<AboutPage> {
       if (mounted) {
         ToastUtils.showStandardToast(
           context,
-          title: '跳转失败',
-          msg: '跳转到"$uri"时发生错误：$e',
+          title: loc.jumpFailed,
+          msg: loc.jumpToUriError(uri.toString(), e.toString()),
           type: ToastificationType.error,
         );
       }

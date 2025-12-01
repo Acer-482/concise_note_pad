@@ -6,5 +6,173 @@
     "description": "应用程序的名称",
     "context": "菜单栏、关于页面",
     "type": "text"
+  },
+  "themeModeDisplayName_system": "跟随系统",
+  "@themeModeDisplayName_system": {
+    "description": "主题模式：跟随系统设置",
+    "type": "text"
+  },
+  "themeModeDisplayName_light": "亮色",
+  "@themeModeDisplayName_light": {
+    "description": "主题模式：亮色主题",
+    "type": "text"
+  },
+  "themeModeDisplayName_dark": "暗色",
+  "@themeModeDisplayName_dark": {
+    "description": "主题模式：暗色主题",
+    "type": "text"
+  },
+  "fontFamilyType_system": "系统默认",
+  "@fontFamilyType_system": {
+    "description": "字体类型枚举：系统默认字体",
+    "type": "text"
+  },
+  "fontFamilyType_alibabaPuHuiTi": "阿里巴巴普惠体",
+  "@fontFamilyType_alibabaPuHuiTi": {
+    "description": "字体类型枚举：阿里巴巴普惠体",
+    "type": "text"
+  },
+  "deleteConfirmDialogTitle": "确认删除？",
+  "@deleteConfirmDialogTitle": {
+    "description": "删除确认对话框的标题",
+    "type": "text"
+  },
+  "deleteConfirmDialogDefaultMessage": "这将会删除该项，且无法恢复！",
+  "@deleteConfirmDialogDefaultMessage": {
+    "description": "删除确认对话框的默认消息内容",
+    "type": "text"
+  },
+  "cancel": "取消",
+  "@cancel": {
+    "description": "通用取消按钮文本",
+    "type": "text"
+  },
+  "confirm": "确定",
+  "@confirm": {
+    "description": "通用确认按钮文本",
+    "type": "text"
+  },
+  "deleteSuccess": "删除成功",
+  "@deleteSuccess": {
+    "description": "删除操作成功后的提示消息",
+    "type": "text"
+  },
+  "navigationHome": "主页面",
+  "@navigationHome": {
+    "description": "主页面导航项标签",
+    "type": "text"
+  },
+  "navigationTasks": "任务",
+  "@navigationTasks": {
+    "description": "任务页面导航项标签",
+    "type": "text"
+  },
+  "drawerTitle": "侧边栏",
+  "@drawerTitle": {
+    "description": "抽屉菜单的标题",
+    "type": "text"
+  },
+  "drawerSettings": "设置",
+  "@drawerSettings": {
+    "description": "抽屉菜单中的设置项",
+    "type": "text"
+  },
+  "drawerAbout": "关于",
+  "@drawerAbout": {
+    "description": "抽屉菜单中的关于项",
+    "type": "text"
+  },
+  "aboutPageTitle": "关于",
+  "@aboutPageTitle": {
+    "description": "关于页面：标题",
+    "type": "text"
+  },
+  "more": "更多",
+  "@more": {
+    "description": "关于页面中'更多'部分的标题",
+    "context": "关于页面",
+    "type": "text"
+  },
+  "moreLicenseInfo": "更多许可证信息",
+  "@moreLicenseInfo": {
+    "description": "查看更多许可证信息的按钮文本",
+    "context": "ListTile",
+    "type": "text"
+  },
+  "goToGithubRepo": "跳转到github仓库",
+  "@goToGithubRepo": {
+    "description": "跳转到GitHub仓库的按钮文本",
+    "context": "ListTile",
+    "type": "text"
+  },
+  "githubRepoUrl": "https://github.com/Acer-482/concise_note_pad",
+  "@githubRepoUrl": {
+    "description": "GitHub仓库URL，显示在关于页面",
+    "context": "ListTile subtitle",
+    "type": "text"
+  },
+  "versionWithParam": "版本 {version}",
+  "@versionWithParam": {
+    "description": "版本号的前缀文本，带版本号参数",
+    "context": "关于页面",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    },
+    "type": "text"
+  },
+  "softwareLicense": "本软件采用 GPL-3.0 许可证",
+  "@softwareLicense": {
+    "description": "软件许可证声明",
+    "context": "关于页面",
+    "type": "text"
+  },
+  "copyright": "版权所有 © 2025 Acer",
+  "@copyright": {
+    "description": "版权声明",
+    "context": "关于页面",
+    "type": "text"
+  },
+  "failedToGetAppInfo": "获取应用信息失败",
+  "@failedToGetAppInfo": {
+    "description": "获取包信息失败时的错误提示",
+    "context": "FutureBuilder",
+    "type": "text"
+  },
+  "jumpFailed": "跳转失败",
+  "@jumpFailed": {
+    "description": "URL跳转失败时的提示标题",
+    "context": "Toast通知",
+    "type": "text"
+  },
+  "jumpToUriFailed": "跳转到\"{uri}\"失败",
+  "@jumpToUriFailed": {
+    "description": "URL跳转失败时的提示消息",
+    "context": "Toast通知",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "https://example.com"
+      }
+    },
+    "type": "text"
+  },
+  "jumpToUriError": "跳转到\"{uri}\"时发生错误：{error}",
+  "@jumpToUriError": {
+    "description": "URL跳转过程中发生错误的提示消息",
+    "context": "Toast通知",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "https://example.com"
+      },
+      "error": {
+        "type": "String",
+        "example": "网络连接失败"
+      }
+    },
+    "type": "text"
   }
 }

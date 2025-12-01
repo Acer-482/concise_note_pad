@@ -18,7 +18,7 @@ class _NavigationPage {
 
   Icon icon;
   Icon? activeIcon;
-  String label;
+  String Function(AppLocalizations loc) label;
   Widget body;
 }
 
@@ -41,12 +41,12 @@ class _MainPageState extends State<MainPage> {
     _NavigationPage(
       icon: const Icon(Icons.home_outlined),
       activeIcon: const Icon(Icons.home),
-      label: '主页面',
+      label: (loc) => loc.navigationHome,
       body: const HomePage(),
     ),
     _NavigationPage(
       icon: const Icon(Icons.format_list_bulleted),
-      label: '任务',
+      label: (loc) => loc.navigationTasks,
       body: const TaskPage(),
     ),
   ]; // 页面列表
@@ -86,6 +86,7 @@ class _MainPageState extends State<MainPage> {
 
   // 构建侧面导航轨道（宽屏设备）
   Widget _buildNavigationRail(int mode) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return NavigationRail(
       selectedIndex: pageIndex,
       onDestinationSelected: _switchPage,
@@ -99,7 +100,7 @@ class _MainPageState extends State<MainPage> {
               icon: page.icon,
               selectedIcon: page.activeIcon,
               label: Text(
-                page.label,
+                page.label(loc),
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
@@ -127,6 +128,7 @@ class _MainPageState extends State<MainPage> {
 
   // 构建抽屉
   Widget? _buildDrawer(int mode) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return Drawer(
       child: Padding(
         padding: EdgeInsetsGeometry.all(20), // 内边距
@@ -138,10 +140,13 @@ class _MainPageState extends State<MainPage> {
             //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             //   child: Text('侧边栏', style: Theme.of(context).textTheme.titleLarge),
             // ),
-            Text('侧边栏', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              loc.drawerTitle,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             ListTile(
               leading: const Icon(Icons.settings_rounded),
-              title: Text('设置'),
+              title: Text(loc.drawerSettings),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const SettingsPage()),
               ),
@@ -149,11 +154,11 @@ class _MainPageState extends State<MainPage> {
             Divider(),
             ListTile(
               leading: const Icon(Icons.info_outline_rounded),
-              title: Text('关于'),
+              title: Text(loc.drawerAbout),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const AboutPage()),
               ),
-            ), // 设置
+            ), // 关于
           ],
         ),
       ),
@@ -162,6 +167,7 @@ class _MainPageState extends State<MainPage> {
 
   // 构建底部导航栏
   Widget? _buildBottomNavigationBar(int mode) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return mode == 0
         ? BottomNavigationBar(
             currentIndex: pageIndex,
@@ -173,7 +179,7 @@ class _MainPageState extends State<MainPage> {
                     activeIcon: page.activeIcon == null
                         ? page.icon
                         : page.activeIcon!,
-                    label: page.label,
+                    label: page.label(loc),
                   ),
                 )
                 .toList(),

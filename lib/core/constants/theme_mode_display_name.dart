@@ -1,10 +1,14 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// 主题模式显示名称
 extension ThemeModeDisplayName on ThemeMode {
-  String get displayName => switch (this) {
-    ThemeMode.system => '跟随系统',
-    ThemeMode.light => '亮色',
-    ThemeMode.dark => '暗色',
-  };
+  String displayName(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return switch (this) {
+      ThemeMode.system => loc.themeModeDisplayName_system,
+      ThemeMode.light => loc.themeModeDisplayName_light,
+      ThemeMode.dark => loc.themeModeDisplayName_dark,
+    };
+  }
 }

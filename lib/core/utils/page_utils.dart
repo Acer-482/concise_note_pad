@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
@@ -84,15 +85,18 @@ class PageUtils {
     bool showToast = true,
     void Function()? confirmFunc,
   }) async {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('确认删除？'),
-            content: Text(contentMessage ?? '这将会删除该项，且无法恢复！'),
+            title: Text(loc.deleteConfirmDialogTitle),
+            content: Text(
+              contentMessage ?? loc.deleteConfirmDialogDefaultMessage,
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false), // 返回上一页
-                child: const Text('取消'),
+                child: Text(loc.cancel),
               ),
               TextButton(
                 onPressed: () {
@@ -100,14 +104,16 @@ class PageUtils {
                   if (showToast) {
                     ToastUtils.showStandardToast(
                       context,
-                      title: completedMessage == null ? null : '删除成功', // 有完成消息
-                      msg: completedMessage ?? '删除成功',
+                      title: completedMessage == null
+                          ? null
+                          : loc.deleteSuccess, // 有完成消息
+                      msg: completedMessage ?? loc.deleteSuccess,
                       type: ToastificationType.success,
                     );
                   }
                   Navigator.pop(context, true); // 返回上一页
                 },
-                child: const Text('确定', style: TextStyle(color: Colors.red)),
+                child: Text(loc.confirm, style: TextStyle(color: Colors.red)),
               ),
             ],
           ),
