@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/enums/important_level.dart';
 import 'package:concise_note_pad/features/tasks/enums/important_type.dart';
 import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
@@ -39,10 +40,11 @@ class CompletableTaskItemFormData extends TaskItemFormData {
 
   @override
   List<Widget> buildForms(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     final superForms = super.buildForms(context);
     superForms.addAll([
       ListTile(
-        title: Text('重要程度'),
+        title: Text(loc.importanceLevel),
         trailing: DropdownButton(
           items: ImportanceLevel.values
               .map(
@@ -53,7 +55,7 @@ class CompletableTaskItemFormData extends TaskItemFormData {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(importance.icon, color: importance.color),
-                      Text(importance.displayName),
+                      Text(importance.displayName(context)),
                     ],
                   ),
                 ),
@@ -67,7 +69,7 @@ class CompletableTaskItemFormData extends TaskItemFormData {
         ),
       ), // 重要程度
       ListTile(
-        title: Text('重要性类型'),
+        title: Text(loc.importanceType),
         trailing: DropdownButton(
           items: ImportanceType.values
               .map(
@@ -78,7 +80,7 @@ class CompletableTaskItemFormData extends TaskItemFormData {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(importance.icon, color: importance.color),
-                      Text(importance.displayName),
+                      Text(importance.displayName(context)),
                     ],
                   ),
                 ),
@@ -97,11 +99,12 @@ class CompletableTaskItemFormData extends TaskItemFormData {
 
   @override
   List<Widget> buildMoreForms(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     final superWidgets = super.buildMoreForms(context);
     superWidgets.add(
       SwitchListTile(
         value: isFinished,
-        title: Text('是否完成'),
+        title: Text(loc.isFinished),
         onChanged: (value) {
           isFinished = value;
           update?.call();

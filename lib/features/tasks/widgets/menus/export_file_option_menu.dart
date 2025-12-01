@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/core/utils/file_picker_utils.dart';
 import 'package:concise_note_pad/core/utils/toast_utils.dart';
 import 'package:concise_note_pad/features/task_menus/task_menu_manager.dart';
@@ -24,6 +25,7 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     bool canExport = exportAppbarConfig || exportAllTaskItem;
     return Expanded(
       child: SingleChildScrollView(
@@ -33,22 +35,22 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
             SwitchListTile(
               value: exportFormat,
               onChanged: (v) => setState(() => exportFormat = v),
-              title: Text('导出格式化'),
-              subtitle: Text('是否以易读（完整缩进换行）的Json导出'),
+              title: Text(loc.exportFormat),
+              subtitle: Text(loc.exportFormatDescription),
             ),
             ListTile(
-              title: const Text('导出模式'),
+              title: Text(loc.exportMode),
               trailing: SegmentedButton<bool>(
                 segments: [
                   ButtonSegment(
                     value: false,
                     icon: Icon(Icons.abc),
-                    label: Text('Json'),
+                    label: const Text('Json'),
                   ),
                   ButtonSegment(
                     value: true,
                     icon: Icon(Icons.numbers_rounded),
-                    label: Text('Base64'),
+                    label: const Text('Base64'),
                   ),
                 ],
                 selected: {exportB64},
@@ -62,12 +64,12 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
             SwitchListTile(
               value: exportAppbarConfig,
               onChanged: (v) => setState(() => exportAppbarConfig = v),
-              title: Text('导出任务菜单配置文件'),
+              title: Text(loc.exportAppbarConfig),
             ),
             SwitchListTile(
               value: exportAllTaskItem,
               onChanged: (v) => setState(() => exportAllTaskItem = v),
-              title: Text('导出所有任务'),
+              title: Text(loc.exportAllTaskItem),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,12 +79,12 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
                 ElevatedButton.icon(
                   onPressed: canExport ? () => _export(false) : null,
                   icon: const Icon(Icons.save),
-                  label: const Text('导出到文件'),
+                  label: Text(loc.exportToFile),
                 ),
                 ElevatedButton.icon(
                   onPressed: canExport ? () => _export(true) : null,
                   icon: const Icon(Icons.copy),
-                  label: const Text('导出到剪贴板'),
+                  label: Text(loc.exportToClipboard),
                 ),
               ],
             ),
@@ -111,7 +113,8 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
 
   /// 导出到 - 文件 / 剪贴板
   Future<void> _export(bool toClipboard) async {
-    String? ret;
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    String? ret; // 返回值
     bool hasError = false; // 发生错误
     try {
       String saveJson = _exportJsonString(); // 获取导出的json
@@ -122,10 +125,10 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
       // 保存 //
       if (toClipboard) {
         await _saveToClipboard(saveJson);
-        ret = '剪贴板';
+        ret = loc.clipboard;
       } else {
         ret = await FilePickerUtils.saveFile(
-          dialogTitle: '选择保存文件位置',
+          dialogTitle: loc.selectSaveFileLocation,
           fileName: exportB64 ? 'config.txt' : 'config.json',
           data: saveJson,
         );
@@ -137,18 +140,18 @@ class _ExportFileOptionMenuState extends State<ExportFileOptionMenu> {
     // 输出结果 //
     if (ret != null) {
       _showFinishToast(
-        title: '导出成功',
-        msg: '成功导出${exportB64 ? 'Base64' : 'Json'}数据到"$ret"',
+        title: loc.exportSuccess,
+        msg: loc.exportSuccessMessage(exportB64 ? 'Base64' : 'Json', ret),
         type: ToastificationType.success,
       );
     } else if (hasError) {
       _showFinishToast(
-        title: '导出发生错误',
+        title: loc.exportError,
         msg: ret!,
         type: ToastificationType.error,
       );
     } else {
-      _showFinishToast(msg: '导出已取消', type: ToastificationType.info);
+      _showFinishToast(msg: loc.exportCancelled, type: ToastificationType.info);
     }
   }
 

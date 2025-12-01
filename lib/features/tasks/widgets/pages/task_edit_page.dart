@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:concise_note_pad/features/tasks/forms/task_item_form_data.dart';
@@ -10,7 +11,7 @@ import 'package:toastification/toastification.dart';
 ///
 /// 允许显示并编辑/新建任务项
 class TaskEditPage extends StatefulWidget {
-  final String taskName; // 任务名称
+  final String Function(BuildContext context) taskName; // 任务名称
   final TaskItem? taskItem; // 任务项
   final TaskItemFormData formData; // 任务表单数据
 
@@ -27,7 +28,7 @@ class TaskEditPage extends StatefulWidget {
   // 将不会管理表单生命周期
   factory TaskEditPage.newTask(TaskItemFormData formData, String? taskName) {
     return TaskEditPage(
-      taskName: taskName ?? '',
+      taskName: (context) => taskName ?? '',
       taskItem: null,
       formData: formData,
     );
@@ -36,7 +37,8 @@ class TaskEditPage extends StatefulWidget {
   // 编辑任务项
   factory TaskEditPage.editTask(TaskItem taskItem) {
     return TaskEditPage(
-      taskName: '"${taskItem.title}"任务',
+      taskName: (context) =>
+          AppLocalizations.of(context)!.taskInfoTitle(taskItem.title),
       taskItem: taskItem,
       formData: taskItem.toFormData(),
     );
@@ -67,11 +69,12 @@ class _TaskEditPageState extends State<TaskEditPage> {
 
   // 显示更多对话框
   void _showMoreDialog() {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          '更多选项',
+          loc.moreOptions,
           style: Theme.of(context).textTheme.titleLarge,
         ), // 标题
         contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 10), // 内容 内边距
@@ -83,7 +86,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('批量创建模式'),
+                  Text(loc.batchCreationMode),
                   Checkbox(
                     value: isBatchCreationMode,
                     onChanged: (value) {
@@ -101,7 +104,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('确定'),
+            child: Text(loc.confirm),
           ),
         ],
       ),
@@ -110,10 +113,11 @@ class _TaskEditPageState extends State<TaskEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return Scaffold(
       appBar: PageUtils.buildDefaultAppbar(
         context,
-        Text('${isCreateMode ? '新建' : '编辑'}${widget.taskName}'),
+        Text(isCreateMode ? loc.newTask : loc.editTask),
         actions: isCreateMode
             ? [
                 IconButton(
@@ -130,12 +134,12 @@ class _TaskEditPageState extends State<TaskEditPage> {
             children: [
               PageUtils.buildDefaultTitleFrame(
                 context: context,
-                title: '主要选项',
+                title: loc.mainOptions,
                 childWidget: widget.formData.buildFormWidget(context),
               ),
               PageUtils.buildDefaultTitleFrame(
                 context: context,
-                title: '更多选项',
+                title: loc.moreOptions,
                 childWidget: widget.formData.buildMoreFormWidget(context),
               ),
             ],
@@ -144,14 +148,16 @@ class _TaskEditPageState extends State<TaskEditPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _submit(),
-        tooltip: isCreateMode ? '创建任务' : '保存更改',
+        tooltip: isCreateMode ? loc.newTask : loc.editTask,
         icon: Icon(
           isCreateMode
               ? (isBatchCreationMode ? Icons.add_box : Icons.add)
               : Icons.check,
         ),
         label: Text(
-          isCreateMode ? (isBatchCreationMode ? '批量创建' : '创建') : '保存',
+          isCreateMode
+              ? (isBatchCreationMode ? loc.batchCreate : loc.create)
+              : loc.save,
         ),
       ), // 完成按钮
     );
@@ -159,6 +165,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
 
   /// 提交
   void _submit() {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     if (!widget.formData.validate()) return; // 验证表单
     TaskItem taskItem;
     if (isCreateMode) {
@@ -168,8 +175,8 @@ class _TaskEditPageState extends State<TaskEditPage> {
       // 输出
       ToastUtils.showStandardToast(
         context,
-        title: '创建完成',
-        msg: '成功创建了"${taskItem.title}"任务项',
+        title: loc.createComplete,
+        msg: loc.taskCreateSuccess(taskItem.title),
         type: ToastificationType.success,
       );
     } else {
@@ -180,8 +187,8 @@ class _TaskEditPageState extends State<TaskEditPage> {
       widget.formData.updateItem(taskItem); // 更新任务项
       ToastUtils.showStandardToast(
         context,
-        title: '修改完成',
-        msg: '成功修改了"${taskItem.title}"任务项',
+        title: loc.modifyComplete,
+        msg: loc.taskModifySuccess(taskItem.title),
         type: ToastificationType.success,
       );
     }

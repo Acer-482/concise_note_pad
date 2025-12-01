@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_edit_page.dart';
 import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
 import 'package:concise_note_pad/features/tasks/forms/completable_task_item_form_data.dart';
@@ -32,16 +33,18 @@ class TaskSelectList extends StatefulWidget {
 }
 
 class _TaskSelectListState extends State<TaskSelectList> {
-  late final List<_TaskType> _taskItemTypeList;
-
   @override
   void initState() {
     super.initState();
-    // 初始化列表
-    _taskItemTypeList = [
+  }
+
+  /// 构建任务项类型列表
+  List<_TaskType> _buildTaskItemTypeList() {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    return [
       _TaskType(
-        name: '可完成任务项',
-        context: '创建一个可标记完成、分类和优先级的任务项',
+        name: loc.completableTaskItem,
+        context: loc.completableTaskItemDescription,
         icon: Icon(Icons.view_list_rounded),
         formData: CompletableTaskItemFormData(),
         itemType: CompletableTaskItem,
@@ -52,11 +55,12 @@ class _TaskSelectListState extends State<TaskSelectList> {
 
   @override
   Widget build(BuildContext context) {
+    final taskItemTypeList = _buildTaskItemTypeList(); // 构建任务项类型列表
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: _taskItemTypeList.length,
+      itemCount: taskItemTypeList.length,
       itemBuilder: (context, index) {
-        _TaskType currentTaskType = _taskItemTypeList[index];
+        _TaskType currentTaskType = taskItemTypeList[index];
         return Card(
           child: ListTile(
             leading: currentTaskType.icon, // 图标

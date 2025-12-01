@@ -1,6 +1,6 @@
 {
   "@@locale": "zh",
-  "@@last_modified": "2025-12-01T1:00:00Z",
+  "@@last_modified": "2025-12-01T17:14:00",
   "appName": "简记",
   "@appName": {
     "description": "应用程序的名称",
@@ -252,6 +252,558 @@
       "error": {
         "type": "String",
         "example": "网络连接失败"
+      }
+    },
+    "type": "text"
+  },
+  "moreOptions": "更多选项",
+  "@moreOptions": {
+    "description": "更多选项的标题",
+    "type": "text"
+  },
+  "batchCreationMode": "批量创建模式",
+  "@batchCreationMode": {
+    "description": "批量创建模式复选框的标签",
+    "type": "text"
+  },
+  "createText": "新建",
+  "@createText": {
+    "description": "新建操作的文本",
+    "type": "text"
+  },
+  "editText": "编辑",
+  "@editText": {
+    "description": "编辑操作的文本",
+    "type": "text"
+  },
+  "mainOptions": "主要选项",
+  "@mainOptions": {
+    "description": "主要选项的标题",
+    "type": "text"
+  },
+  "create": "创建",
+  "@create": {
+    "description": "创建操作的按钮文本",
+    "type": "text"
+  },
+  "batchCreate": "批量创建",
+  "@batchCreate": {
+    "description": "批量创建操作的按钮文本",
+    "type": "text"
+  },
+  "save": "保存",
+  "@save": {
+    "description": "保存操作的按钮文本",
+    "type": "text"
+  },
+  "createComplete": "创建完成",
+  "@createComplete": {
+    "description": "创建完成提示的标题",
+    "type": "text"
+  },
+  "taskCreateSuccess": "成功创建了\"{title}\"任务项",
+  "@taskCreateSuccess": {
+    "description": "任务创建成功的提示消息",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "任务标题"
+      }
+    },
+    "type": "text"
+  },
+  "modifyComplete": "修改完成",
+  "@modifyComplete": {
+    "description": "修改完成提示的标题",
+    "type": "text"
+  },
+  "taskModifySuccess": "成功修改了\"{title}\"任务项",
+  "@taskModifySuccess": {
+    "description": "任务修改成功的提示消息",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "任务标题"
+      }
+    },
+    "type": "text"
+  },
+  "exportFormat": "导出格式化",
+  "@exportFormat": {
+    "description": "导出格式化的开关标签",
+    "type": "text"
+  },
+  "exportFormatDescription": "是否以易读（完整缩进换行）的Json导出",
+  "@exportFormatDescription": {
+    "description": "导出格式化的描述文本",
+    "type": "text"
+  },
+  "exportMode": "导出模式",
+  "@exportMode": {
+    "description": "导出模式的标题",
+    "type": "text"
+  },
+  "json": "Json",
+  "@json": {
+    "description": "Json格式的文本",
+    "type": "text"
+  },
+  "base64": "Base64",
+  "@base64": {
+    "description": "Base64格式的文本",
+    "type": "text"
+  },
+  "exportAppbarConfig": "导出任务菜单配置文件",
+  "@exportAppbarConfig": {
+    "description": "导出任务菜单配置文件的开关标签",
+    "type": "text"
+  },
+  "exportAllTaskItem": "导出所有任务",
+  "@exportAllTaskItem": {
+    "description": "导出所有任务的开关标签",
+    "type": "text"
+  },
+  "exportToFile": "导出到文件",
+  "@exportToFile": {
+    "description": "导出到文件的按钮文本",
+    "type": "text"
+  },
+  "exportToClipboard": "导出到剪贴板",
+  "@exportToClipboard": {
+    "description": "导出到剪贴板的按钮文本",
+    "type": "text"
+  },
+  "clipboard": "剪贴板",
+  "@clipboard": {
+    "description": "用于保存到剪贴板时的完成提示",
+    "type": "text"
+  },
+  "selectSaveFileLocation": "选择保存文件位置",
+  "@selectSaveFileLocation": {
+    "description": "选择保存文件位置的对话框标题",
+    "type": "text"
+  },
+  "exportSuccess": "导出成功",
+  "@exportSuccess": {
+    "description": "导出成功的提示标题",
+    "type": "text"
+  },
+  "exportSuccessMessage": "成功导出{type}数据到\"{destination}\"",
+  "@exportSuccessMessage": {
+    "description": "导出成功的提示消息",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "Base64"
+      },
+      "destination": {
+        "type": "String",
+        "example": "文件路径"
+      }
+    },
+    "type": "text"
+  },
+  "exportError": "导出发生错误",
+  "@exportError": {
+    "description": "导出错误的提示标题",
+    "type": "text"
+  },
+  "exportCancelled": "导出已取消",
+  "@exportCancelled": {
+    "description": "导出取消的提示消息",
+    "type": "text"
+  },
+  "importWarning": "重要提示\n！导入数据后会完全删除原数据后覆盖！\n！此操作不可逆，且难以恢复！\n！请务必谨慎操作！",
+  "@importWarning": {
+    "description": "导入数据的警告提示文本",
+    "type": "text"
+  },
+  "parseFromFile": "从文件解析",
+  "@parseFromFile": {
+    "description": "从文件解析的按钮文本",
+    "type": "text"
+  },
+  "parseFromClipboard": "从剪贴板解析",
+  "@parseFromClipboard": {
+    "description": "从剪贴板解析的按钮文本",
+    "type": "text"
+  },
+  "overwriteSave": "覆盖保存",
+  "@overwriteSave": {
+    "description": "覆盖保存的按钮文本",
+    "type": "text"
+  },
+  "dataInfo": "数据信息：\n    数据数量：{count}\n    数据列表：{keys}",
+  "@dataInfo": {
+    "description": "数据信息的显示文本",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      },
+      "keys": {
+        "type": "String",
+        "example": "AppbarConfig, TaskItem"
+      }
+    },
+    "type": "text"
+  },
+  "parseSuccess": "解析成功",
+  "@parseSuccess": {
+    "description": "解析成功的提示标题",
+    "type": "text"
+  },
+  "readyToOverwrite": "已经准备好覆盖内容",
+  "@readyToOverwrite": {
+    "description": "准备好覆盖内容的提示消息",
+    "type": "text"
+  },
+  "parseFailed": "解析失败",
+  "@parseFailed": {
+    "description": "解析失败的提示标题",
+    "type": "text"
+  },
+  "clipboardDataFailed": "剪贴板数据获取失败",
+  "@clipboardDataFailed": {
+    "description": "剪贴板数据获取失败的提示标题",
+    "type": "text"
+  },
+  "checkClipboardAndRetry": "请检查剪贴板或重新复制数据内容",
+  "@checkClipboardAndRetry": {
+    "description": "剪贴板数据获取失败的提示消息",
+    "type": "text"
+  },
+  "parseOverwriteComplete": "解析覆盖完成",
+  "@parseOverwriteComplete": {
+    "description": "解析覆盖完成的提示消息",
+    "type": "text"
+  },
+  "parseOverwriteFailed": "解析覆盖失败",
+  "@parseOverwriteFailed": {
+    "description": "解析覆盖失败的提示标题",
+    "type": "text"
+  },
+  "selectDataFile": "选择数据文件",
+  "@selectDataFile": {
+    "description": "选择数据文件的对话框标题",
+    "type": "text"
+  },
+  "defaultTaskTitle": "任务标题",
+  "@defaultTaskTitle": {
+    "description": "默认任务的标题",
+    "type": "text"
+  },
+  "defaultTaskSubTitle": "任务小标题",
+  "@defaultTaskSubTitle": {
+    "description": "默认任务的小标题",
+    "type": "text"
+  },
+  "defaultTaskDetails": "这里是任务详情，用于描述该任务\n这是一个可完成任务项，拥有：\n\t复选框 —— 用于标记该任务是否完成\n\t重要等级和重要性类型 —— 使用用于标记该任务的重要性和重要程度",
+  "@defaultTaskDetails": {
+    "description": "默认任务的详细信息",
+    "type": "text"
+  },
+  "completableTaskItem": "可完成任务项",
+  "@completableTaskItem": {
+    "description": "可完成任务项的类型名称",
+    "type": "text"
+  },
+  "importanceWeight": "重要性权重：{weight}",
+  "@importanceWeight": {
+    "description": "重要性权重的显示文本",
+    "placeholders": {
+      "weight": {
+        "type": "int",
+        "example": "15"
+      }
+    },
+    "type": "text"
+  },
+  "importanceLevelLabel": "重要程度：{level}",
+  "@importanceLevelLabel": {
+    "description": "重要程度的显示文本",
+    "placeholders": {
+      "level": {
+        "type": "String",
+        "example": "高"
+      }
+    },
+    "type": "text"
+  },
+  "importanceTypeLabel": "重要性类型：{type}",
+  "@importanceTypeLabel": {
+    "description": "重要性类型的显示文本",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "重要且紧急"
+      }
+    },
+    "type": "text"
+  },
+  "completableTaskItemDescription": "创建一个可标记完成、分类和优先级的任务项",
+  "@completableTaskItemDescription": {
+    "description": "可完成任务项的描述",
+    "type": "text"
+  },
+  "importanceLevelMinimum": "最低",
+  "@importanceLevelMinimum": {
+    "description": "重要程度：最低",
+    "type": "text"
+  },
+  "importanceLevelLow": "低",
+  "@importanceLevelLow": {
+    "description": "重要程度：低",
+    "type": "text"
+  },
+  "importanceLevelMedium": "中",
+  "@importanceLevelMedium": {
+    "description": "重要程度：中",
+    "type": "text"
+  },
+  "importanceLevelHigh": "高",
+  "@importanceLevelHigh": {
+    "description": "重要程度：高",
+    "type": "text"
+  },
+  "importanceLevelCritical": "最高",
+  "@importanceLevelCritical": {
+    "description": "重要程度：最高",
+    "type": "text"
+  },
+  "importanceLevel": "重要程度",
+  "@importanceLevel": {
+    "description": "重要程度的表单标签",
+    "type": "text"
+  },
+  "importanceType": "重要性类型",
+  "@importanceType": {
+    "description": "重要性类型的表单标签",
+    "type": "text"
+  },
+  "isFinished": "是否完成",
+  "@isFinished": {
+    "description": "是否完成的开关标签",
+    "type": "text"
+  },
+  "selectTaskType": "选择任务类型",
+  "@selectTaskType": {
+    "description": "选择任务类型的标题",
+    "type": "text"
+  },
+  "newTask": "新建任务",
+  "@newTask": {
+    "description": "新建任务的工具提示",
+    "type": "text"
+  },
+  "title": "标题",
+  "@title": {
+    "description": "标题的表单标签",
+    "type": "text"
+  },
+  "subTitle": "副标题",
+  "@subTitle": {
+    "description": "副标题的表单标签",
+    "type": "text"
+  },
+  "details": "详细信息",
+  "@details": {
+    "description": "详细信息的表单标签",
+    "type": "text"
+  },
+  "isEnabled": "是否启用",
+  "@isEnabled": {
+    "description": "是否启用的开关标签",
+    "type": "text"
+  },
+  "titleCannotBeEmpty": "标题不可为空",
+  "@titleCannotBeEmpty": {
+    "description": "标题不能为空的验证错误信息",
+    "type": "text"
+  },
+  "titleCannotDuplicate": "标题不可与现有项重复",
+  "@titleCannotDuplicate": {
+    "description": "标题不能重复的验证错误信息",
+    "type": "text"
+  },
+  "stillInDevelopment": "仍在开发中...",
+  "@stillInDevelopment": {
+    "description": "仍在开发中的占位文本",
+    "type": "text"
+  },
+  "edit": "编辑",
+  "@edit": {
+    "description": "编辑操作的滑动操作标签",
+    "type": "text"
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "删除操作的滑动操作标签",
+    "type": "text"
+  },
+  "titleLabel": "标题：{title}",
+  "@titleLabel": {
+    "description": "标题的显示标签",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "任务标题"
+      }
+    },
+    "type": "text"
+  },
+  "subTitleLabel": "副标题：{subTitle}",
+  "@subTitleLabel": {
+    "description": "副标题的显示标签",
+    "placeholders": {
+      "subTitle": {
+        "type": "String",
+        "example": "任务小标题"
+      }
+    },
+    "type": "text"
+  },
+  "createTimeLabel": "创建时间：{dateTime}",
+  "@createTimeLabel": {
+    "description": "创建时间的显示标签",
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "2025年12月01日 - 12时00分00秒"
+      }
+    },
+    "type": "text"
+  },
+  "updateTimeLabel": "最后更改：{dateTime}",
+  "@updateTimeLabel": {
+    "description": "最后更改时间的显示标签",
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "2025年12月01日 - 12时00分00秒"
+      }
+    },
+    "type": "text"
+  },
+  "noDetails": "（暂无详细信息）",
+  "@noDetails": {
+    "description": "没有详细信息时的占位文本",
+    "type": "text"
+  },
+  "taskInfoTitle": "\"{title}\"任务信息",
+  "@taskInfoTitle": {
+    "description": "任务信息页面的标题",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "任务标题"
+      }
+    },
+    "type": "text"
+  },
+  "editTask": "编辑任务",
+  "@editTask": {
+    "description": "编辑任务的按钮文本和工具提示",
+    "type": "text"
+  },
+  "sortMethod": "排序方式：",
+  "@sortMethod": {
+    "description": "排序方式的标题",
+    "type": "text"
+  },
+  "ascending": "升序",
+  "@ascending": {
+    "description": "升序排序的标签",
+    "type": "text"
+  },
+  "descending": "降序",
+  "@descending": {
+    "description": "降序排序的标签",
+    "type": "text"
+  },
+  "autoCloseAfterSelection": "选择类型后自动关闭当前页",
+  "@autoCloseAfterSelection": {
+    "description": "选择后自动关闭的复选框标签",
+    "type": "text"
+  },
+  "sortByImportance": "按照重要程度排序",
+  "@sortByImportance": {
+    "description": "按重要程度排序的选项",
+    "type": "text"
+  },
+  "sortByName": "按照名称排序",
+  "@sortByName": {
+    "description": "按名称排序的选项",
+    "type": "text"
+  },
+  "sortByUpdateDate": "按照最后修改日期排序",
+  "@sortByUpdateDate": {
+    "description": "按最后修改日期排序的选项",
+    "type": "text"
+  },
+  "sortByDate": "按照创建日期排序",
+  "@sortByDate": {
+    "description": "按创建日期排序的选项",
+    "type": "text"
+  },
+  "importanceTypeNotImportantNotUrgent": "不重要不紧急",
+  "@importanceTypeNotImportantNotUrgent": {
+    "description": "重要性类型：不重要不紧急",
+    "type": "text"
+  },
+  "importanceTypeUrgentNotImportant": "紧急不重要",
+  "@importanceTypeUrgentNotImportant": {
+    "description": "重要性类型：紧急不重要",
+    "type": "text"
+  },
+  "importanceTypeImportantNotUrgent": "重要不紧急",
+  "@importanceTypeImportantNotUrgent": {
+    "description": "重要性类型：重要不紧急",
+    "type": "text"
+  },
+  "importanceTypeImportantAndUrgent": "重要且紧急",
+  "@importanceTypeImportantAndUrgent": {
+    "description": "重要性类型：重要且紧急",
+    "type": "text"
+  },
+  "deserializationFailedTypeNull": "反序列化失败：type值为null",
+  "@deserializationFailedTypeNull": {
+    "description": "JSON反序列化时type值为null的错误信息",
+    "type": "text"
+  },
+  "deserializationFailedUnknownType": "反序列化失败：未知的类型{type}",
+  "@deserializationFailedUnknownType": {
+    "description": "JSON反序列化时遇到未知类型的错误信息",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "UnknownTaskType"
+      }
+    },
+    "type": "text"
+  },
+  "basicInformation": "基本信息",
+  "@basicInformation": {
+    "description": "基本信息分类的标题",
+    "type": "text"
+  },
+  "detailedInformation": "详细信息",
+  "@detailedInformation": {
+    "description": "详细信息分类的标题",
+    "type": "text"
+  },
+  "deleteSuccess": "删除成功",
+  "@deleteSuccess": {
+    "description": "删除操作成功后的提示标题",
+    "type": "text"
+  },
+  "taskDeleteSuccess": "成功删除了\"{title}\"任务项",
+  "@taskDeleteSuccess": {
+    "description": "任务删除成功后的提示消息",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "任务标题"
       }
     },
     "type": "text"

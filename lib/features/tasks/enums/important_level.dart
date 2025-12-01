@@ -1,7 +1,8 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// 重要重要程度等级
-/// 
+///
 /// 用于描述一个任务的重要程度
 enum ImportanceLevel {
   minimum, // 最低
@@ -14,15 +15,18 @@ enum ImportanceLevel {
   static ImportanceLevel get defaultValue => minimum;
 
   /// 显示名称
-  /// 
+  ///
   /// 将会显示译名
-  String get displayName => switch (this) {
-    minimum => '最低',
-    low => '低',
-    medium => '中',
-    high => '高',
-    critical => '最高',
-  };
+  String displayName(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    return switch (this) {
+      minimum => loc.importanceLevelMinimum,
+      low => loc.importanceLevelLow,
+      medium => loc.importanceLevelMedium,
+      high => loc.importanceLevelHigh,
+      critical => loc.importanceLevelCritical,
+    };
+  }
 
   /// 图标
   IconData get icon => switch (this) {
@@ -52,7 +56,7 @@ enum ImportanceLevel {
   };
 
   /// 比较
-  /// 
+  ///
   /// 通过权值比较
   int compareTo(ImportanceLevel level) {
     if (weightValue < level.weightValue) {

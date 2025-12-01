@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
 import 'package:concise_note_pad/features/tasks/forms/task_item_form_data.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
@@ -89,11 +90,12 @@ abstract class TaskItem {
 
   /// 删除任务
   void remove(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     TaskManager.instance.removeTaskItem(this); // 删除
     ToastUtils.showStandardToast(
       context,
-      title: '删除成功',
-      msg: '成功删除了"$title"任务项',
+      title: loc.delete,
+      msg: loc.taskDeleteSuccess(title),
       type: ToastificationType.success,
     );
   }
@@ -104,45 +106,51 @@ abstract class TaskItem {
   ///
   /// 字典的键值将会以 标题：内容的形式呈现出来
   @mustCallSuper
-  Map<String, Widget> buildInfoMap() {
+  Map<String, Widget> buildInfoMap(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return {
-      '基本信息': Column(
+      loc.basicInformation: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('标题：$title'),
-          if (subTitle.isNotEmpty) Text('副标题：$subTitle'),
+          Text(loc.titleLabel(title)),
+          if (subTitle.isNotEmpty) Text(loc.subTitleLabel(subTitle)),
           Text(
-            "创建时间：${DateFormat('yyyy年MM月dd日 - HH时mm分ss秒').format(createDateTime)}",
+            loc.createTimeLabel(
+              DateFormat('yyyy/MM/dd - HH:mm:ss').format(createDateTime),
+            ),
           ),
           if (updateDateTime != createDateTime)
             Text(
-              "最后更改：${DateFormat('yyyy年MM月dd日 - HH时mm分ss秒').format(updateDateTime)}",
+              loc.updateTimeLabel(
+                DateFormat('yyyy/MM/dd - HH:mm:ss').format(updateDateTime),
+              ),
             ),
         ],
       ),
-      '详细信息': Text(details.isEmpty ? '（暂无详细信息）' : details),
+      loc.detailedInformation: Text(details.isEmpty ? loc.noDetails : details),
     };
   }
 
   /// 构建为滑动列表
   @mustCallSuper
   List<SlidableAction> buildSlidableActions(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return [
       SlidableAction(
         onPressed: showInfo, // 显示信息页面
-        label: '详细信息',
+        label: loc.details,
         icon: Icons.info,
         backgroundColor: Colors.cyan,
       ),
       SlidableAction(
         onPressed: edit, // 弹出编辑对话框
-        label: '编辑',
+        label: loc.edit,
         icon: Icons.edit,
         backgroundColor: Colors.yellowAccent,
       ),
       SlidableAction(
         onPressed: remove, // 删除
-        label: '删除',
+        label: loc.delete,
         icon: Icons.delete,
         backgroundColor: Colors.red,
       ),

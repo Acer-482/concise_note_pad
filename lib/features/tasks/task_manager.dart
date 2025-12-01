@@ -1,17 +1,16 @@
 import 'dart:convert';
 
 import 'package:concise_note_pad/core/utils/config_helper.dart';
-import 'package:concise_note_pad/features/tasks/enums/important_level.dart';
-import 'package:concise_note_pad/features/tasks/enums/important_type.dart';
+import 'package:concise_note_pad/features/tasks/widgets/menus/import_file_option_menu.dart';
 import 'package:concise_note_pad/main.dart';
-import 'package:concise_note_pad/features/tasks/models/completable_task_item.dart';
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// 任务管理器 - 单例模式类
 ///
 /// 管理所有的任务项
-/// 
+///
 /// 提供配置文件保存、读取操作
 class TaskManager extends ChangeNotifier {
   // 静态常量 //
@@ -43,37 +42,13 @@ class TaskManager extends ChangeNotifier {
     if (loadSuccessful != true || taskList.isEmpty) {
       MainApp.logInf('设置任务数据为默认值...');
       // 添加默认值
-      addTaskItemAll([
-        CompletableTaskItem(
-          title: '任务标题',
-          subTitle: '任务小标题',
-          details:
-              '这里是任务详情，用于描述该任务\n这是一个可完成任务项，拥有：\n\t复选框 —— 用于标记该任务是否完成\n\t重要等级和重要性类型 —— 使用用于标记该任务的重要性和重要程度',
-          importanceLevel: ImportanceLevel.critical,
-          importanceType: ImportanceType.importantAndUrgent,
-        ),
-        CompletableTaskItem(
-          title: '示例任务 - 快递',
-          subTitle: '记得拿快递',
-          details: '回家记得拿快递！！！\n不想再因为忘记导致已经到家了再下去跑一趟QAQ',
-          importanceLevel: ImportanceLevel.low,
-          importanceType: ImportanceType.importantNotUrgent,
-        ),
-        CompletableTaskItem(
-          title: '示例任务 - 倒垃圾',
-          subTitle: '待会下班别忘记倒垃圾！',
-          details: '',
-          importanceLevel: ImportanceLevel.medium,
-          importanceType: ImportanceType.urgentNotImportant,
-        ),
-        CompletableTaskItem(
-          title: '示例任务 - 视频剪辑',
-          subTitle: '13月32日回去别忘记剪视频！',
-          details: '别忘了！！！',
-          importanceLevel: ImportanceLevel.high,
-          importanceType: ImportanceType.importantAndUrgent,
-        ),
-      ]);
+      setFromJsonList(
+        ImportFileOptionMenu.parseData(
+          await rootBundle.loadString(
+            'assets/default_json/default_task_item_json.json',
+          ),
+        )['TaskItem']!,
+      );
       // 重新保存 //
       save();
     } else {

@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/enums/important_level.dart';
 import 'package:concise_note_pad/features/tasks/enums/important_type.dart';
 import 'package:concise_note_pad/features/tasks/forms/completable_task_item_form_data.dart';
@@ -44,18 +45,19 @@ class CompletableTaskItem extends TaskItem {
   }
 
   @override
-  Map<String, Widget> buildInfoMap() {
-    final superMap = super.buildInfoMap();
-    superMap['可完成任务项'] = Column(
+  Map<String, Widget> buildInfoMap(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    final superMap = super.buildInfoMap(context);
+    superMap[loc.completableTaskItem] = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('重要性权重：$weightValue'),
+        Text(loc.importanceWeight(weightValue)),
         Text(
-          '重要程度：${importanceLevel.displayName}',
+          loc.importanceLevelLabel(importanceLevel.displayName(context)),
           style: TextStyle(color: importanceLevel.color),
         ),
         Text(
-          '重要性类型：${importanceType.displayName}',
+          loc.importanceTypeLabel(importanceType.displayName(context)),
           style: TextStyle(color: importanceType.color),
         ),
       ],

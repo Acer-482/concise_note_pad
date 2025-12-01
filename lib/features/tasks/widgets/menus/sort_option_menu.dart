@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/task_menus/models/task_menu_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,86 +31,95 @@ class _SortOptionMenuState extends State<SortOptionMenu> {
   }
 
   /// 构建排序方式按钮
-  Widget _buildSortReverseButton(TaskMenuState state) => ListTile(
-    title: const Text('排序方式：'),
-    trailing: SegmentedButton<bool>(
-      segments: [
-        ButtonSegment(
-          value: false,
-          icon: Icon(Icons.arrow_drop_up_rounded),
-          label: Text('升序'),
-        ),
-        ButtonSegment(
-          value: true,
-          icon: Icon(Icons.arrow_drop_down_rounded),
-          label: Text('降序'),
-        ),
-      ],
-      selected: {state.isReverseSort},
-      onSelectionChanged: (Set<bool> newSelection) {
-        setState(() {
-          state.isReverseSort = newSelection.first;
-          state.update(); // 更新状态
-        });
-      },
-      showSelectedIcon: false,
-    ),
-  );
+  Widget _buildSortReverseButton(TaskMenuState state) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+
+    return ListTile(
+      title: Text(loc.sortMethod),
+      trailing: SegmentedButton<bool>(
+        segments: [
+          ButtonSegment(
+            value: false,
+            icon: Icon(Icons.arrow_drop_up_rounded),
+            label: Text(loc.ascending),
+          ),
+          ButtonSegment(
+            value: true,
+            icon: Icon(Icons.arrow_drop_down_rounded),
+            label: Text(loc.descending),
+          ),
+        ],
+        selected: {state.isReverseSort},
+        onSelectionChanged: (Set<bool> newSelection) {
+          setState(() {
+            state.isReverseSort = newSelection.first;
+            state.update(); // 更新状态
+          });
+        },
+        showSelectedIcon: false,
+      ),
+    );
+  }
 
   /// 构建自动关闭复选框
-  Widget _buildAutoCloseCheckBox(TaskMenuState state) => ListTile(
-    title: const Text('选择类型后自动关闭当前页'),
-    trailing: Checkbox(
-      value: state.isSortOptionAutoClose,
-      onChanged: (v) {
-        setState(() => state.isSortOptionAutoClose = v!);
-        state.update(); // 更新状态
-      },
-    ),
-  );
+  Widget _buildAutoCloseCheckBox(TaskMenuState state) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    return ListTile(
+      title: Text(loc.autoCloseAfterSelection),
+      trailing: Checkbox(
+        value: state.isSortOptionAutoClose,
+        onChanged: (v) {
+          setState(() => state.isSortOptionAutoClose = v!);
+          state.update(); // 更新状态
+        },
+      ),
+    );
+  }
 
   /// 构建排序设置单选框组
-  Widget _buildSortOptionRadioGroup(TaskMenuState state) =>
-      RadioGroup<SortOption>(
-        groupValue: state.sortOption,
-        onChanged: (SortOption? value) {
-          if (value != null) {
-            // 更新状态 //
-            setState(() {
-              state.sortOption = value;
-              state.update(); // 更新状态
-            }); // 设置选项
-            // 自动延迟关闭 //
-            if (state.isSortOptionAutoClose) {
-              Timer(Duration(milliseconds: 300), () {
-                if (mounted) Navigator.of(context).pop();
-              });
-            }
+  Widget _buildSortOptionRadioGroup(TaskMenuState state) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    return RadioGroup<SortOption>(
+      groupValue: state.sortOption,
+      onChanged: (SortOption? value) {
+        if (value != null) {
+          // 更新状态 //
+          setState(() {
+            state.sortOption = value;
+            state.update(); // 更新状态
+          }); // 设置选项
+          // 自动延迟关闭 //
+          if (state.isSortOptionAutoClose) {
+            Timer(Duration(milliseconds: 300), () {
+              if (mounted) Navigator.of(context).pop();
+            });
           }
-        },
-        child: Column(
-          children: [
-            RadioListTile<SortOption>(
-              value: SortOption.importance,
-              title: Text('按照重要程度排序'),
-              secondary: Icon(Icons.warning),
-            ),
-            RadioListTile<SortOption>(
-              value: SortOption.name,
-              title: Text('按照名称排序'),
-              secondary: Icon(Icons.abc),
-            ),
-            RadioListTile<SortOption>(
-              value: SortOption.updateDate,
-              title: Text('按照最后修改日期排序'),
-              secondary: Icon(Icons.update),
-            ),
-            RadioListTile<SortOption>(
-              value: SortOption.date,
-              title: Text('按照创建日期排序'),
-              secondary: Icon(Icons.date_range_rounded),
-            ),
-          ],
-        ),
-      );
+        }
+      },
+      child: Column(
+        children: [
+          RadioListTile<SortOption>(
+            value: SortOption.importance,
+            title: Text(loc.sortByImportance),
+            secondary: Icon(Icons.warning),
+          ),
+          RadioListTile<SortOption>(
+            value: SortOption.name,
+            title: Text(loc.sortByName),
+            secondary: Icon(Icons.abc),
+          ),
+          RadioListTile<SortOption>(
+            value: SortOption.updateDate,
+            title: Text(loc.sortByUpdateDate),
+            secondary: Icon(Icons.update),
+          ),
+          RadioListTile<SortOption>(
+            value: SortOption.date,
+            title: Text(loc.sortByDate),
+            secondary: Icon(Icons.date_range_rounded),
+          ),
+        ],
+      ),
+    );
+  }
 }

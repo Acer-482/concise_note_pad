@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:concise_note_pad/features/tasks/widgets/pages/task_edit_page.dart';
 import 'package:concise_note_pad/core/utils/page_utils.dart';
@@ -23,15 +24,16 @@ class _TaskItemInfoPage extends State<TaskItemInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return Scaffold(
       appBar: PageUtils.buildDefaultAppbar(
         context,
-        Text('"${widget.taskItem.title}"任务信息'),
+        Text(loc.taskInfoTitle(widget.taskItem.title)), // 标题
       ),
       body: Padding(
         padding: EdgeInsets.all(18),
         child: ListView(
-          children: widget.taskItem.buildInfoMap().entries.map((entry) {
+          children: widget.taskItem.buildInfoMap(context).entries.map((entry) {
             return PageUtils.buildDefaultTitleFrame(
               context: context,
               title: entry.key,
@@ -51,9 +53,9 @@ class _TaskItemInfoPage extends State<TaskItemInfoPage> {
           TaskManager.instance.update();
           setState(() {});
         },
-        tooltip: '编辑任务',
+        tooltip: loc.editTask,
         icon: const Icon(Icons.edit),
-        label: const Text('编辑任务'),
+        label: Text(loc.editTask),
       ),
     );
   }

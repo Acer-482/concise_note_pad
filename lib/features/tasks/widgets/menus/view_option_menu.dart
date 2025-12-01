@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ViewOptionMenu extends StatefulWidget {
@@ -10,6 +11,7 @@ class ViewOptionMenu extends StatefulWidget {
 class _ViewOptionMenuState extends State<ViewOptionMenu> {
   @override
   Widget build(BuildContext context) {
-    return Text('仍在开发中...');
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    return Text(loc.stillInDevelopment);
   }
 }

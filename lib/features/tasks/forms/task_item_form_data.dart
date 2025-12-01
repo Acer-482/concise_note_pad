@@ -1,3 +1,4 @@
+import 'package:concise_note_pad/core/l10n/app_localizations.dart';
 import 'package:concise_note_pad/features/tasks/models/task_item.dart';
 import 'package:concise_note_pad/features/tasks/task_manager.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,7 @@ abstract class TaskItemFormData {
   /// 构建表单
   @mustCallSuper
   List<Widget> buildForms(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return [
       Form(
         key: _formKeys,
@@ -69,15 +71,15 @@ abstract class TaskItemFormData {
               controller: titleController,
               decoration: InputDecoration(
                 icon: Icon(Icons.title_rounded),
-                label: Text('标题'),
+                label: Text(loc.title),
               ),
-              validator: _validateTitle,
+              validator: (v) => _validateTitle(context, v),
             ),
             TextFormField(
               controller: subTitleController,
               decoration: InputDecoration(
                 icon: Icon(Icons.subtitles),
-                label: Text('副标题'),
+                label: Text(loc.subTitle),
               ),
             ), // 小标题
             SizedBox(height: 8),
@@ -87,7 +89,7 @@ abstract class TaskItemFormData {
               maxLines: 8,
               decoration: InputDecoration(
                 icon: Icon(Icons.info),
-                label: Text('详细信息'),
+                label: Text(loc.detailedInformation),
               ),
             ), // 内容
           ],
@@ -99,10 +101,11 @@ abstract class TaskItemFormData {
   /// 构建更多项表单
   @mustCallSuper
   List<Widget> buildMoreForms(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return [
       SwitchListTile(
         value: isEnabled,
-        title: Text('是否启用'),
+        title: Text(loc.isEnabled),
         onChanged: (value) {
           isEnabled = value;
           update?.call();
@@ -115,11 +118,14 @@ abstract class TaskItemFormData {
   TaskItem toItem();
 
   /// 验证表单是否有效
-  String? _validateTitle(String? value) {
-    if (value == null || value.isEmpty) return '标题不可为空';
+  String? _validateTitle(BuildContext context, String? value) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
+    if (value == null || value.isEmpty) return loc.titleCannotBeEmpty;
     // 非覆盖模式
-    if (editingTaskItem != null ? TaskManager.instance.containTitleWithout(value, editingTaskItem!) : TaskManager.instance.containTitle(value)) {
-      return '标题不可与现有项重复';
+    if (editingTaskItem != null
+        ? TaskManager.instance.containTitleWithout(value, editingTaskItem!)
+        : TaskManager.instance.containTitle(value)) {
+      return loc.titleCannotDuplicate;
     }
     return null; // 通过
   }

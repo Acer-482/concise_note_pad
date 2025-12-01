@@ -1,18 +1,18 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2025-12-01T1:00:00Z",
-  "appName": "Concise Note",
+  "@@last_modified": "2025-12-01T17:14:00",
+  "appName": "Simple Notes",
   "@appName": {
     "description": "The name of the application",
     "context": "Menu bar, About page",
     "type": "text"
   },
-  "languageType_system": "Follow System",
+  "languageType_system": "System",
   "@languageType_system": {
     "description": "Language type enum: Follow system settings",
     "type": "text"
   },
-  "themeModeDisplayName_system": "Follow System",
+  "themeModeDisplayName_system": "System",
   "@themeModeDisplayName_system": {
     "description": "Theme mode: Follow system settings",
     "type": "text"
@@ -29,12 +29,12 @@
   },
   "fontFamilyType_system": "System Default",
   "@fontFamilyType_system": {
-    "description": "Font family type: System default font",
+    "description": "Font family type enum: System default font",
     "type": "text"
   },
   "fontFamilyType_alibabaPuHuiTi": "Alibaba PuHuiTi",
   "@fontFamilyType_alibabaPuHuiTi": {
-    "description": "Font family type: Alibaba PuHuiTi font",
+    "description": "Font family type enum: Alibaba PuHuiTi",
     "type": "text"
   },
   "settingsPageTitle": "Settings",
@@ -69,22 +69,22 @@
   },
   "themeMode": "Theme Mode",
   "@themeMode": {
-    "description": "List item title for theme mode setting",
+    "description": "List item title for theme mode",
     "type": "text"
   },
   "themeColor": "Theme Color",
   "@themeColor": {
-    "description": "List item title for theme color setting",
+    "description": "List item title for theme color",
     "type": "text"
   },
   "pickColor": "Pick Color",
   "@pickColor": {
-    "description": "Button text for color selection",
+    "description": "Button text for selecting a color",
     "type": "text"
   },
   "themeFont": "Theme Font",
   "@themeFont": {
-    "description": "List item title for theme font setting",
+    "description": "List item title for theme font",
     "type": "text"
   },
   "selectThemeColor": "Select Theme Color",
@@ -120,47 +120,47 @@
   },
   "confirmDialogTitle": "Confirm?",
   "@confirmDialogTitle": {
-    "description": "Title of confirmation dialog",
+    "description": "Title for confirmation dialog",
     "type": "text"
   },
-  "confirmDialogDefaultMessage": "This operation cannot be recovered!",
+  "confirmDialogDefaultMessage": "This action cannot be undone!",
   "@confirmDialogDefaultMessage": {
     "description": "Default message content for confirmation dialog",
     "type": "text"
   },
-  "success": "Successful",
+  "success": "Operation successful",
   "@success": {
-    "description": "Success message after operation",
+    "description": "Prompt message after a successful operation",
     "type": "text"
   },
   "resetSuccess": "Reset successful",
   "@resetSuccess": {
-    "description": "Success message after reset successful operation",
+    "description": "Prompt message after a successful reset",
     "type": "text"
   },
   "navigationHome": "Home",
   "@navigationHome": {
-    "description": "Home page navigation item label",
+    "description": "Navigation item label for home page",
     "type": "text"
   },
   "navigationTasks": "Tasks",
   "@navigationTasks": {
-    "description": "Tasks page navigation item label",
+    "description": "Navigation item label for tasks page",
     "type": "text"
   },
   "drawerTitle": "Sidebar",
   "@drawerTitle": {
-    "description": "Title of drawer menu",
+    "description": "Title of the drawer menu",
     "type": "text"
   },
   "drawerSettings": "Settings",
   "@drawerSettings": {
-    "description": "Settings item in drawer menu",
+    "description": "Settings item in the drawer menu",
     "type": "text"
   },
   "drawerAbout": "About",
   "@drawerAbout": {
-    "description": "About item in drawer menu",
+    "description": "About item in the drawer menu",
     "type": "text"
   },
   "aboutPageTitle": "About",
@@ -170,7 +170,7 @@
   },
   "more": "More",
   "@more": {
-    "description": "Title of 'More' section in about page",
+    "description": "Title of the 'More' section on the About page",
     "context": "About page",
     "type": "text"
   },
@@ -182,19 +182,19 @@
   },
   "goToGithubRepo": "Go to GitHub Repository",
   "@goToGithubRepo": {
-    "description": "Button text to jump to GitHub repository",
+    "description": "Button text to jump to the GitHub repository",
     "context": "ListTile",
     "type": "text"
   },
   "githubRepoUrl": "https://github.com/Acer-482/concise_note_pad",
   "@githubRepoUrl": {
-    "description": "GitHub repository URL displayed on about page",
+    "description": "GitHub repository URL, displayed on the About page",
     "context": "ListTile subtitle",
     "type": "text"
   },
   "versionWithParam": "Version {version}",
   "@versionWithParam": {
-    "description": "Version number prefix text with version parameter",
+    "description": "Prefix text for version number, with version parameter",
     "context": "About page",
     "placeholders": {
       "version": {
@@ -204,9 +204,9 @@
     },
     "type": "text"
   },
-  "softwareLicense": "This software is licensed under GPL-3.0",
+  "softwareLicense": "This software is licensed under the GPL-3.0 License",
   "@softwareLicense": {
-    "description": "Software license statement",
+    "description": "Software license declaration",
     "context": "About page",
     "type": "text"
   },
@@ -218,19 +218,19 @@
   },
   "failedToGetAppInfo": "Failed to get application information",
   "@failedToGetAppInfo": {
-    "description": "Error message when package information retrieval fails",
+    "description": "Error prompt when failing to get package info",
     "context": "FutureBuilder",
     "type": "text"
   },
-  "jumpFailed": "Jump Failed",
+  "jumpFailed": "Jump failed",
   "@jumpFailed": {
-    "description": "Title for URL jump failure notification",
+    "description": "Prompt title when URL jump fails",
     "context": "Toast notification",
     "type": "text"
   },
   "jumpToUriFailed": "Failed to jump to \"{uri}\"",
   "@jumpToUriFailed": {
-    "description": "Notification message for URL jump failure",
+    "description": "Prompt message when URL jump fails",
     "context": "Toast notification",
     "placeholders": {
       "uri": {
@@ -240,9 +240,9 @@
     },
     "type": "text"
   },
-  "jumpToUriError": "Error occurred when jumping to \"{uri}\": {error}",
+  "jumpToUriError": "Error occurred while jumping to \"{uri}\": {error}",
   "@jumpToUriError": {
-    "description": "Notification message for error during URL jump",
+    "description": "Prompt message when an error occurs during URL jump",
     "context": "Toast notification",
     "placeholders": {
       "uri": {
@@ -252,6 +252,558 @@
       "error": {
         "type": "String",
         "example": "Network connection failed"
+      }
+    },
+    "type": "text"
+  },
+  "moreOptions": "More Options",
+  "@moreOptions": {
+    "description": "Title for more options",
+    "type": "text"
+  },
+  "batchCreationMode": "Batch Creation Mode",
+  "@batchCreationMode": {
+    "description": "Label for batch creation mode checkbox",
+    "type": "text"
+  },
+  "createText": "New",
+  "@createText": {
+    "description": "Text for create operation",
+    "type": "text"
+  },
+  "editText": "Edit",
+  "@editText": {
+    "description": "Text for edit operation",
+    "type": "text"
+  },
+  "mainOptions": "Main Options",
+  "@mainOptions": {
+    "description": "Title for main options",
+    "type": "text"
+  },
+  "create": "Create",
+  "@create": {
+    "description": "Button text for create operation",
+    "type": "text"
+  },
+  "batchCreate": "Batch Create",
+  "@batchCreate": {
+    "description": "Button text for batch create operation",
+    "type": "text"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Button text for save operation",
+    "type": "text"
+  },
+  "createComplete": "Creation Complete",
+  "@createComplete": {
+    "description": "Title for creation complete prompt",
+    "type": "text"
+  },
+  "taskCreateSuccess": "Successfully created task item \"{title}\"",
+  "@taskCreateSuccess": {
+    "description": "Prompt message for successful task creation",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Task Title"
+      }
+    },
+    "type": "text"
+  },
+  "modifyComplete": "Modification Complete",
+  "@modifyComplete": {
+    "description": "Title for modification complete prompt",
+    "type": "text"
+  },
+  "taskModifySuccess": "Successfully modified task item \"{title}\"",
+  "@taskModifySuccess": {
+    "description": "Prompt message for successful task modification",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Task Title"
+      }
+    },
+    "type": "text"
+  },
+  "exportFormat": "Export Formatting",
+  "@exportFormat": {
+    "description": "Switch label for export formatting",
+    "type": "text"
+  },
+  "exportFormatDescription": "Whether to export as human-readable (full indentation and line breaks) JSON",
+  "@exportFormatDescription": {
+    "description": "Description text for export formatting",
+    "type": "text"
+  },
+  "exportMode": "Export Mode",
+  "@exportMode": {
+    "description": "Title for export mode",
+    "type": "text"
+  },
+  "json": "Json",
+  "@json": {
+    "description": "Text for Json format",
+    "type": "text"
+  },
+  "base64": "Base64",
+  "@base64": {
+    "description": "Text for Base64 format",
+    "type": "text"
+  },
+  "exportAppbarConfig": "Export Task Menu Configuration File",
+  "@exportAppbarConfig": {
+    "description": "Switch label for exporting task menu config file",
+    "type": "text"
+  },
+  "exportAllTaskItem": "Export All Tasks",
+  "@exportAllTaskItem": {
+    "description": "Switch label for exporting all tasks",
+    "type": "text"
+  },
+  "exportToFile": "Export to File",
+  "@exportToFile": {
+    "description": "Button text for exporting to file",
+    "type": "text"
+  },
+  "exportToClipboard": "Export to Clipboard",
+  "@exportToClipboard": {
+    "description": "Button text for exporting to clipboard",
+    "type": "text"
+  },
+  "clipboard": "Clipboard",
+  "@clipboard": {
+    "description": "Used for completion prompt when saving to clipboard",
+    "type": "text"
+  },
+  "selectSaveFileLocation": "Select Save File Location",
+  "@selectSaveFileLocation": {
+    "description": "Dialog title for selecting save file location",
+    "type": "text"
+  },
+  "exportSuccess": "Export Successful",
+  "@exportSuccess": {
+    "description": "Title for export success prompt",
+    "type": "text"
+  },
+  "exportSuccessMessage": "Successfully exported {type} data to \"{destination}\"",
+  "@exportSuccessMessage": {
+    "description": "Prompt message for successful export",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "Base64"
+      },
+      "destination": {
+        "type": "String",
+        "example": "File path"
+      }
+    },
+    "type": "text"
+  },
+  "exportError": "Export Error",
+  "@exportError": {
+    "description": "Title for export error prompt",
+    "type": "text"
+  },
+  "exportCancelled": "Export Cancelled",
+  "@exportCancelled": {
+    "description": "Prompt message for cancelled export",
+    "type": "text"
+  },
+  "importWarning": "Important Notice\n! Importing data will completely delete the original data and overwrite it!\n! This operation is irreversible and difficult to recover!\n! Please proceed with caution!",
+  "@importWarning": {
+    "description": "Warning prompt text for data import",
+    "type": "text"
+  },
+  "parseFromFile": "Parse from File",
+  "@parseFromFile": {
+    "description": "Button text for parsing from file",
+    "type": "text"
+  },
+  "parseFromClipboard": "Parse from Clipboard",
+  "@parseFromClipboard": {
+    "description": "Button text for parsing from clipboard",
+    "type": "text"
+  },
+  "overwriteSave": "Overwrite and Save",
+  "@overwriteSave": {
+    "description": "Button text for overwrite and save",
+    "type": "text"
+  },
+  "dataInfo": "Data Info:\n    Data Count: {count}\n    Data List: {keys}",
+  "@dataInfo": {
+    "description": "Display text for data information",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      },
+      "keys": {
+        "type": "String",
+        "example": "AppbarConfig, TaskItem"
+      }
+    },
+    "type": "text"
+  },
+  "parseSuccess": "Parse Successful",
+  "@parseSuccess": {
+    "description": "Title for successful parse prompt",
+    "type": "text"
+  },
+  "readyToOverwrite": "Ready to overwrite content",
+  "@readyToOverwrite": {
+    "description": "Prompt message for ready to overwrite content",
+    "type": "text"
+  },
+  "parseFailed": "Parse Failed",
+  "@parseFailed": {
+    "description": "Title for parse failed prompt",
+    "type": "text"
+  },
+  "clipboardDataFailed": "Clipboard Data Fetch Failed",
+  "@clipboardDataFailed": {
+    "description": "Title for clipboard data fetch failure",
+    "type": "text"
+  },
+  "checkClipboardAndRetry": "Please check clipboard or copy data content again",
+  "@checkClipboardAndRetry": {
+    "description": "Prompt message for clipboard data fetch failure",
+    "type": "text"
+  },
+  "parseOverwriteComplete": "Parse and Overwrite Complete",
+  "@parseOverwriteComplete": {
+    "description": "Prompt message for parse and overwrite completion",
+    "type": "text"
+  },
+  "parseOverwriteFailed": "Parse and Overwrite Failed",
+  "@parseOverwriteFailed": {
+    "description": "Title for parse and overwrite failure",
+    "type": "text"
+  },
+  "selectDataFile": "Select Data File",
+  "@selectDataFile": {
+    "description": "Dialog title for selecting data file",
+    "type": "text"
+  },
+  "defaultTaskTitle": "Task Title",
+  "@defaultTaskTitle": {
+    "description": "Title for default task",
+    "type": "text"
+  },
+  "defaultTaskSubTitle": "Task Subtitle",
+  "@defaultTaskSubTitle": {
+    "description": "Subtitle for default task",
+    "type": "text"
+  },
+  "defaultTaskDetails": "This is the task details, used to describe the task.\nThis is a completable task item, which has:\n\tCheckbox – Used to mark whether the task is completed\n\tImportance level and importance type – Used to mark the importance and priority of the task",
+  "@defaultTaskDetails": {
+    "description": "Detailed information for default task",
+    "type": "text"
+  },
+  "completableTaskItem": "Completable Task Item",
+  "@completableTaskItem": {
+    "description": "Type name for completable task item",
+    "type": "text"
+  },
+  "importanceWeight": "Importance Weight: {weight}",
+  "@importanceWeight": {
+    "description": "Display text for importance weight",
+    "placeholders": {
+      "weight": {
+        "type": "int",
+        "example": "15"
+      }
+    },
+    "type": "text"
+  },
+  "importanceLevelLabel": "Importance Level: {level}",
+  "@importanceLevelLabel": {
+    "description": "Display text for importance level",
+    "placeholders": {
+      "level": {
+        "type": "String",
+        "example": "High"
+      }
+    },
+    "type": "text"
+  },
+  "importanceTypeLabel": "Importance Type: {type}",
+  "@importanceTypeLabel": {
+    "description": "Display text for importance type",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "Important and Urgent"
+      }
+    },
+    "type": "text"
+  },
+  "completableTaskItemDescription": "Create a task item that can be marked complete, categorized, and prioritized",
+  "@completableTaskItemDescription": {
+    "description": "Description for completable task item",
+    "type": "text"
+  },
+  "importanceLevelMinimum": "Minimum",
+  "@importanceLevelMinimum": {
+    "description": "Importance level: Minimum",
+    "type": "text"
+  },
+  "importanceLevelLow": "Low",
+  "@importanceLevelLow": {
+    "description": "Importance level: Low",
+    "type": "text"
+  },
+  "importanceLevelMedium": "Medium",
+  "@importanceLevelMedium": {
+    "description": "Importance level: Medium",
+    "type": "text"
+  },
+  "importanceLevelHigh": "High",
+  "@importanceLevelHigh": {
+    "description": "Importance level: High",
+    "type": "text"
+  },
+  "importanceLevelCritical": "Critical",
+  "@importanceLevelCritical": {
+    "description": "Importance level: Critical",
+    "type": "text"
+  },
+  "importanceLevel": "Importance Level",
+  "@importanceLevel": {
+    "description": "Form label for importance level",
+    "type": "text"
+  },
+  "importanceType": "Importance Type",
+  "@importanceType": {
+    "description": "Form label for importance type",
+    "type": "text"
+  },
+  "isFinished": "Is Finished",
+  "@isFinished": {
+    "description": "Switch label for whether task is finished",
+    "type": "text"
+  },
+  "selectTaskType": "Select Task Type",
+  "@selectTaskType": {
+    "description": "Title for selecting task type",
+    "type": "text"
+  },
+  "newTask": "New Task",
+  "@newTask": {
+    "description": "Tooltip for new task",
+    "type": "text"
+  },
+  "title": "Title",
+  "@title": {
+    "description": "Form label for title",
+    "type": "text"
+  },
+  "subTitle": "Subtitle",
+  "@subTitle": {
+    "description": "Form label for subtitle",
+    "type": "text"
+  },
+  "details": "Details",
+  "@details": {
+    "description": "Form label for details",
+    "type": "text"
+  },
+  "isEnabled": "Is Enabled",
+  "@isEnabled": {
+    "description": "Switch label for whether enabled",
+    "type": "text"
+  },
+  "titleCannotBeEmpty": "Title cannot be empty",
+  "@titleCannotBeEmpty": {
+    "description": "Validation error message for empty title",
+    "type": "text"
+  },
+  "titleCannotDuplicate": "Title cannot duplicate existing items",
+  "@titleCannotDuplicate": {
+    "description": "Validation error message for duplicate title",
+    "type": "text"
+  },
+  "stillInDevelopment": "Still in development...",
+  "@stillInDevelopment": {
+    "description": "Placeholder text for still in development",
+    "type": "text"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Swipe action label for edit operation",
+    "type": "text"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Swipe action label for delete operation",
+    "type": "text"
+  },
+  "titleLabel": "Title: {title}",
+  "@titleLabel": {
+    "description": "Display label for title",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Task Title"
+      }
+    },
+    "type": "text"
+  },
+  "subTitleLabel": "Subtitle: {subTitle}",
+  "@subTitleLabel": {
+    "description": "Display label for subtitle",
+    "placeholders": {
+      "subTitle": {
+        "type": "String",
+        "example": "Task Subtitle"
+      }
+    },
+    "type": "text"
+  },
+  "createTimeLabel": "Creation Time: {dateTime}",
+  "@createTimeLabel": {
+    "description": "Display label for creation time",
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "December 01, 2025 - 12:00:00"
+      }
+    },
+    "type": "text"
+  },
+  "updateTimeLabel": "Last Modified: {dateTime}",
+  "@updateTimeLabel": {
+    "description": "Display label for last modified time",
+    "placeholders": {
+      "dateTime": {
+        "type": "String",
+        "example": "December 01, 2025 - 12:00:00"
+      }
+    },
+    "type": "text"
+  },
+  "noDetails": "(No details yet)",
+  "@noDetails": {
+    "description": "Placeholder text when no details exist",
+    "type": "text"
+  },
+  "taskInfoTitle": "\"{title}\" Task Information",
+  "@taskInfoTitle": {
+    "description": "Title of the task information page",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Task Title"
+      }
+    },
+    "type": "text"
+  },
+  "editTask": "Edit Task",
+  "@editTask": {
+    "description": "Button text and tooltip for editing a task",
+    "type": "text"
+  },
+  "sortMethod": "Sort Method:",
+  "@sortMethod": {
+    "description": "Title for sort method",
+    "type": "text"
+  },
+  "ascending": "Ascending",
+  "@ascending": {
+    "description": "Label for ascending sort",
+    "type": "text"
+  },
+  "descending": "Descending",
+  "@descending": {
+    "description": "Label for descending sort",
+    "type": "text"
+  },
+  "autoCloseAfterSelection": "Auto close current page after selecting type",
+  "@autoCloseAfterSelection": {
+    "description": "Checkbox label for auto-close after selection",
+    "type": "text"
+  },
+  "sortByImportance": "Sort by Importance Level",
+  "@sortByImportance": {
+    "description": "Option to sort by importance level",
+    "type": "text"
+  },
+  "sortByName": "Sort by Name",
+  "@sortByName": {
+    "description": "Option to sort by name",
+    "type": "text"
+  },
+  "sortByUpdateDate": "Sort by Last Modified Date",
+  "@sortByUpdateDate": {
+    "description": "Option to sort by last modified date",
+    "type": "text"
+  },
+  "sortByDate": "Sort by Creation Date",
+  "@sortByDate": {
+    "description": "Option to sort by creation date",
+    "type": "text"
+  },
+  "importanceTypeNotImportantNotUrgent": "Not Important Not Urgent",
+  "@importanceTypeNotImportantNotUrgent": {
+    "description": "Importance type: Not important, not urgent",
+    "type": "text"
+  },
+  "importanceTypeUrgentNotImportant": "Urgent Not Important",
+  "@importanceTypeUrgentNotImportant": {
+    "description": "Importance type: Urgent, not important",
+    "type": "text"
+  },
+  "importanceTypeImportantNotUrgent": "Important Not Urgent",
+  "@importanceTypeImportantNotUrgent": {
+    "description": "Importance type: Important, not urgent",
+    "type": "text"
+  },
+  "importanceTypeImportantAndUrgent": "Important and Urgent",
+  "@importanceTypeImportantAndUrgent": {
+    "description": "Importance type: Important and urgent",
+    "type": "text"
+  },
+  "deserializationFailedTypeNull": "Desialization failed: type value is null",
+  "@deserializationFailedTypeNull": {
+    "description": "Error message with null type value during JSON deserialization",
+    "type": "text"
+  },
+  "deserializationFailedUnknownType": "Desialization failed: Unknown type {type}",
+  "@deserializationFailedUnknownType": {
+    "description": "Encountered an unknown type error message while deserializing JSON",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "UnknownTaskType"
+      }
+    },
+    "type": "text"
+  },
+  "basicInformation": "Basic Information",
+  "@basicInformation": {
+    "description": "Title of Basic Information Classification",
+    "type": "text"
+  },
+  "detailedInformation": "Details",
+  "@detailedInformation": {
+    "description": "Title of detailed information classification",
+    "type": "text"
+  },
+  "deleteSuccess": "Deleted successfully",
+  "@deleteSuccess": {
+    "description": "Title of prompt after successful deletion operation",
+    "type": "text"
+  },
+  "taskDeleteSuccess": "Successfully deleted the task item \"{title}\"",
+  "@taskDeleteSuccess": {
+    "description": "Prompt message after successful task deletion",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Task Title"
       }
     },
     "type": "text"
