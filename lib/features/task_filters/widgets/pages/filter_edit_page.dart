@@ -183,7 +183,7 @@ class _FilterFieldEditPageState extends State<FilterFieldEditPage> {
     CompositeFilter compositeFilter,
     TaskFilter filter,
   ) {
-    return PageUtils.showDeleteConfirmDialog(
+    return PageUtils.showConfirmDialog(
       context,
       completedMessage: '删除"${filter.displayName}"过滤器成功',
       confirmFunc: () =>

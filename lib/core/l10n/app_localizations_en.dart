@@ -15,6 +15,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageType_system => 'Follow System';
 
   @override
+  String get languageType_en => 'English';
+
+  @override
+  String get languageType_zh => '简体中文';
+
+  @override
   String get themeModeDisplayName_system => 'Follow System';
 
   @override
@@ -30,11 +36,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fontFamilyType_alibabaPuHuiTi => 'Alibaba PuHuiTi';
 
   @override
-  String get deleteConfirmDialogTitle => 'Confirm Delete?';
+  String get settingsPageTitle => 'Settings';
 
   @override
-  String get deleteConfirmDialogDefaultMessage =>
-      'This will delete the item and cannot be recovered!';
+  String get settingsGroupGlobal => 'Global Settings';
+
+  @override
+  String get resetAllSettings => 'Reset All Settings';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get settingsGroupTheme => 'Theme';
+
+  @override
+  String get themeMode => 'Theme Mode';
+
+  @override
+  String get themeColor => 'Theme Color';
+
+  @override
+  String get pickColor => 'Pick Color';
+
+  @override
+  String get themeFont => 'Theme Font';
+
+  @override
+  String get selectThemeColor => 'Select Theme Color';
+
+  @override
+  String get confirmDialogDefaultTitle => 'Confirm?';
+
+  @override
+  String confirmDialogMessage(String text) {
+    return 'Are you sure you want to $text?';
+  }
 
   @override
   String get cancel => 'Cancel';
@@ -43,7 +83,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm => 'Confirm';
 
   @override
-  String get deleteSuccess => 'Delete Successful';
+  String get confirmDialogTitle => 'Confirm?';
+
+  @override
+  String get confirmDialogDefaultMessage =>
+      'This operation cannot be recovered!';
+
+  @override
+  String get success => 'Successful';
+
+  @override
+  String get resetSuccess => 'Reset successful';
 
   @override
   String get navigationHome => 'Home';

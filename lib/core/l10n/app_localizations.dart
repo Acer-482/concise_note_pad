@@ -104,11 +104,23 @@ abstract class AppLocalizations {
   /// **'Concise Note'**
   String get appName;
 
-  /// Language mode: Follow system settings
+  /// Language type enum: Follow system settings
   ///
   /// In en, this message translates to:
   /// **'Follow System'**
   String get languageType_system;
+
+  /// Language type enum: English
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageType_en;
+
+  /// Language type enum: Simplified Chinese
+  ///
+  /// In en, this message translates to:
+  /// **'简体中文'**
+  String get languageType_zh;
 
   /// Theme mode: Follow system settings
   ///
@@ -140,17 +152,83 @@ abstract class AppLocalizations {
   /// **'Alibaba PuHuiTi'**
   String get fontFamilyType_alibabaPuHuiTi;
 
-  /// Title of delete confirmation dialog
+  /// Title of the settings page
   ///
   /// In en, this message translates to:
-  /// **'Confirm Delete?'**
-  String get deleteConfirmDialogTitle;
+  /// **'Settings'**
+  String get settingsPageTitle;
 
-  /// Default message content for delete confirmation dialog
+  /// Title of the global settings group
   ///
   /// In en, this message translates to:
-  /// **'This will delete the item and cannot be recovered!'**
-  String get deleteConfirmDialogDefaultMessage;
+  /// **'Global Settings'**
+  String get settingsGroupGlobal;
+
+  /// List item title for resetting all settings
+  ///
+  /// In en, this message translates to:
+  /// **'Reset All Settings'**
+  String get resetAllSettings;
+
+  /// Button text for reset operation
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// List item title for language setting
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Title of the theme settings group
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsGroupTheme;
+
+  /// List item title for theme mode setting
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Mode'**
+  String get themeMode;
+
+  /// List item title for theme color setting
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Color'**
+  String get themeColor;
+
+  /// Button text for color selection
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Color'**
+  String get pickColor;
+
+  /// List item title for theme font setting
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Font'**
+  String get themeFont;
+
+  /// Title of the color picker dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select Theme Color'**
+  String get selectThemeColor;
+
+  /// Default title for confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm?'**
+  String get confirmDialogDefaultTitle;
+
+  /// Message content for confirmation dialog, with parameter
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to {text}?'**
+  String confirmDialogMessage(String text);
 
   /// Generic cancel button text
   ///
@@ -164,11 +242,29 @@ abstract class AppLocalizations {
   /// **'Confirm'**
   String get confirm;
 
-  /// Success message after delete operation
+  /// Title of confirmation dialog
   ///
   /// In en, this message translates to:
-  /// **'Delete Successful'**
-  String get deleteSuccess;
+  /// **'Confirm?'**
+  String get confirmDialogTitle;
+
+  /// Default message content for confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'This operation cannot be recovered!'**
+  String get confirmDialogDefaultMessage;
+
+  /// Success message after operation
+  ///
+  /// In en, this message translates to:
+  /// **'Successful'**
+  String get success;
+
+  /// Success message after reset successful operation
+  ///
+  /// In en, this message translates to:
+  /// **'Reset successful'**
+  String get resetSuccess;
 
   /// Home page navigation item label
   ///

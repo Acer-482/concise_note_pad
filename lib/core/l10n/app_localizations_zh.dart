@@ -15,6 +15,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get languageType_system => '跟随系统';
 
   @override
+  String get languageType_en => 'English';
+
+  @override
+  String get languageType_zh => '简体中文';
+
+  @override
   String get themeModeDisplayName_system => '跟随系统';
 
   @override
@@ -30,10 +36,45 @@ class AppLocalizationsZh extends AppLocalizations {
   String get fontFamilyType_alibabaPuHuiTi => '阿里巴巴普惠体';
 
   @override
-  String get deleteConfirmDialogTitle => '确认删除？';
+  String get settingsPageTitle => '设置';
 
   @override
-  String get deleteConfirmDialogDefaultMessage => '这将会删除该项，且无法恢复！';
+  String get settingsGroupGlobal => '全局设置';
+
+  @override
+  String get resetAllSettings => '重置所有设置';
+
+  @override
+  String get reset => '重置';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get settingsGroupTheme => '主题';
+
+  @override
+  String get themeMode => '主题模式';
+
+  @override
+  String get themeColor => '主题颜色';
+
+  @override
+  String get pickColor => '选取颜色';
+
+  @override
+  String get themeFont => '主题字体';
+
+  @override
+  String get selectThemeColor => '选择主题色';
+
+  @override
+  String get confirmDialogDefaultTitle => '确认？';
+
+  @override
+  String confirmDialogMessage(String text) {
+    return '你确认$text吗？';
+  }
 
   @override
   String get cancel => '取消';
@@ -42,7 +83,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get confirm => '确定';
 
   @override
-  String get deleteSuccess => '删除成功';
+  String get confirmDialogTitle => '确认？';
+
+  @override
+  String get confirmDialogDefaultMessage => '此操作无法恢复！';
+
+  @override
+  String get success => '操作成功';
+
+  @override
+  String get resetSuccess => '重置成功';
 
   @override
   String get navigationHome => '主页面';

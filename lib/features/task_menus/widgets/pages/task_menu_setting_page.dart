@@ -69,7 +69,7 @@ class _TaskMenuSettingPageState extends State<TaskMenuSettingPage> {
                     ),
                     IconButton(
                       icon: Icon(Icons.delete_forever, color: Colors.red),
-                      onPressed: () => PageUtils.showDeleteConfirmDialog(
+                      onPressed: () => PageUtils.showConfirmDialog(
                         context,
                         contentMessage: '确认删除此任务菜单吗？\n此操作无法撤销！',
                         confirmFunc: () => _removeTaskMenu(item),

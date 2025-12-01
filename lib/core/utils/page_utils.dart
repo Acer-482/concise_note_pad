@@ -77,9 +77,10 @@ class PageUtils {
     ); // 显示模态底部表
   }
 
-  /// 显示删除确认对话框
-  static Future<bool> showDeleteConfirmDialog(
+  /// 显示确认对话框
+  static Future<bool> showConfirmDialog(
     BuildContext context, {
+    String? title,
     String? contentMessage,
     String? completedMessage,
     bool showToast = true,
@@ -89,10 +90,8 @@ class PageUtils {
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(loc.deleteConfirmDialogTitle),
-            content: Text(
-              contentMessage ?? loc.deleteConfirmDialogDefaultMessage,
-            ),
+            title: Text(title ?? loc.confirmDialogDefaultTitle),
+            content: Text(contentMessage ?? loc.confirmDialogDefaultMessage),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false), // 返回上一页
@@ -106,8 +105,8 @@ class PageUtils {
                       context,
                       title: completedMessage == null
                           ? null
-                          : loc.deleteSuccess, // 有完成消息
-                      msg: completedMessage ?? loc.deleteSuccess,
+                          : loc.success, // 有完成消息
+                      msg: completedMessage ?? loc.success,
                       type: ToastificationType.success,
                     );
                   }

@@ -9,7 +9,17 @@
   },
   "languageType_system": "Follow System",
   "@languageType_system": {
-    "description": "Language mode: Follow system settings",
+    "description": "Language type enum: Follow system settings",
+    "type": "text"
+  },
+  "languageType_en": "English",
+  "@languageType_en": {
+    "description": "Language type enum: English",
+    "type": "text"
+  },
+  "languageType_zh": "简体中文",
+  "@languageType_zh": {
+    "description": "Language type enum: Simplified Chinese",
     "type": "text"
   },
   "themeModeDisplayName_system": "Follow System",
@@ -37,14 +47,75 @@
     "description": "Font family type: Alibaba PuHuiTi font",
     "type": "text"
   },
-  "deleteConfirmDialogTitle": "Confirm Delete?",
-  "@deleteConfirmDialogTitle": {
-    "description": "Title of delete confirmation dialog",
+  "settingsPageTitle": "Settings",
+  "@settingsPageTitle": {
+    "description": "Title of the settings page",
     "type": "text"
   },
-  "deleteConfirmDialogDefaultMessage": "This will delete the item and cannot be recovered!",
-  "@deleteConfirmDialogDefaultMessage": {
-    "description": "Default message content for delete confirmation dialog",
+  "settingsGroupGlobal": "Global Settings",
+  "@settingsGroupGlobal": {
+    "description": "Title of the global settings group",
+    "type": "text"
+  },
+  "resetAllSettings": "Reset All Settings",
+  "@resetAllSettings": {
+    "description": "List item title for resetting all settings",
+    "type": "text"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Button text for reset operation",
+    "type": "text"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "List item title for language setting",
+    "type": "text"
+  },
+  "settingsGroupTheme": "Theme",
+  "@settingsGroupTheme": {
+    "description": "Title of the theme settings group",
+    "type": "text"
+  },
+  "themeMode": "Theme Mode",
+  "@themeMode": {
+    "description": "List item title for theme mode setting",
+    "type": "text"
+  },
+  "themeColor": "Theme Color",
+  "@themeColor": {
+    "description": "List item title for theme color setting",
+    "type": "text"
+  },
+  "pickColor": "Pick Color",
+  "@pickColor": {
+    "description": "Button text for color selection",
+    "type": "text"
+  },
+  "themeFont": "Theme Font",
+  "@themeFont": {
+    "description": "List item title for theme font setting",
+    "type": "text"
+  },
+  "selectThemeColor": "Select Theme Color",
+  "@selectThemeColor": {
+    "description": "Title of the color picker dialog",
+    "type": "text"
+  },
+  "confirmDialogDefaultTitle": "Confirm?",
+  "@confirmDialogDefaultTitle": {
+    "description": "Default title for confirmation dialog",
+    "type": "text"
+  },
+  "confirmDialogMessage": "Are you sure you want to {text}?",
+  "@confirmDialogMessage": {
+    "description": "Message content for confirmation dialog, with parameter",
+    "placeholders": {
+      "text": {
+        "type": "String",
+        "example": "reset all settings"
+      }
+    },
     "type": "text"
   },
   "cancel": "Cancel",
@@ -57,9 +128,24 @@
     "description": "Generic confirm button text",
     "type": "text"
   },
-  "deleteSuccess": "Delete Successful",
-  "@deleteSuccess": {
-    "description": "Success message after delete operation",
+  "confirmDialogTitle": "Confirm?",
+  "@confirmDialogTitle": {
+    "description": "Title of confirmation dialog",
+    "type": "text"
+  },
+  "confirmDialogDefaultMessage": "This operation cannot be recovered!",
+  "@confirmDialogDefaultMessage": {
+    "description": "Default message content for confirmation dialog",
+    "type": "text"
+  },
+  "success": "Successful",
+  "@success": {
+    "description": "Success message after operation",
+    "type": "text"
+  },
+  "resetSuccess": "Reset successful",
+  "@resetSuccess": {
+    "description": "Success message after reset successful operation",
     "type": "text"
   },
   "navigationHome": "Home",

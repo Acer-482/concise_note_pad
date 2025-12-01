@@ -1,6 +1,7 @@
 import 'package:concise_note_pad/core/enums/font_family_type.dart';
 import 'package:concise_note_pad/core/enums/language_type.dart';
 import 'package:concise_note_pad/core/l10n/app_localizations.dart';
+import 'package:concise_note_pad/core/utils/page_utils.dart';
 import 'package:concise_note_pad/features/settings/global_settings_manager.dart';
 import 'package:concise_note_pad/features/settings/models/global_settings.dart';
 import 'package:concise_note_pad/core/constants/theme_mode_display_name.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 /// 设置选项组
 class _SettingsGroup {
-  final String title; // 标题
+  final Function(BuildContext context, AppLocalizations loc) titleBuilder; // 标题
   final List<Widget> Function(
     BuildContext context,
     AppLocalizations loc,
@@ -17,17 +18,20 @@ class _SettingsGroup {
   )
   childrenBuilder; // 子类
 
-  const _SettingsGroup({required this.title, required this.childrenBuilder});
+  const _SettingsGroup({
+    required this.titleBuilder,
+    required this.childrenBuilder,
+  });
 
   List<Widget> buildToList(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return <Widget>[
-          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          Text(
+            titleBuilder(context, loc),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ] +
-        childrenBuilder(
-          context,
-          AppLocalizations.of(context)!,
-          GlobalSettingsManager.instance.settings,
-        ) +
+        childrenBuilder(context, loc, GlobalSettingsManager.instance.settings) +
         [Divider()];
   }
 }
@@ -41,36 +45,37 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final List<_SettingsGroup> _settingsGroupList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _settingsGroupList.add(_buildGlobalSettings());
-    _settingsGroupList.add(_buildTheme());
+  // 构建选项组列表
+  List<_SettingsGroup> _buildSettingsGroupList(BuildContext context) {
+    final List<_SettingsGroup> settingsGroupList = [];
+    settingsGroupList.add(_buildGlobalSettings(context));
+    settingsGroupList.add(_buildTheme(context));
+    return settingsGroupList;
   }
 
-  _SettingsGroup _buildGlobalSettings() {
+  // 构建全局选项组
+  _SettingsGroup _buildGlobalSettings(BuildContext context) {
     return _SettingsGroup(
-      title: '全局设置',
+      titleBuilder: (context, loc) => loc.settingsGroupGlobal,
       childrenBuilder: (context, loc, settings) => [
         ListTile(
           leading: Icon(Icons.replay_outlined),
-          title: Text('重置所有设置'),
+          title: Text(loc.resetAllSettings),
           trailing: TextButton(
-            onPressed: () => _showConfirmDialog(
-              '重置所有设置',
-              (context) {
+            onPressed: () => PageUtils.showConfirmDialog(
+              context,
+              completedMessage: loc.resetSuccess,
+              confirmFunc: () {
                 settings.set(GlobalSettings());
                 settings.update(); // 更新
               }, // 重置设置
             ),
-            child: Text('重置', style: TextStyle(color: Colors.red)),
+            child: Text(loc.reset, style: TextStyle(color: Colors.red)),
           ),
         ), // 重置设置
         ListTile(
           leading: Icon(Icons.replay_outlined),
-          title: Text('语言'),
+          title: Text(loc.language),
           trailing: DropdownButton(
             value: settings.languageType,
             items: LanguageType.values
@@ -91,13 +96,14 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  _SettingsGroup _buildTheme() {
+  // 构建主题选项组
+  _SettingsGroup _buildTheme(BuildContext context) {
     return _SettingsGroup(
-      title: '主题',
+      titleBuilder: (context, loc) => loc.settingsGroupTheme,
       childrenBuilder: (context, loc, settings) => [
         ListTile(
           leading: Icon(Icons.light_mode),
-          title: Text('主题模式'),
+          title: Text(loc.themeMode),
           trailing: DropdownButton(
             value: settings.themeMode,
             items: ThemeMode.values
@@ -116,21 +122,21 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         ListTile(
           leading: Icon(Icons.color_lens_rounded),
-          title: Text('主题颜色'),
+          title: Text(loc.themeColor),
           trailing: TextButton(
             onPressed: _showColorPicker,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.colorize_rounded, color: settings.themeColor),
-                Text('选取颜色'),
+                Text(loc.pickColor),
               ],
             ),
           ),
         ),
         ListTile(
           leading: Icon(Icons.color_lens_rounded),
-          title: Text('主题字体'),
+          title: Text(loc.themeColor),
           trailing: DropdownButton(
             value: settings.fontFamilyType,
             items: FontFamilyType.values
@@ -153,8 +159,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!; // 获取本地化
     return Scaffold(
-      appBar: AppBar(title: Text('设置')),
+      appBar: AppBar(title: Text(loc.settingsPageTitle)), // 标题
       body: _buildBody(context),
     );
   }
@@ -163,37 +170,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _buildBody(BuildContext context) {
     // 构建设置列表 //
     List<Widget> settingWidgetList = [];
-    for (var settingsGroup in _settingsGroupList) {
+    for (var settingsGroup in _buildSettingsGroupList(context)) {
       settingWidgetList.addAll(settingsGroup.buildToList(context));
     }
     return Column(spacing: 4, children: settingWidgetList); // 构建返回
-  }
-
-  /// 显示确认对话框
-  Future<T?> _showConfirmDialog<T>(
-    String text,
-    void Function(BuildContext context) exec,
-  ) {
-    return showDialog<T>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('确认？'),
-        content: Text('你确认$text吗？'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              exec(context);
-              Navigator.pop(context);
-            },
-            child: Text('确定'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('取消'),
-          ),
-        ],
-      ),
-    );
   }
 
   /// 显示颜色选择器
@@ -201,34 +181,37 @@ class _SettingsPageState extends State<SettingsPage> {
     Color currentColor = GlobalSettingsManager.instance.settings.themeColor;
     return showDialog<T>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('选择主题色'),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: currentColor,
-            enableAlpha: false, // 禁用alpha
-            hexInputBar: true, // 十六进制输入框
-            onColorChanged: (v) {
-              currentColor = v;
-            },
+      builder: (context) {
+        final loc = AppLocalizations.of(context)!; // 获取本地化
+        return AlertDialog(
+          title: Text(loc.selectThemeColor),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: currentColor,
+              enableAlpha: false, // 禁用alpha
+              hexInputBar: true, // 十六进制输入框
+              onColorChanged: (v) {
+                currentColor = v;
+              },
+            ),
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              GlobalSettingsManager.instance.settings.themeColor =
-                  currentColor; // 设置为当前颜色
-              GlobalSettingsManager.instance.settings.update(); // 更新
-              Navigator.pop(context);
-            },
-            child: Text('确定'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('取消'),
-          ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                GlobalSettingsManager.instance.settings.themeColor =
+                    currentColor; // 设置为当前颜色
+                GlobalSettingsManager.instance.settings.update(); // 更新
+                Navigator.pop(context);
+              },
+              child: Text(loc.confirm),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(loc.cancel),
+            ),
+          ],
+        );
+      },
     );
   }
 }

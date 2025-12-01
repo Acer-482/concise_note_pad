@@ -12,6 +12,16 @@
     "description": "语言类型枚举：跟随系统设置",
     "type": "text"
   },
+  "languageType_en": "English",
+  "@languageType_en": {
+    "description": "语言类型枚举：英文",
+    "type": "text"
+  },
+  "languageType_zh": "简体中文",
+  "@languageType_zh": {
+    "description": "语言类型枚举：简体中文",
+    "type": "text"
+  },
   "themeModeDisplayName_system": "跟随系统",
   "@themeModeDisplayName_system": {
     "description": "主题模式：跟随系统设置",
@@ -37,14 +47,75 @@
     "description": "字体类型枚举：阿里巴巴普惠体",
     "type": "text"
   },
-  "deleteConfirmDialogTitle": "确认删除？",
-  "@deleteConfirmDialogTitle": {
-    "description": "删除确认对话框的标题",
+  "settingsPageTitle": "设置",
+  "@settingsPageTitle": {
+    "description": "设置页面的标题",
     "type": "text"
   },
-  "deleteConfirmDialogDefaultMessage": "这将会删除该项，且无法恢复！",
-  "@deleteConfirmDialogDefaultMessage": {
-    "description": "删除确认对话框的默认消息内容",
+  "settingsGroupGlobal": "全局设置",
+  "@settingsGroupGlobal": {
+    "description": "全局设置组的标题",
+    "type": "text"
+  },
+  "resetAllSettings": "重置所有设置",
+  "@resetAllSettings": {
+    "description": "重置所有设置的列表项标题",
+    "type": "text"
+  },
+  "reset": "重置",
+  "@reset": {
+    "description": "重置操作的按钮文本",
+    "type": "text"
+  },
+  "language": "语言",
+  "@language": {
+    "description": "语言设置的列表项标题",
+    "type": "text"
+  },
+  "settingsGroupTheme": "主题",
+  "@settingsGroupTheme": {
+    "description": "主题设置组的标题",
+    "type": "text"
+  },
+  "themeMode": "主题模式",
+  "@themeMode": {
+    "description": "主题模式的列表项标题",
+    "type": "text"
+  },
+  "themeColor": "主题颜色",
+  "@themeColor": {
+    "description": "主题颜色的列表项标题",
+    "type": "text"
+  },
+  "pickColor": "选取颜色",
+  "@pickColor": {
+    "description": "选择颜色的按钮文本",
+    "type": "text"
+  },
+  "themeFont": "主题字体",
+  "@themeFont": {
+    "description": "主题字体的列表项标题",
+    "type": "text"
+  },
+  "selectThemeColor": "选择主题色",
+  "@selectThemeColor": {
+    "description": "颜色选择对话框的标题",
+    "type": "text"
+  },
+  "confirmDialogDefaultTitle": "确认？",
+  "@confirmDialogDefaultTitle": {
+    "description": "确认对话框的默认标题",
+    "type": "text"
+  },
+  "confirmDialogMessage": "你确认{text}吗？",
+  "@confirmDialogMessage": {
+    "description": "确认对话框的消息内容，带参数",
+    "placeholders": {
+      "text": {
+        "type": "String",
+        "example": "重置所有设置"
+      }
+    },
     "type": "text"
   },
   "cancel": "取消",
@@ -57,9 +128,24 @@
     "description": "通用确认按钮文本",
     "type": "text"
   },
-  "deleteSuccess": "删除成功",
-  "@deleteSuccess": {
-    "description": "删除操作成功后的提示消息",
+  "confirmDialogTitle": "确认？",
+  "@confirmDialogTitle": {
+    "description": "确认对话框的标题",
+    "type": "text"
+  },
+  "confirmDialogDefaultMessage": "此操作无法恢复！",
+  "@confirmDialogDefaultMessage": {
+    "description": "确认对话框的默认消息内容",
+    "type": "text"
+  },
+  "success": "操作成功",
+  "@success": {
+    "description": "操作成功后的提示消息",
+    "type": "text"
+  },
+  "resetSuccess": "重置成功",
+  "@resetSuccess": {
+    "description": "重置操作成功后的提示消息",
     "type": "text"
   },
   "navigationHome": "主页面",
