@@ -74,7 +74,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ), // 重置设置
         ListTile(
-          leading: Icon(Icons.replay_outlined),
+          leading: Icon(Icons.language),
           title: Text(loc.language),
           trailing: DropdownButton(
             value: settings.languageType,
